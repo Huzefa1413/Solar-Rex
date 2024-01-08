@@ -9,6 +9,7 @@ import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar, sidebarClasses } from 
 import NavSidebar from '../../components/Sidebar'
 import Navbar from '../../components/Navbar'
 
+import Card from '../../components/StatsCard'
 
 function AdminDashboard() {
 
@@ -28,6 +29,7 @@ function AdminDashboard() {
 
                     <section className=''>
                         <h1>Admin DASHBOARD</h1>
+<Card/>
                     </section>
                 </div>
             </div>
