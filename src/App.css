@@ -1,5 +1,5 @@
 @font-face {
-  font-family: 'Poppins';
+  font-family: "Poppins";
   src: url(./assets/Poppins/Poppins-Regular.ttf);
   /* font-family: "Proxima Nova Rg"; */
   /* src: url(./assets/Proxima-Nova-Font/Proxima\ Nova\ Font.otf); */
@@ -15,41 +15,41 @@ body {
   --cardColor: #ffffff;
   --textColor: #202020;
   --labelColor: #666666;
-  --graytextColor: #a5a5a5;
+  --graytextColor: #A5A5A5;
   --grayCardColor: #f4f4f4;
-  --activeLinkColor: #924aef;
+  --activeLinkColor: #924AEF;
   --tooltipBorderColor: #8e59ff;
-  --chartTooltipColor: rgba(142, 89, 255, 0.21);
+  --chartTooltipColor: rgba(142, 89, 255, .21);
 
   --gray: #c2c2c2;
 
   --borderColor: #ececec;
   --borderRadius: 0.875rem;
   --boxShadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  --themePurpleColor: #924aef;
+  --themePurpleColor: #924AEF;
   --themeLightPurpleColor: rgba(146, 74, 239, 0.15);
   --themePinkColor: #c12295;
 
   --modalBorderColor: #e5e7eb;
   --sidebarLinkColor: #202020;
-  --sidebarLinkHoverColor: #f6eeff;
+  --sidebarLinkHoverColor: #F6EEFF;
 
-  --btnBgColor: #924aef;
+  --btnBgColor: #924AEF;
   --btnHoverBgColor: #7c3fcb;
   --btnColor: #fff;
 
-  --dltBtnColor: #ff4a55;
+  --dltBtnColor: #FF4A55;
   --dltBtnHoverColor: #f7323e;
 
   /* --greenColor: #00e701; */
   --greenColor: #962eff;
-  --redColor: #e9113c;
+  --redColor: #E9113C;
 
   --successColor: #007e33;
   /* --successColor: #28a745; */
-  --infoColor: #5ecfff;
-  --warningColor: #ff9325;
-  --errorColor: #ff4a55;
+  --infoColor: #5ECFFF;
+  --warningColor: #FF9325;
+  --errorColor: #FF4A55;
 
   --successBgColor: #38e25d26;
   --warningBgColor: #ff932526;
@@ -85,6 +85,7 @@ body {
   --modalBorderColor: rgb(60 65 69/var(--tw-border-opacity));
   --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
 } */
+
 
 .goto_dahboard_btn {
   background-color: var(--themePinkColor);
@@ -342,7 +343,7 @@ body {
 }
 
 .toast::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -666,6 +667,7 @@ body {
   color: black;
 }
 
+
 /* =========================================== STUDENT PROFILE MANAGEMENT =========================================== */
 
 .disbustment_process_card .icon {
@@ -687,7 +689,7 @@ body {
 .table .detail_btn {
   background-color: var(--btnBgColor);
   color: var(--btnColor);
-  font-size: 0.875rem;
+  font-size: .875rem;
   border-radius: 8px;
 }
 
@@ -708,6 +710,7 @@ body {
 .repayment_flow_section .icon:hover {
   background-color: var(--bodyColor);
 }
+
 
 .all_users_section .dropdown-menu {
   min-width: fit-content;
@@ -842,7 +845,7 @@ body {
 
 .btn-reject:hover {
   background-color: #ff0000;
-  color: var(--btnColor);
+  color: var(--btnColor)
 }
 
 /* PAGINATION */
@@ -923,6 +926,7 @@ body {
   background-color: var(--btnHoverBgColor);
 }
 
+
 /* =========================================== S I D E B A R =========================================== */
 
 .sidebar_main {
@@ -936,7 +940,7 @@ body {
   width: 100%;
   max-width: calc(2.9625rem + 20.18571vw);
   transition: all 0.5s ease-in-out;
-  box-shadow: 0 0 #0000, 0 0 #0000, 0px 86px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 #0000, 0 0 #0000, 0px 86px 3px rgba(0, 0, 0, .2);
 }
 
 .css-1ivfsrh {
@@ -976,19 +980,19 @@ body {
   font-weight: 600;
 }
 
-.css-1krfvan > .ps-menu-button {
+.css-1krfvan>.ps-menu-button {
   margin-bottom: 0.5rem;
 }
 
-.css-1krfvan > .ps-menu-button:hover {
+.css-1krfvan>.ps-menu-button:hover {
   background-color: var(--sidebarLinkHoverColor) !important;
   border-radius: 0.5rem;
   color: var(--activeLinkColor);
   transition: all 0.5s ease-in-out;
 }
 
-.css-1krfvan > .ps-menu-button:hover .link,
-.css-1krfvan > .ps-menu-button:hover .sidebar_icon {
+.css-1krfvan>.ps-menu-button:hover .link,
+.css-1krfvan>.ps-menu-button:hover .sidebar_icon {
   color: var(--activeLinkColor) !important;
   transition: all 0.5s ease-in-out;
 }
@@ -1055,36 +1059,36 @@ body {
   transform: rotate(45deg) !important;
 }
 
-.css-1l61mcc > .ps-menu-button {
+.css-1l61mcc>.ps-menu-button {
   color: var(--sidebarLinkColor) !important;
   font-size: 1rem;
   font-weight: 600;
 }
 
-.css-1l61mcc > .ps-menu-button:hover {
+.css-1l61mcc>.ps-menu-button:hover {
   background-color: var(--sidebarLinkHoverColor) !important;
   border-radius: 0.5rem;
   transition: all 0.5s ease-in-out;
 }
 
-.css-1tqrhto > .ps-menu-button:hover {
+.css-1tqrhto>.ps-menu-button:hover {
   background-color: transparent !important;
 }
 
-.css-1l61mcc > .ps-menu-button:hover .sidebar_icon,
-.css-1l61mcc > .ps-menu-button:hover .css-12w9als {
+.css-1l61mcc>.ps-menu-button:hover .sidebar_icon,
+.css-1l61mcc>.ps-menu-button:hover .css-12w9als {
   color: var(--activeLinkColor);
   transition: all 0.5s ease-in-out;
 }
 
-.css-1tqrhto > .ps-menu-button:hover .link,
-.css-1tqrhto > .ps-menu-button:hover .sidebar_icon {
+.css-1tqrhto>.ps-menu-button:hover .link,
+.css-1tqrhto>.ps-menu-button:hover .sidebar_icon {
   color: var(--activeLinkColor);
   transition: all 0.5s ease-in-out;
 }
 
 .ps-submenu-content .css-ewdv3l {
-  background-color: #fafafa;
+  background-color: #FAFAFA;
   border-bottom-right-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
 }
@@ -1094,6 +1098,7 @@ body {
 .ps-submenu-content .css-ewdv3l .link:hover {
   background-color: transparent;
 }
+
 
 /* ======================================= M O B  S I D E B A R ======================================= */
 
@@ -1260,6 +1265,7 @@ body {
   margin-bottom: 0;
 }
 
+
 /* =========================================== N A V B A R =========================================== */
 
 .navbar {
@@ -1272,7 +1278,7 @@ body {
   z-index: 9;
   width: 100%;
   height: 85px;
-  box-shadow: 0 0 #0000, 0 0 #0000, 0px 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 #0000, 0 0 #0000, 0px 1px 2px rgba(0, 0, 0, .2);
 }
 
 .nav_container {
@@ -1386,11 +1392,11 @@ body {
 .navbar .nav-item .account {
   padding: 0.5rem 0.5rem 0.5rem 1.5rem;
   cursor: pointer;
+  border-left: 1px solid #C2C2C2;
 }
 
-.navbar .nav-item .account .img img {
-  border-radius: 50px;
-  width: 50px;
+.navbar .nav-item .account .img {
+  border-radius: var(--borderRadius) !important;
 }
 
 .navbar .nav-item .account h6,
@@ -1423,7 +1429,7 @@ body {
 }
 
 .navbar .nav-item .profile_box::after {
-  content: '';
+  content: "";
   position: absolute;
   z-index: 0;
   width: 24px;
@@ -1493,7 +1499,7 @@ body {
   text-decoration: none;
   color: var(--sidebarLinkColor);
   border-radius: 0.5rem;
-  border: 1px solid #c2c2c2;
+  border: 1px solid #C2C2C2;
 }
 
 .navbar .__account:hover .profile_box {
@@ -1519,6 +1525,7 @@ body {
   font-size: 30px;
 }
 
+
 /* ========================================= U S E R  M O D A L ========================================= */
 
 .modal .modal-content {
@@ -1535,12 +1542,7 @@ body {
 
 .modal .btn-close {
   filter: var(--bs-btn-close-white-filter) !important;
-  background: transparent
-    url(
-      data:image/svg + xml,
-      %3csvgxmlns='http://www.w3.org/2000/svg'viewBox='0 0 16 16'fill='white'%3e%3cpathd='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e
-    )
-    center/1em auto no-repeat;
+  background: transparent url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e) center/1em auto no-repeat;
   opacity: 9;
 }
 
@@ -1564,6 +1566,7 @@ body {
 .modal .modal-footer {
   border-top: 1px solid var(--modalBorderColor) !important;
 }
+
 
 /* =========================================== P R O F I L E =========================================== */
 
@@ -1655,7 +1658,7 @@ body {
   height: auto;
   width: 100%;
   opacity: 0;
-  transition: 0.3s ease;
+  transition: .3s ease;
   background-color: rgba(177, 186, 211, 66%);
   border-radius: var(--borderRadius);
 }
@@ -1683,6 +1686,7 @@ body {
 .profile_section .password .password_row {
   width: 50%;
 }
+
 
 /* =========================================== C R E A T E  U S E R =========================================== */
 
@@ -1737,6 +1741,7 @@ body {
   margin-right: 10px;
 }
 
+
 /* =========================================== REAPYMENT HISTORY =========================================== */
 
 /* .repayment_history_section .cards_row{
@@ -1758,6 +1763,7 @@ body {
   background-color: var(--btnHoverBgColor);
 }
 
+
 /* =========================================== STUDENT HISTORY =========================================== */
 
 .student_history_section .icon {
@@ -1769,6 +1775,7 @@ body {
 .student_history_section .icon:hover {
   color: black;
 }
+
 
 /* =========================================== Fresh Cases History  Section =========================================== */
 
@@ -1844,6 +1851,7 @@ body {
   font-size: 1.7rem;
 }
 
+
 /* =========================================== Authentication  Section =========================================== */
 
 .signup_pass_page {
@@ -1851,7 +1859,7 @@ body {
 }
 
 .signin_pass_page {
-  background-color: rgb(144, 72, 239, 0.6);
+  background-color: rgb(144, 72, 239, 0.60);
 }
 
 .forgot_pass_page {
@@ -1934,7 +1942,7 @@ body {
 }
 
 .authentication_section .sign_form .signup_btn {
-  background-color: #e328af;
+  background-color: #E328AF;
   color: var(--btnColor);
   border-radius: var(--borderRadius);
   font-size: 1rem;
@@ -1965,7 +1973,7 @@ body {
 }
 
 .authentication_section .sign_form .Link {
-  color: #e328af;
+  color: #E328AF;
   text-decoration: underline;
   font-weight: 700;
 }
@@ -1975,6 +1983,7 @@ body {
   text-decoration: underline;
   font-weight: 700;
 }
+
 
 /* =========================================== F O O T E R =========================================== */
 
@@ -2022,6 +2031,7 @@ body {
   cursor: pointer;
 }
 
+
 /* =========================================== M E D I A Q U E R Y =========================================== */
 
 @media screen and (max-width: 1250px) {
@@ -2032,6 +2042,7 @@ body {
   .signup_section {
     padding: 25rem 1rem;
   }
+
 }
 
 @media screen and (max-width: 1200px) {
@@ -2068,6 +2079,7 @@ body {
 }
 
 @media screen and (max-width: 1150px) {
+
   .repayment_history_section .PnL_card p,
   .student_history_section .PnL_card p {
     font-size: 14px;
@@ -2168,6 +2180,7 @@ body {
   .footer .container {
     max-width: 100%;
   }
+
 }
 
 @media screen and (max-width: 576px) {
@@ -2266,6 +2279,7 @@ body {
     height: 3.25rem;
     font-size: 0.875rem;
   }
+
 }
 
 @media screen and (max-width: 450px) {
@@ -2278,9 +2292,11 @@ body {
   .footer {
     bottom: auto !important;
   }
+
 }
 
 @media screen and (max-width: 430px) {
+
   .signup_section .card,
   .authentication_section .card {
     padding: 2rem 1rem;
@@ -2384,6 +2400,7 @@ body {
   .authentication_section .card h3 {
     font-size: 20px;
   }
+
 }
 
 @media screen and (max-width: 325px) {
