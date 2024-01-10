@@ -8,8 +8,8 @@ class Cards extends React.Component {
   render() {
     return (
       <>
-        <div className='col-lg-4 col-md-6'>
-          <Card className="card-stats mb-4 mb-lg-0">
+        <div className="col-lg-6 col-xl-3">
+          <Card className="card-stats mb-4 mb-xl-0">
             <CardBody>
               <Row>
                 <div className="col">

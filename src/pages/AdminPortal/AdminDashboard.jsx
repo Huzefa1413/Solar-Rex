@@ -49,14 +49,14 @@ function AdminDashboard() {
 
           <section className="container-fluid py-3">
             <div className="row">
-            <Card />
-            <Card />
-            <Card />
-            
+              <Card />
+              <Card />
+              <Card />
+              <Card />
             </div>
             <div>
-                {/* <BarChart/> */}
-                <Charts/>
+              {/* <BarChart/> */}
+              <Charts />
             </div>
           </section>
         </div>
