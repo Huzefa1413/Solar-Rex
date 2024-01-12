@@ -100,7 +100,7 @@ function NavSidebar({
             {/* </div>
             </MenuItem> */}
 
-            <Link to="/" className="link">
+            <Link to="/dashboard" className="link">
               <MenuItem className="py-3 text-center">
                 <img
                   src={logo}

@@ -1,89 +1,87 @@
-import React from 'react'
-import ReactApexChart from "react-apexcharts"
+import React from 'react';
+import ReactApexChart from 'react-apexcharts';
 
-import { cities } from '../../../helpers/data'
-
-
+import { cities } from '../../../helpers/data';
 
 function BarChart(props) {
-
-    const data = {
-        series: [{
-            // data: [21, 22, 10, 28]
-            data: props?.barData?.count
-            // data: props.count
-        }],
-        options: {
-            chart: {
-                type: 'bar',
-                // foreColor: '#b1bad3',
-            },
-            plotOptions: {
-                bar: {
-                    borderRadius: 4,
-                    horizontal: false,
-                    columnWidth: '30%',
-                }
-            },
-            tooltip: {
-                enabled: true,
-                fillSeriesColor: true
-            },
-            colors: ["#1475e1", "#1475e1"], //Add this line
-            legend: {
-                show: false,
-            },
-            markers: {
-                show: false,
-            },
-            dataLabels: {
-                enabled: false,
-            },
-            stroke: {
-                show: false,
-            },
-            fill: {
-                type: "solid",
-                colors: ["#924AEF"],
-                hover: {
-                    colors: ["#20FF20", "#f91c48"],
-                }
-            },
-            grid: {
-                borderColor: '#ececec',
-                strokeDashArray: 0,
-                xaxis: {
-                    lines: {
-                        show: false
-                    }
-                },
-                yaxis: {
-                    lines: {
-                        show: true
-                    }
-                }
-            },
-            xaxis: {
-                categories: props?.barData?.names,
-                labels: {
-                    show: false,
-                }
-            }
+  const data = {
+    series: [
+      {
+        // data: [21, 22, 10, 28]
+        data: props?.barData?.count || [],
+        // data: props.count
+      },
+    ],
+    options: {
+      chart: {
+        type: 'bar',
+        foreColor: 'black',
+      },
+      plotOptions: {
+        bar: {
+          borderRadius: 4,
+          horizontal: true,
+          columnWidth: '30%',
         },
+      },
+      tooltip: {
+        enabled: false,
+        fillSeriesColor: false,
+      },
+      colors: ['#1475e1', '#1475e1'], //Add this line
+      legend: {
+        show: true,
+      },
+      markers: {
+        show: true,
+      },
+      dataLabels: {
+        enabled: true,
+      },
+      stroke: {
+        show: true,
+      },
+      fill: {
+        type: 'solid',
+        colors: ['#924AEF'],
+        hover: {
+          colors: ['#20FF20', '#f91c48'],
+        },
+      },
+      grid: {
+        borderColor: '#ececec',
+        strokeDashArray: 0,
+        xaxis: {
+          lines: {
+            show: false,
+          },
+        },
+        yaxis: {
+          lines: {
+            show: true,
+          },
+        },
+      },
+      xaxis: {
+        categories: props?.barData?.names || [],
+        labels: {
+          show: true,
+        },
+      },
+    },
+  };
 
-    }
-
-    return (
-        <>
-            <ReactApexChart
-                height={"200px"}
-                options={data.options}
-                series={data.series}
-                type="bar"
-                className="BarChart"
-            />
-        </>
-    )
+  return (
+    <>
+      <ReactApexChart
+        height={'200px'}
+        options={data.options}
+        series={data.series}
+        type="bar"
+        className="BarChart"
+      />
+    </>
+  );
 }
 
-export default BarChart
+export default BarChart;

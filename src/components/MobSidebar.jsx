@@ -104,7 +104,7 @@ function MobSidebar() {
                 }`}
               >
                 <Link
-                  to="/admin-dashboard"
+                  to="/dashboard"
                   className={`${
                     style == 'admin_dashboard' ? 'activeLink' : 'link'
                   }`}

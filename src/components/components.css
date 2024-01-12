@@ -20,6 +20,7 @@
   color: #2dce89;
   font-weight: 300;
   line-height: 23.8px;
+  white-space: nowrap;
 }
 .card-stats .time {
   color: #8898aa;

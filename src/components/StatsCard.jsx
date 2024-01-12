@@ -8,7 +8,7 @@ class Cards extends React.Component {
   render() {
     return (
       <>
-        <div className="col-lg-6 col-xl-3">
+        <div className="col-sm-6 col-xl-3">
           <Card className="card-stats mb-4 mb-xl-0">
             <CardBody>
               <Row>
@@ -26,7 +26,8 @@ class Cards extends React.Component {
               </Row>
               <p className="mt-3 mb-0 text-sm">
                 <span className="mr-2 perc">
-                  <i className="fa fa-arrow-up" /> 3.48%
+                  <i className="fa fa-arrow-up" />
+                  <span> 3.48%</span>
                 </span>
                 <span className="text-nowrap time">Since last month</span>
               </p>
