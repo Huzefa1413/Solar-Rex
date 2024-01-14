@@ -20,8 +20,7 @@ function BarChart(props) {
       plotOptions: {
         bar: {
           borderRadius: 4,
-          horizontal: true,
-          columnWidth: '30%',
+          horizontal: false,
         },
       },
       tooltip: {
@@ -74,7 +73,7 @@ function BarChart(props) {
   return (
     <>
       <ReactApexChart
-        height={'200px'}
+        height={350}
         options={data.options}
         series={data.series}
         type="bar"

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../ContextAPI/Components/auth';
 
-import LOGO from '../assets/logo.png';
+import LOGO from '../assets/logosolarrex.png';
 
 import profile from '../assets/profile.svg';
 import avatar from '../assets/avatar.jpg';
@@ -56,11 +56,18 @@ function Navbar() {
           <div class="nav-item navbar-brand nav_sidebar_toggle">
             <MobSidebar />
           </div>
-
+          <div
+            className={`${isMobile ? 'd-none' : 'd-block nav-item __heading'}`}
+          >
+            Dashboard
+          </div>
+          <div className={`${!isMobile ? 'd-none' : 'd-block nav-item logo'}`}>
+            <img src={LOGO} alt="" />
+          </div>
           <div class="nav-item form-inline">
             {/* <DarkMode /> */}
 
-            <div className={`${isMobile ? 'd-none' : 'd-block'}`}>
+            {/* <div className={`${isMobile ? 'd-none' : 'd-block'}`}>
               {showForm == 'demographics_information' ||
               showForm == 'academic_background' ||
               showForm == 'financial_information' ||
@@ -77,7 +84,7 @@ function Navbar() {
               ) : (
                 ''
               )}
-            </div>
+            </div> */}
 
             <div className="nav-item __account">
               <div className="account d-flex ai-center jc-end">
@@ -86,9 +93,12 @@ function Navbar() {
                   <img src={avatar} alt="" />
                   {/* <h2>image</h2> */}
                 </div>
-                {/* <div className='ml-3'>
-                                    <h6 className='mb-0 limit-text xs'>{user?.fullName || "Username"}</h6>
-                                </div> */}
+                <div className="ml-2">
+                  <h6 className={`${isMobile ? 'd-none' : 'd-block mb-0'}`}>
+                    {/* {user?.fullName || 'Username'} */}
+                    Huzefa Mustafa
+                  </h6>
+                </div>
               </div>
 
               <div className="profile_box">
