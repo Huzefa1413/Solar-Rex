@@ -100,7 +100,7 @@ function NavSidebar({
             {/* </div>
             </MenuItem> */}
 
-            <Link to="/dashboard" className="link">
+            <Link className="link">
               <MenuItem className="py-3 text-center">
                 <img
                   src={logo}
@@ -110,54 +110,24 @@ function NavSidebar({
               </MenuItem>
             </Link>
 
-            <Link to="/sign-in" className="link">
-              <MenuItem
-                className={`${style === 'sign_in' ? 'active' : 'unactive'} ${
-                  collapsed === true ? 'd-flex jc-center' : ''
-                }`}
-                icon={
-                  <PiSignInBold
-                    className={`${
-                      style === 'sign_in'
-                        ? 'active_sidebar_icon'
-                        : 'sidebar_icon'
-                    }`}
-                  />
-                }
-              >
-                <Link
-                  to="/sign-in"
-                  className={`mx-1 my-1 ${
-                    style === 'sign_in' ? 'activeLink' : 'link'
-                  } ${collapsed === true ? 'd-none' : 'd-block'}`}
-                  style={{ width: 'maxContent' }}
-                >
-                  {' '}
-                  Sign In{' '}
-                </Link>
-              </MenuItem>
-            </Link>
 
             <Link to="/dashboard" className="link">
               <MenuItem
-                className={`${style === 'dashboard' ? 'active' : 'unactive'} ${
-                  collapsed === true ? 'd-flex jc-center' : ''
-                } mt-2 link_one `}
+                className={`${style === 'dashboard' ? 'active' : 'unactive'} ${collapsed === true ? 'd-flex jc-center' : ''
+                  } mt-2 link_one `}
                 icon={
                   <LuLayoutDashboard
-                    className={`${
-                      style === 'admin_dashboard'
-                        ? 'active_sidebar_icon'
-                        : 'sidebar_icon'
-                    }`}
+                    className={`${style === 'admin_dashboard'
+                      ? 'active_sidebar_icon'
+                      : 'sidebar_icon'
+                      }`}
                   />
                 }
               >
                 <Link
                   to="/dashboard"
-                  className={`mx-1 my-1 ${
-                    style === 'admin_dashboard' ? 'activeLink' : 'link'
-                  } ${collapsed === true ? 'd-none' : 'd-block'}`}
+                  className={`mx-1 my-1 ${style === 'admin_dashboard' ? 'activeLink' : 'link'
+                    } ${collapsed === true ? 'd-none' : 'd-block'}`}
                   style={{ width: 'maxContent' }}
                 >
                   {' '}
@@ -165,6 +135,86 @@ function NavSidebar({
                 </Link>
               </MenuItem>
             </Link>
+
+
+            <Link to="/customerlist" className="link">
+              <MenuItem
+                className={`${style === 'customerlist' ? 'active' : 'unactive'} ${collapsed === true ? 'd-flex jc-center' : ''
+                  } mt-2 link_one `}
+                icon={
+                  <LuLayoutDashboard
+                    className={`${style === 'customerlist'
+                      ? 'active_sidebar_icon'
+                      : 'sidebar_icon'
+                      }`}
+                  />
+                }
+              >
+                <Link
+                  to="/customerlist"
+                  className={`mx-1 my-1 ${style === 'customerlist' ? 'activeLink' : 'link'
+                    } ${collapsed === true ? 'd-none' : 'd-block'}`}
+                  style={{ width: 'maxContent' }}
+                >
+                  {' '}
+                  Customer List{' '}
+                </Link>
+              </MenuItem>
+            </Link>
+
+
+
+            <Link to="/transactiontable" className="link">
+              <MenuItem
+                className={`${style === 'transactiontable' ? 'active' : 'unactive'} ${collapsed === true ? 'd-flex jc-center' : ''
+                  } mt-2 link_one `}
+                icon={
+                  <LuLayoutDashboard
+                    className={`${style === 'transactiontable'
+                      ? 'active_sidebar_icon'
+                      : 'sidebar_icon'
+                      }`}
+                  />
+                }
+              >
+                <Link
+                  to="/transactiontable"
+                  className={`mx-1 my-1 ${style === 'transactiontable' ? 'activeLink' : 'link'
+                    } ${collapsed === true ? 'd-none' : 'd-block'}`}
+                  style={{ width: 'maxContent' }}
+                >
+                  {' '}
+                  Transaction table{' '}
+                </Link>
+              </MenuItem>
+            </Link>
+
+            <Link to="/buyenergy" className="link">
+              <MenuItem
+                className={`${style === 'buyenergy' ? 'active' : 'unactive'} ${collapsed === true ? 'd-flex jc-center' : ''
+                  } mt-2 link_one `}
+                icon={
+                  <LuLayoutDashboard
+                    className={`${style === 'buyenergy'
+                      ? 'active_sidebar_icon'
+                      : 'sidebar_icon'
+                      }`}
+                  />
+                }
+              >
+                <Link
+                  to="/buyenergy"
+                  className={`mx-1 my-1 ${style === 'buyenergy' ? 'activeLink' : 'link'
+                    } ${collapsed === true ? 'd-none' : 'd-block'}`}
+                  style={{ width: 'maxContent' }}
+                >
+                  {' '}
+                  Energy{' '}
+                </Link>
+              </MenuItem>
+            </Link>
+
+
           </Menu>
 
           {/* <div className={`mt-5 d-flex jc-center ${collapsed === true ? 'd-none' : 'd-block'} ${collapsed === true ? 'd-flex jc-center' : ''} theme_switcher`}>

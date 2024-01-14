@@ -33,17 +33,17 @@ export const PathnameProvider = ({ children }) => {
             setStyle("profile")
         }
         // ADMIN
-        if (window.location.pathname == "/admin-dashboard") {
-            sessionStorage.setItem("a", "admin_dashboard")
-            setStyle("admin_dashboard")
+        if (window.location.pathname == "/customerlist") {
+            sessionStorage.setItem("a", "customerlist")
+            setStyle("customerlist")
         }
-        if (window.location.pathname == "/create-user") {
-            sessionStorage.setItem("a", "create_user")
-            setStyle("create_user")
+        if (window.location.pathname == "/transactiontable") {
+            sessionStorage.setItem("a", "transactiontable")
+            setStyle("transactiontable")
         }
-        if (window.location.pathname == "/all-users/students-list") {
-            sessionStorage.setItem("a", "all_users")
-            setStyle("all_users")
+        if (window.location.pathname == "/buyenergy") {
+            sessionStorage.setItem("a", "buyenergy")
+            setStyle("buyenergy")
         }
         if (window.location.pathname == "/all-users/universities-list") {
             sessionStorage.setItem("a", "universities")

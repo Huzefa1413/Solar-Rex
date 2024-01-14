@@ -31,6 +31,7 @@ export const AuthProvider = ({ children }) => {
         if (res?.success) {
             console.log("token", res.hash);
             setUser(res?.user)
+
             setCookie('pk2', res.hash, {
                 path: '/',
                 maxAge: 6000000,
@@ -72,6 +73,7 @@ export const AuthProvider = ({ children }) => {
     function Logout() {
         removeCookie("pk2")
         setUser(null);
+        // GetLoginUser()
     }
 
 

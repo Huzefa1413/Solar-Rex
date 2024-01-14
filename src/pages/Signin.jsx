@@ -12,12 +12,12 @@ function SignIn() {
     const navigate = useNavigate()
 
     const [data, setData] = useState({
-        email: "",
+        username: "",
         password: "",
     })
 
     const handleEmail = (e) => {
-        setData({ ...data, email: e.target.value })
+        setData({ ...data, username: e.target.value })
     }
 
     const handlePassword = (e) => {
@@ -27,35 +27,35 @@ function SignIn() {
     const loginUser = async () => {
         try {
             const payload = {
-                email: data?.email,
+                username: data?.username,
                 password: data?.password
             }
 
             console.log("PAYLOAD", payload);
 
-            // const response = await Login(payload)
+            const response = await Login(payload)
 
-            // console.log("RESPONSE", response);
-            // if (response.success) {
+            console.log("RESPONSE", response);
+            if (response.success) {
+                navigate("/dashboard")
+            }
+            // if (response?.user?.role == "admin") {
+            //     navigate("/admin-dashboard")
 
-            //     if (response?.user?.role == "admin") {
-            //         navigate("/admin-dashboard")
+            // } else if (response?.user?.role == "student") {
 
-            //     } else if (response?.user?.role == "student") {
+            //     if (response?.user?.step == 0) return navigate("/profile#password")
 
-            //         if (response?.user?.step == 0) return navigate("/profile#password")
+            //     navigate("/dashboard")
 
-            //         navigate("/dashboard")
+            // } else if (response?.user?.role == "university") {
+            //     navigate("/university-dashboard")
 
-            //     } else if (response?.user?.role == "university") {
-            //         navigate("/university-dashboard")
-
-            //     } else {
-            //         navigate("/")
-
-            //     }
-            // }
-            // alert(response.message, response.success)
+            // } 
+            else {
+                navigate("/")
+            }
+            alert(response.message, response.success)
         }
         catch (e) {
             console.log(e);
@@ -77,7 +77,7 @@ function SignIn() {
                             <p>Please sign in using your account.</p>
                             {/* <h3>Sign in to your account</h3> */}
                             <div className="form-group">
-                                <input onChange={(e) => handleEmail(e)} type="email" className="form-control" placeholder="Username or Email" />
+                                <input onChange={(e) => handleEmail(e)} type="text" className="form-control" placeholder="Username " />
                             </div>
                             <div className="form-group">
                                 <input onChange={(e) => handlePassword(e)} type="password" className="form-control" placeholder="Type Password" />
