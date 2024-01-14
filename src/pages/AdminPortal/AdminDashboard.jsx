@@ -23,6 +23,8 @@ import Navbar from '../../components/Navbar';
 
 import Card from '../../components/StatsCard';
 
+import '../../components/components.css';
+
 function AdminDashboard() {
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
     useProSidebar();
@@ -32,8 +34,15 @@ function AdminDashboard() {
     names: ['Sold', 'Produced'],
   };
   const lastmonths = {
-    count: [100, 110, 90],
-    names: ['October', 'November', 'December'],
+    count: [100, 110, 90, 100, 110, 90],
+    names: [
+      'October',
+      'November',
+      'December',
+      'October',
+      'November',
+      'December',
+    ],
   };
   return (
     <>
@@ -59,29 +68,37 @@ function AdminDashboard() {
             rtl={rtl}
           />
 
-          <section className="container-fluid py-3">
+          <section className="container-fluid py-4 dashboard">
             <div className="row">
               <Card />
               <Card />
               <Card />
               <Card />
             </div>
-            <div className="row py-3 px-2">
-              <div>
-                Energy Meter
-                <RadialBarChart noStd={75} />
+            <div className="row py-4">
+              <div className="col-md-5 my-2">
+                <div className="chart-container">
+                  <span>Energy Meter</span>
+                  <RadialBarChart noStd={75} />
+                </div>
               </div>
-              <div>
-                Last 3 Months Production
-                <BarChart barData={lastmonths} />
+              <div className="col-md-7 my-2">
+                <div className="chart-container">
+                  <span>Production Prediction</span>
+                  <PredictionLineChart predictions={[100, 120, 100, 90, 130]} />
+                </div>
               </div>
-              <div>
-                Production Prediction
-                <PredictionLineChart predictions={[100, 120, 100, 90, 130]} />
+              <div className="col-md-6 my-2">
+                <div className="chart-container">
+                  <span>Last 3 Months Production</span>
+                  <BarChart barData={lastmonths} />
+                </div>
               </div>
-              <div>
-                Energy Sold vs Produced
-                <BarChart barData={soldvsproduced} />
+              <div className="col-md-6 my-2">
+                <div className="chart-container">
+                  <span>Energy Sold vs Produced</span>
+                  <BarChart barData={soldvsproduced} />
+                </div>
               </div>
             </div>
           </section>
