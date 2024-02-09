@@ -16,6 +16,7 @@ import AdminDashboard from '../pages/AdminPortal/AdminDashboard';
 import CustomerList from '../pages/CustomerList';
 import TransactionTable from '../pages/TransactionTable';
 import BuyEnergy from '../pages/BuyEnergy';
+import Profile from '../pages/Profile';
 
 import { PageNotFound } from '../pages/PageNotFound';
 
@@ -76,15 +77,19 @@ function MyRoutes() {
         <Route exact path="/sign-in" element={<SignIn />} />
         <Route exact path="/sign-up" element={<SignUp />} />
         <Route exact path="/forgot-password/" element={<ForgotPassword />} />
-        <Route exact path="/reset-password/:token" element={<ResetPassword />} />
+        <Route
+          exact
+          path="/reset-password/:token"
+          element={<ResetPassword />}
+        />
 
-
-        <Route element={<PrivateRoute />}>
-          <Route exact path="/customerlist" element={<CustomerList />} />
-          <Route exact path="/transactiontable" element={<TransactionTable />} />
-          <Route exact path="/buyenergy" element={<BuyEnergy />} />
-          <Route exact path="/dashboard" element={<AdminDashboard />} />
-        </Route>
+        {/* <Route element={<PrivateRoute />}> */}
+        <Route exact path="/customerlist" element={<CustomerList />} />
+        <Route exact path="/transactiontable" element={<TransactionTable />} />
+        <Route exact path="/buyenergy" element={<BuyEnergy />} />
+        <Route exact path="/dashboard" element={<AdminDashboard />} />
+        <Route exact path="/profile" element={<Profile />} />
+        {/* </Route> */}
 
         <Route exact path="*" element={<PageNotFound />} />
       </Routes>

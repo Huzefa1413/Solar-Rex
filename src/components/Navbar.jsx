@@ -104,7 +104,7 @@ function Navbar() {
               <div className="profile_box">
                 <div className="user_profile_info">
                   <div className="mb-2">
-                    <Link to="/university-profile" className="link">
+                    <Link to="/profile" className="link">
                       <HiOutlineUserCircle className="logOut_icon" />
                       Profile
                     </Link>

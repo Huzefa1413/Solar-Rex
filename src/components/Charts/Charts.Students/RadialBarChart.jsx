@@ -19,7 +19,7 @@ function RadialBarChart(props) {
         enabled: false,
         fillSeriesColor: true,
       },
-      colors: ['#72d4fd', '#1475e1'], //Add this line
+      colors: ['#72d4fd'], //Add this line
       legend: {
         show: false,
       },

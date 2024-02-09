@@ -2,7 +2,7 @@ import { useProSidebar } from 'react-pro-sidebar';
 import React, { useEffect, useRef, useState } from 'react';
 import NavSidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
-
+import '../components/components.css';
 // import Slider from 'nouislider';
 // import 'nouislider/dist/nouislider.css';
 
@@ -18,11 +18,9 @@ import {
   Button,
 } from 'reactstrap';
 
-import { useAuth } from "../ContextAPI/Components/auth"
-
+import { useAuth } from '../ContextAPI/Components/auth';
 
 const BuyEnergy = () => {
-
   const { user } = useAuth();
 
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
@@ -50,13 +48,12 @@ const BuyEnergy = () => {
 
   const [data, setData] = useState({
     price: 0,
-    amount: 0
-  })
-
+    amount: 0,
+  });
 
   const handleAmount = (e) => {
-    setData({ ...data, amount: e.target.value, price: 20 * e.target.value })
-  }
+    setData({ ...data, amount: e.target.value, price: 20 * e.target.value });
+  };
 
   return (
     <>
@@ -82,19 +79,22 @@ const BuyEnergy = () => {
             rtl={rtl}
           />
           <section className="container-fluid py-3">
-            {
+            {/* {
               user.role == "admin" ?
                 <h1>Admin</h1>
                 :
                 <h1>User</h1>
-            }
+            } */}
 
-
-            <div>
+            <div className="buyenergy">
               <h2>Buy Energy</h2>
               <p className="d-flex align-items-center justify-content-start">
                 <span className="col-md-3">Amount of Energy:</span>
-                <Input type="number" onChange={handleAmount} className="col-md-3" />
+                <Input
+                  type="number"
+                  onChange={handleAmount}
+                  className="col-md-3"
+                />
               </p>
               <p className="d-flex align-items-center justify-content-start">
                 <span className="col-md-3">Price:</span>
