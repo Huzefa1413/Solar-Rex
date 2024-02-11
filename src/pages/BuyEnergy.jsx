@@ -19,32 +19,13 @@ import {
 } from 'reactstrap';
 
 import { useAuth } from '../ContextAPI/Components/auth';
-
+import { buy } from '../ContextAPI/APIs/api';
+import { useToast } from '../ContextAPI/Components/toast';
 const BuyEnergy = () => {
   const { user } = useAuth();
-
+  const { alert } = useToast();
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
     useProSidebar();
-  //   const sliderRef = useRef(null);
-
-  //   useEffect(() => {
-  //     const slider1 = sliderRef.current;
-
-  //     if (slider1.noUiSlider) {
-  //       slider1.noUiSlider.destroy();
-  //     }
-
-  //     const newSlider = Slider.create(slider1, {
-  //       start: [0],
-  //       connect: [true, false],
-  //       step: 1,
-  //       range: { min: 0, max: 100 },
-  //     });
-
-  //     return () => {
-  //       newSlider.destroy();
-  //     };
-  //   }, []);
 
   const [data, setData] = useState({
     price: 0,
@@ -54,6 +35,26 @@ const BuyEnergy = () => {
   const handleAmount = (e) => {
     setData({ ...data, amount: e.target.value, price: 20 * e.target.value });
   };
+
+
+
+  const buyEnergy = async () => {
+    try {
+
+      if (data.amount > 0 && data.price > 0) {
+        const response = await buy(data)
+        alert(response.message, response.success)
+      }
+      else {
+        alert("Please Enter Amount", false)
+      }
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
+
+
 
   return (
     <>
@@ -79,33 +80,30 @@ const BuyEnergy = () => {
             rtl={rtl}
           />
           <section className="container-fluid py-3">
-            {/* {
+            {
               user.role == "admin" ?
                 <h1>Admin</h1>
                 :
-                <h1>User</h1>
-            } */}
-
-            <div className="buyenergy">
-              <h2>Buy Energy</h2>
-              <p className="d-flex align-items-center justify-content-start">
-                <span className="col-md-3">Amount of Energy:</span>
-                <Input
-                  type="number"
-                  onChange={handleAmount}
-                  className="col-md-3"
-                />
-              </p>
-              <p className="d-flex align-items-center justify-content-start">
-                <span className="col-md-3">Price:</span>
-                <span className="col-md-3">{data.price} Rs</span>
-              </p>
-              <p className="px-3">
-                <Button color="primary" type="button" className="col-md-6">
-                  Buy Now
-                </Button>
-              </p>
-            </div>
+                <div className="buyenergy">
+                  <h2>Buy Energy</h2>
+                  <p className="d-flex align-items-center justify-content-start">
+                    <span className="col-md-3">Amount of Energy:</span>
+                    <Input
+                      type="number"
+                      onChange={handleAmount}
+                      className="col-md-3"
+                    />
+                  </p>
+                  <p className="d-flex align-items-center justify-content-start">
+                    <span className="col-md-3">Price:</span>
+                    <span className="col-md-3">{data.price} Rs</span>
+                  </p>
+                  <p className="px-3">
+                    <Button onClick={() => buyEnergy()} color="primary" type="button" className="col-md-6">
+                      Buy Now
+                    </Button>
+                  </p>
+                </div>}
           </section>
         </div>
       </div>

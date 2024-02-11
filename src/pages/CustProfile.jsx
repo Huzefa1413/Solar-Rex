@@ -5,11 +5,40 @@ import { useProSidebar } from 'react-pro-sidebar';
 import '../components/components.css';
 import profilepic from '../assets/avatar.jpg';
 import { useAuth } from '../ContextAPI/Components/auth';
-
-const Profile = () => {
+import { useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { getCustProfile } from '../ContextAPI/APIs/api';
+import { useEffect } from 'react';
+const CustProfile = () => {
+  const { id } = useParams();
   const { user } = useAuth();
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
     useProSidebar();
+
+
+
+  const [cust, setCust] = useState({})
+
+
+  const fetchAlldata = async () => {
+    try {
+
+      const response = await getCustProfile(id)
+
+      if (response.message !== null) {
+        setCust(response.message)
+      }
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
+
+
+  useEffect(() => {
+    fetchAlldata()
+  }, [])
+
   return (
     <>
       <div className="d-flex">
@@ -42,7 +71,7 @@ const Profile = () => {
             } */}
 
             <div className="welcome">
-              <h2>Hello {user.username}</h2>
+              <h2>Hello {cust.username}</h2>
               <p>This is your profile page. You can see your details here.</p>
             </div>
             <div className="container-fluid">
@@ -65,6 +94,7 @@ const Profile = () => {
                                   name=""
                                   id=""
                                   placeholder="Username"
+                                  value={cust.username}
                                 />
                               </div>
                             </div>
@@ -76,6 +106,8 @@ const Profile = () => {
                                   name=""
                                   id=""
                                   placeholder="Username"
+
+                                  value={cust.username}
                                 />
                               </div>
                             </div>
@@ -89,6 +121,8 @@ const Profile = () => {
                                   name=""
                                   id=""
                                   placeholder="Username"
+
+                                  value={cust.username}
                                 />
                               </div>
                             </div>
@@ -100,6 +134,8 @@ const Profile = () => {
                                   name=""
                                   id=""
                                   placeholder="Username"
+
+                                  value={cust.username}
                                 />
                               </div>
                             </div>
@@ -205,4 +241,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default CustProfile;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // reactstrap components
 import {
   Badge,
@@ -24,9 +24,50 @@ import {
   useProSidebar,
   sidebarClasses,
 } from 'react-pro-sidebar';
+import { get_transactions } from '../ContextAPI/APIs/api';
+import { useEffect } from 'react';
 function TransactionTable() {
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
     useProSidebar();
+
+
+
+
+  const [tx, setTX] = useState([])
+
+
+  const getTX = async () => {
+    try {
+      const response = await get_transactions()
+      setTX(response.message)
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
+
+
+  useEffect(() => {
+    getTX()
+  }, [])
+
+
+  function convertTimestampToDateTime(timestamp) {
+    var date = new Date(timestamp);
+    var year = date.getFullYear();
+    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+    var day = ("0" + date.getDate()).slice(-2);
+    var hours = date.getHours();
+    var minutes = ("0" + date.getMinutes()).slice(-2);
+    var seconds = ("0" + date.getSeconds()).slice(-2);
+    var meridiem = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // Handle midnight (0 hours) as 12 AM
+    var dateTimeString = year + "-" + month + "-" + day + " " + hours + ":" + minutes + " " + meridiem;
+    return dateTimeString;
+  }
+
+
   return (
     <>
       <div className="d-flex">
@@ -55,37 +96,25 @@ function TransactionTable() {
             <Table className="align-items-center " responsive>
               <thead className="thead-light">
                 <tr>
-                  <th scope="col">Username</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Amount</th>
-                  <th scope="col">Transaction Id</th>
+                  <th scope="col">Buyer</th>
+                  <th scope="col">Seller</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Time</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Huzefa Mustafa</td>
-                  <td>huzefamustafa@gmail.com</td>
-                  <td>2000 Rs</td>
-                  <td>132419432571197</td>
-                </tr>
-                <tr>
-                  <td>Saim Rafi</td>
-                  <td>saim@gmail.com</td>
-                  <td>1000 Rs</td>
-                  <td>132419432571197</td>
-                </tr>
-                <tr>
-                  <td>Huzefa Mustafa</td>
-                  <td>huzefamustafa@gmail.com</td>
-                  <td>2000 Rs</td>
-                  <td>132419432571197</td>
-                </tr>
-                <tr>
-                  <td>Saim Rafi</td>
-                  <td>saim@gmail.com</td>
-                  <td>1000 Rs</td>
-                  <td>132419432571197</td>
-                </tr>
+                {
+                  tx.length > 0 && tx.map((item, i) => (
+                    <tr>
+                      <td>{item?.buyerid.username}</td>
+                      <td>{item?.sellerid.username}</td>
+                      <td>{item?.price}</td>
+                      <td>{item?.quantity}</td>
+                      <td>{convertTimestampToDateTime(item?.timestamp)}</td>
+                    </tr>
+                  ))
+                }
               </tbody>
             </Table>
           </section>

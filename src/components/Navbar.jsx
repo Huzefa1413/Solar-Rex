@@ -37,13 +37,13 @@ function Navbar() {
       <nav class="navbar navbar-expand-lg navbar-light">
         <div className={`${isMobile ? 'd-none' : 'd-block'}`}>
           {showForm == 'demographics_information' ||
-          showForm == 'academic_background' ||
-          showForm == 'financial_information' ||
-          showForm == 'additional_information' ||
-          showForm == 'sop' ||
-          showForm == 'preview' ||
-          showForm == 'final' ||
-          showForm == 'renewal_details' ? (
+            showForm == 'academic_background' ||
+            showForm == 'financial_information' ||
+            showForm == 'additional_information' ||
+            showForm == 'sop' ||
+            showForm == 'preview' ||
+            showForm == 'final' ||
+            showForm == 'renewal_details' ? (
             <Link to="/dashboard" className="link">
               <img src={LOGO} alt="logo" className="img-fluid" />
             </Link>
@@ -95,8 +95,8 @@ function Navbar() {
                 </div>
                 <div className="ml-2">
                   <h6 className={`${isMobile ? 'd-none' : 'd-block mb-0'}`}>
-                    {/* {user?.fullName || 'Username'} */}
-                    Huzefa Mustafa
+                    {user?.username}
+                    {/* Huzefa Mustafa */}
                   </h6>
                 </div>
               </div>
