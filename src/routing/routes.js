@@ -84,14 +84,14 @@ function MyRoutes() {
           element={<ResetPassword />}
         />
 
-        <Route element={<PrivateRoute />}>
-          <Route exact path="/customerlist" element={<CustomerList />} />
-          <Route exact path="/transactiontable" element={<TransactionTable />} />
-          <Route exact path="/buyenergy" element={<BuyEnergy />} />
-          <Route exact path="/dashboard" element={<AdminDashboard />} />
-          <Route exact path="/profile" element={<Profile />} />
-          <Route exact path="/customer-profile/:id" element={<CustProfile />} />
-        </Route>
+        {/* <Route element={<PrivateRoute />}> */}
+        <Route exact path="/customerlist" element={<CustomerList />} />
+        <Route exact path="/transactiontable" element={<TransactionTable />} />
+        <Route exact path="/buyenergy" element={<BuyEnergy />} />
+        <Route exact path="/dashboard" element={<AdminDashboard />} />
+        <Route exact path="/profile" element={<Profile />} />
+        <Route exact path="/customer-profile/:id" element={<CustProfile />} />
+        {/* </Route> */}
 
         <Route exact path="*" element={<PageNotFound />} />
       </Routes>

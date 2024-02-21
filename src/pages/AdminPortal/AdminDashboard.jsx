@@ -70,10 +70,30 @@ function AdminDashboard() {
 
           <section className="container-fluid py-4 dashboard">
             <div className="row">
-              <Card />
-              <Card />
-              <Card />
-              <Card />
+              <Card
+                title={'Energy Produced Today'}
+                value={0.67}
+                perc={2.3}
+                date={'Tomorrow'}
+              />
+              <Card
+                title={'Energy Produced This Week'}
+                value={8.33}
+                perc={-2.1}
+                date={'Last Week'}
+              />
+              <Card
+                title={'Energy Produced This Month'}
+                value={30.23}
+                perc={2.343}
+                date={'Last Month'}
+              />
+              <Card
+                title={'Energy Produced This Year'}
+                value={410.43}
+                perc={5.4}
+                date={'Last Year'}
+              />
             </div>
             <div className="row py-4">
               <div className="col-md-5 my-2">
