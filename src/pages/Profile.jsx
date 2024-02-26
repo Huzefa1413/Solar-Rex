@@ -228,7 +228,7 @@ const Profile = () => {
                 <div className="col-xl-4">
                   <div className="profilebox">
                     <div className="profileheader">
-                      <img src={apiData.profilepic} alt="" />
+                      <img src={apiData.profilePicture} alt="" />
                     </div>
                     <div className="profilebody">
                       <h3>{apiData.username}</h3>

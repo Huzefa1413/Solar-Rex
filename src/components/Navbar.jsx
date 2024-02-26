@@ -37,13 +37,13 @@ function Navbar() {
       <nav class="navbar navbar-expand-lg navbar-light">
         <div className={`${isMobile ? 'd-none' : 'd-block'}`}>
           {showForm == 'demographics_information' ||
-            showForm == 'academic_background' ||
-            showForm == 'financial_information' ||
-            showForm == 'additional_information' ||
-            showForm == 'sop' ||
-            showForm == 'preview' ||
-            showForm == 'final' ||
-            showForm == 'renewal_details' ? (
+          showForm == 'academic_background' ||
+          showForm == 'financial_information' ||
+          showForm == 'additional_information' ||
+          showForm == 'sop' ||
+          showForm == 'preview' ||
+          showForm == 'final' ||
+          showForm == 'renewal_details' ? (
             <Link to="/dashboard" className="link">
               <img src={LOGO} alt="logo" className="img-fluid" />
             </Link>
@@ -96,28 +96,28 @@ function Navbar() {
                 <div className="ml-2">
                   <h6 className={`${isMobile ? 'd-none' : 'd-block mb-0'}`}>
                     {user?.username}
-                    {/* Huzefa Mustafa */}
+                    Huzefa Mustafa
                   </h6>
                 </div>
               </div>
 
               <div className="profile_box">
                 <div className="user_profile_info">
-                  <div className="mb-2">
-                    <Link to="/profile" className="link">
-                      <HiOutlineUserCircle className="logOut_icon" />
-                      Profile
-                    </Link>
-                  </div>
-                  <div>
+                  {/* <div className="mb-2"> */}
+                  <Link to="/profile" className="link">
+                    <HiOutlineUserCircle className="logOut_icon" />
+                    Profile
+                  </Link>
+                  {/* </div> */}
+                  {/* <div>
                     <Link to="/university-profile#password" className="link">
                       <MdOutlineLock className="logOut_icon" />
                       Password
                     </Link>
-                  </div>
+                  </div> */}
                 </div>
 
-                <div className="user_profile_info">
+                {/* <div className="user_profile_info">
                   <div className="mb-2">
                     <Link to="/profile" className="link">
                       <HiOutlineUserCircle className="logOut_icon" />
@@ -137,7 +137,7 @@ function Navbar() {
                       Password
                     </Link>
                   </div>
-                </div>
+                </div> */}
 
                 <div className="logout_box">
                   <Link to="#" className="link" onClick={() => Logout()}>
