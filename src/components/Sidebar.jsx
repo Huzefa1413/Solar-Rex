@@ -19,6 +19,9 @@ import { CgProfile } from 'react-icons/cg';
 import { FaWpforms } from 'react-icons/fa';
 import { BiMoneyWithdraw } from 'react-icons/bi';
 import { LuLayoutDashboard } from 'react-icons/lu';
+import { LuUsers } from 'react-icons/lu';
+import { LuActivity } from 'react-icons/lu';
+import { LuZap } from 'react-icons/lu';
 import { LiaUniversitySolid } from 'react-icons/lia';
 import { MdAutorenew } from 'react-icons/md';
 import { PiSignInBold, PiStudent, PiUserCirclePlus } from 'react-icons/pi';
@@ -71,35 +74,6 @@ function NavSidebar({
               },
             }}
           >
-            {/* <MenuItem className="py-3 sidebar_toggle">
-              <div className="d-flex jc-between ai-center">
-                {collapsed ? (
-                  <Link to="/" className="activeLink1 hash-tag text-truncate">
-                    <img
-                      src={logo}
-                      alt="logo"
-                      className="img-fluid"
-                      style={{ width: '40px' }}
-                    />
-                  </Link>
-                ) : (
-                  <> */}
-            {/* <Link to={`${(user.role === "admin" && "/admin-dashboard") || (user.role === "student" && "/dashboard") || (user.role === "university" && "/university-dashboard")}`} className="activeLink1 hash-tag text-truncate" style={{ paddingLeft: "15px", paddingRight: "15px" }}>
-                                                <img src={logo} alt="logo" className='img-fluid' />
-                                            </Link> */}
-            {/* </>
-                )} */}
-            {/* <main className="oo78uijk">
-                                    {
-                                        isSmallMobile ?
-                                            <button className="btn btnFocus" onClick={() => { collapseSidebar(); console.log("collapsed", collapsed); newfunction() }}><HiBars3 className="mr-1" style={{ color: "#b1bad3", fontSize: "25px" }} /></button>
-                                            :
-                                            <button className="btn btnFocus" onClick={() => { collapseSidebar(); console.log("collapsed", collapsed) }}><HiBars3 className="mr-1" style={{ color: "#b1bad3", fontSize: "25px" }} /></button>
-                                    }
-                                </main> */}
-            {/* </div>
-            </MenuItem> */}
-
             <Link className="link">
               <MenuItem className="py-3 text-center">
                 <img
@@ -110,24 +84,26 @@ function NavSidebar({
               </MenuItem>
             </Link>
 
-
             <Link to="/dashboard" className="link">
               <MenuItem
-                className={`${style === 'dashboard' ? 'active' : 'unactive'} ${collapsed === true ? 'd-flex jc-center' : ''
-                  } mt-2 link_one `}
+                className={`${style === 'dashboard' ? 'active' : 'unactive'} ${
+                  collapsed === true ? 'd-flex jc-center' : ''
+                } mt-2 link_one `}
                 icon={
                   <LuLayoutDashboard
-                    className={`${style === 'admin_dashboard'
-                      ? 'active_sidebar_icon'
-                      : 'sidebar_icon'
-                      }`}
+                    className={`${
+                      style === 'admin_dashboard'
+                        ? 'active_sidebar_icon'
+                        : 'sidebar_icon'
+                    }`}
                   />
                 }
               >
                 <Link
                   to="/dashboard"
-                  className={`mx-1 my-1 ${style === 'admin_dashboard' ? 'activeLink' : 'link'
-                    } ${collapsed === true ? 'd-none' : 'd-block'}`}
+                  className={`mx-1 my-1 ${
+                    style === 'admin_dashboard' ? 'activeLink' : 'link'
+                  } ${collapsed === true ? 'd-none' : 'd-block'}`}
                   style={{ width: 'maxContent' }}
                 >
                   {' '}
@@ -136,24 +112,28 @@ function NavSidebar({
               </MenuItem>
             </Link>
 
-
             <Link to="/customerlist" className="link">
               <MenuItem
-                className={`${style === 'customerlist' ? 'active' : 'unactive'} ${collapsed === true ? 'd-flex jc-center' : ''
-                  } mt-2 link_one `}
+                className={`${
+                  style === 'customerlist' ? 'active' : 'unactive'
+                } ${
+                  collapsed === true ? 'd-flex jc-center' : ''
+                } mt-2 link_one `}
                 icon={
-                  <LuLayoutDashboard
-                    className={`${style === 'customerlist'
-                      ? 'active_sidebar_icon'
-                      : 'sidebar_icon'
-                      }`}
+                  <LuUsers
+                    className={`${
+                      style === 'customerlist'
+                        ? 'active_sidebar_icon'
+                        : 'sidebar_icon'
+                    }`}
                   />
                 }
               >
                 <Link
                   to="/customerlist"
-                  className={`mx-1 my-1 ${style === 'customerlist' ? 'activeLink' : 'link'
-                    } ${collapsed === true ? 'd-none' : 'd-block'}`}
+                  className={`mx-1 my-1 ${
+                    style === 'customerlist' ? 'activeLink' : 'link'
+                  } ${collapsed === true ? 'd-none' : 'd-block'}`}
                   style={{ width: 'maxContent' }}
                 >
                   {' '}
@@ -162,25 +142,28 @@ function NavSidebar({
               </MenuItem>
             </Link>
 
-
-
             <Link to="/transactiontable" className="link">
               <MenuItem
-                className={`${style === 'transactiontable' ? 'active' : 'unactive'} ${collapsed === true ? 'd-flex jc-center' : ''
-                  } mt-2 link_one `}
+                className={`${
+                  style === 'transactiontable' ? 'active' : 'unactive'
+                } ${
+                  collapsed === true ? 'd-flex jc-center' : ''
+                } mt-2 link_one `}
                 icon={
-                  <LuLayoutDashboard
-                    className={`${style === 'transactiontable'
-                      ? 'active_sidebar_icon'
-                      : 'sidebar_icon'
-                      }`}
+                  <LuActivity
+                    className={`${
+                      style === 'transactiontable'
+                        ? 'active_sidebar_icon'
+                        : 'sidebar_icon'
+                    }`}
                   />
                 }
               >
                 <Link
                   to="/transactiontable"
-                  className={`mx-1 my-1 ${style === 'transactiontable' ? 'activeLink' : 'link'
-                    } ${collapsed === true ? 'd-none' : 'd-block'}`}
+                  className={`mx-1 my-1 ${
+                    style === 'transactiontable' ? 'activeLink' : 'link'
+                  } ${collapsed === true ? 'd-none' : 'd-block'}`}
                   style={{ width: 'maxContent' }}
                 >
                   {' '}
@@ -191,21 +174,24 @@ function NavSidebar({
 
             <Link to="/buyenergy" className="link">
               <MenuItem
-                className={`${style === 'buyenergy' ? 'active' : 'unactive'} ${collapsed === true ? 'd-flex jc-center' : ''
-                  } mt-2 link_one `}
+                className={`${style === 'buyenergy' ? 'active' : 'unactive'} ${
+                  collapsed === true ? 'd-flex jc-center' : ''
+                } mt-2 link_one `}
                 icon={
-                  <LuLayoutDashboard
-                    className={`${style === 'buyenergy'
-                      ? 'active_sidebar_icon'
-                      : 'sidebar_icon'
-                      }`}
+                  <LuZap
+                    className={`${
+                      style === 'buyenergy'
+                        ? 'active_sidebar_icon'
+                        : 'sidebar_icon'
+                    }`}
                   />
                 }
               >
                 <Link
                   to="/buyenergy"
-                  className={`mx-1 my-1 ${style === 'buyenergy' ? 'activeLink' : 'link'
-                    } ${collapsed === true ? 'd-none' : 'd-block'}`}
+                  className={`mx-1 my-1 ${
+                    style === 'buyenergy' ? 'activeLink' : 'link'
+                  } ${collapsed === true ? 'd-none' : 'd-block'}`}
                   style={{ width: 'maxContent' }}
                 >
                   {' '}
@@ -213,13 +199,7 @@ function NavSidebar({
                 </Link>
               </MenuItem>
             </Link>
-
-
           </Menu>
-
-          {/* <div className={`mt-5 d-flex jc-center ${collapsed === true ? 'd-none' : 'd-block'} ${collapsed === true ? 'd-flex jc-center' : ''} theme_switcher`}>
-                        <DarkMode />
-                    </div> */}
         </Sidebar>
       </div>
     </>

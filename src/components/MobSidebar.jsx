@@ -11,6 +11,9 @@ import { CgProfile } from 'react-icons/cg';
 import { AiOutlineClose } from 'react-icons/ai';
 import { BiMoneyWithdraw } from 'react-icons/bi';
 import { LuLayoutDashboard } from 'react-icons/lu';
+import { LuUsers } from 'react-icons/lu';
+import { LuActivity } from 'react-icons/lu';
+import { LuZap } from 'react-icons/lu';
 import { LiaUniversitySolid } from 'react-icons/lia';
 import { FiChevronDown, FiUsers } from 'react-icons/fi';
 import { MdAutorenew, MdOutlineLanguage } from 'react-icons/md';
@@ -76,68 +79,73 @@ function MobSidebar() {
         </div>
         <div className="offcanvas-body mob_sidebar_body">
           <ul>
-            <>
-              <li className="py-3">
-                <img
-                  src={logo}
-                  className="img-fluid"
-                  style={{ width: '150px' }}
-                />
-              </li>
+            <li className="py-3">
+              <img
+                src={logo}
+                className="img-fluid"
+                style={{ width: '150px' }}
+              />
+            </li>
 
-              <li className={`${style == 'sign_in' ? 'active' : 'unactive'}`}>
-                <Link
-                  to="/sign-in"
-                  className={`${style == 'sign_in' ? 'activeLink' : 'link'}`}
-                >
-                  <div className="d-flex ai-center">
-                    <PiSignInBold className="me-2 link_icon" />
-                    <p>Sign In</p>
-                  </div>
-                </Link>
-              </li>
-            </>
-            <>
-              <li
+            <li
+              className={`${
+                style == 'admin_dashboard' ? 'active' : 'unactive'
+              }`}
+            >
+              <Link
+                to="/dashboard"
                 className={`${
-                  style == 'admin_dashboard' ? 'active' : 'unactive'
+                  style == 'admin_dashboard' ? 'activeLink' : 'link'
                 }`}
               >
-                <Link
-                  to="/dashboard"
-                  className={`${
-                    style == 'admin_dashboard' ? 'activeLink' : 'link'
-                  }`}
-                >
-                  <div className="d-flex ai-center">
-                    <LuLayoutDashboard className="me-2 link_icon" />
-                    <p>Dashboard</p>
-                  </div>
-                </Link>
-              </li>
-            </>
+                <div className="d-flex ai-center">
+                  <LuLayoutDashboard className="me-2 link_icon" />
+                  <p>Dashboard</p>
+                </div>
+              </Link>
+            </li>
+            <li
+              className={`${style == 'customerlist' ? 'active' : 'unactive'}`}
+            >
+              <Link
+                to="/customerlist"
+                className={`${style == 'customerlist' ? 'activeLink' : 'link'}`}
+              >
+                <div className="d-flex ai-center">
+                  <LuUsers className="me-2 link_icon" />
+                  <p>Customer List</p>
+                </div>
+              </Link>
+            </li>
+            <li
+              className={`${
+                style == 'transactiontable' ? 'active' : 'unactive'
+              }`}
+            >
+              <Link
+                to="/transactiontable"
+                className={`${
+                  style == 'transactiontable' ? 'activeLink' : 'link'
+                }`}
+              >
+                <div className="d-flex ai-center">
+                  <LuActivity className="me-2 link_icon" />
+                  <p>Transaction Table</p>
+                </div>
+              </Link>
+            </li>
+            <li className={`${style == 'buyenergy' ? 'active' : 'unactive'}`}>
+              <Link
+                to="/buyenergy"
+                className={`${style == 'buyenergy' ? 'activeLink' : 'link'}`}
+              >
+                <div className="d-flex ai-center">
+                  <LuZap className="me-2 link_icon" />
+                  <p>Energy</p>
+                </div>
+              </Link>
+            </li>
           </ul>
-
-          {/* <div className="mob_language_show">
-                        <div className="btn-group dropup">
-                            <button type="button" className="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                <MdOutlineLanguage className='language_icon' />
-                            </button>
-                            <ul className="dropdown-menu mob_language_box" style={{ background: "transparent" }}>
-                                <li><div className='d-flex ai-center mb-2'>
-                                    <img src={england_flag} alt="icon" className='img-fluid me-2' style={{ width: "16px" }} />
-                                    <p>Eng</p>
-                                </div>
-                                </li>
-                                <li>
-                                    <div className='d-flex ai-center'>
-                                        <img src={germany_flag} alt="icon" className='img-fluid me-2' style={{ width: "16px" }} />
-                                        <p>Ger</p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div> */}
         </div>
       </div>
     </>

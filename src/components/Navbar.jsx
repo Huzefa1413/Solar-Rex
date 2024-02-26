@@ -4,7 +4,6 @@ import { useAuth } from '../ContextAPI/Components/auth';
 
 import LOGO from '../assets/logosolarrex.png';
 
-import profile from '../assets/profile.svg';
 import avatar from '../assets/avatar.jpg';
 
 import MobSidebar from './MobSidebar';
@@ -13,8 +12,6 @@ import { useCookies } from 'react-cookie';
 
 import { HiOutlineUserCircle } from 'react-icons/hi2';
 import { MdOutlineLock } from 'react-icons/md';
-// import { profilePicUrl } from '../helpers/data';
-// import { User_Profile_Pic } from './Profile/upload_profilePic'
 import { useMediaQuery } from 'react-responsive';
 
 import './components.css';
@@ -35,23 +32,6 @@ function Navbar() {
   return (
     <>
       <nav class="navbar navbar-expand-lg navbar-light">
-        <div className={`${isMobile ? 'd-none' : 'd-block'}`}>
-          {showForm == 'demographics_information' ||
-          showForm == 'academic_background' ||
-          showForm == 'financial_information' ||
-          showForm == 'additional_information' ||
-          showForm == 'sop' ||
-          showForm == 'preview' ||
-          showForm == 'final' ||
-          showForm == 'renewal_details' ? (
-            <Link to="/dashboard" className="link">
-              <img src={LOGO} alt="logo" className="img-fluid" />
-            </Link>
-          ) : (
-            ''
-          )}
-        </div>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <div class="nav-item navbar-brand nav_sidebar_toggle">
             <MobSidebar />
@@ -59,43 +39,20 @@ function Navbar() {
           <div
             className={`${isMobile ? 'd-none' : 'd-block nav-item __heading'}`}
           >
-            Dashboard
+            Solar-Rex
           </div>
           <div className={`${!isMobile ? 'd-none' : 'd-block nav-item logo'}`}>
             <img src={LOGO} alt="" />
           </div>
           <div class="nav-item form-inline">
-            {/* <DarkMode /> */}
-
-            {/* <div className={`${isMobile ? 'd-none' : 'd-block'}`}>
-              {showForm == 'demographics_information' ||
-              showForm == 'academic_background' ||
-              showForm == 'financial_information' ||
-              showForm == 'additional_information' ||
-              showForm == 'sop' ||
-              showForm == 'preview' ||
-              showForm == 'final' ||
-              showForm == 'renewal_details' ? (
-                <div className="me-2">
-                  <Link to="/dashboard" className="link">
-                    <button className="btn goto_dahboard_btn">Dashboard</button>
-                  </Link>
-                </div>
-              ) : (
-                ''
-              )}
-            </div> */}
-
             <div className="nav-item __account">
               <div className="account d-flex ai-center jc-end">
                 <div className="img">
-                  {/* <User_Profile_Pic classes={"sm mx-auto mb-0"} /> */}
                   <img src={avatar} alt="" />
-                  {/* <h2>image</h2> */}
                 </div>
                 <div className="ml-2">
                   <h6 className={`${isMobile ? 'd-none' : 'd-block mb-0'}`}>
-                    {user?.username}
+                    {/* {user?.username} */}
                     Huzefa Mustafa
                   </h6>
                 </div>
