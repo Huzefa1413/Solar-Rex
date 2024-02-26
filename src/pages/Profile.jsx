@@ -11,7 +11,7 @@ const Profile = () => {
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
     useProSidebar();
 
-  const [formData, setFormData] = useState({
+  const [apiData, setApiData] = useState({
     username: 'Huzefa',
     mobileNumber: '+9233342323431',
     email: 'huzefahafdihaifahiafjioafjafiojf@gmail.com',
@@ -20,8 +20,10 @@ const Profile = () => {
     postalCode: '75362',
     city: 'Karachi',
     country: 'Pakistan',
-    profilePicture: null, // You can set an initial value for profile picture if needed
+    profilePicture: null, // You can set an initial value for profile picture if needed}
   });
+
+  const [formData, setFormData] = useState(apiData);
   const [isEditing, setIsEditing] = useState(false);
 
   const handleInputChange = (e) => {
@@ -35,7 +37,7 @@ const Profile = () => {
 
   const handleSaveButtonClick = () => {
     setIsEditing(false);
-    // You can perform any additional actions here, like sending the updated data to the server
+    setApiData(formData);
   };
 
   return (
@@ -70,7 +72,7 @@ const Profile = () => {
             } */}
 
             <div className="welcome">
-              <h2>Hello {formData.username}</h2>
+              <h2>Hello, {apiData.username}</h2>
               <p>This is your profile page. You can see your details here.</p>
             </div>
             <div className="container-fluid">
@@ -226,17 +228,17 @@ const Profile = () => {
                 <div className="col-xl-4">
                   <div className="profilebox">
                     <div className="profileheader">
-                      <img src={formData.profilepic} alt="" />
+                      <img src={apiData.profilepic} alt="" />
                     </div>
                     <div className="profilebody">
-                      <h3>{formData.username}</h3>
+                      <h3>{apiData.username}</h3>
                       <h6>
-                        {formData.city}, {formData.country}
+                        {apiData.city}, {apiData.country}
                       </h6>
-                      <h4>{formData.email}</h4>
-                      <h5>{formData.mobileNumber}</h5>
+                      <h4>{apiData.email}</h4>
+                      <h5>{apiData.mobileNumber}</h5>
                       <hr />
-                      <p>{formData.address}</p>
+                      <p>{apiData.address}</p>
                     </div>
                   </div>
                 </div>
