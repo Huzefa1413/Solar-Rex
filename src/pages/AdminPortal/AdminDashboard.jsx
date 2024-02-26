@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useAuth } from '../../ContextAPI/Components/auth';
 import { useMediaQuery } from 'react-responsive';
 import { Helmet } from 'react-helmet';
 import moment from 'moment';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import BarChart from '../../components/Charts/Charts.Students/BarChart';
 import RadialBarChart from '../../components/Charts/Charts.Students/RadialBarChart';
 import PredictionLineChart from '../../components/Charts/PredictionChart';
+// import Backdrop from '@mui/material/Backdrop';
 
 // import SoldVsProducedChart from '../../components/MyCharts/SoldvsProducedChart';
 
@@ -44,8 +46,66 @@ function AdminDashboard() {
       'December',
     ],
   };
+  const [showModal, setShowModal] = useState(true);
+  const modalRef = useRef(null);
+  const details = false;
+  useEffect(() => {
+    if (!details) {
+      if (modalRef.current) {
+        modalRef.current.click();
+      }
+    }
+  }, []);
+  const navigate = useNavigate();
+  const closeModalAndNavigate = () => {
+    navigate('/profile');
+    window.location.reload();
+  };
+
   return (
     <>
+      <button
+        ref={modalRef}
+        type="button"
+        className="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+        style={{ display: 'none' }}
+      >
+        Launch static backdrop modal
+      </button>
+      <div
+        className="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabIndex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="staticBackdropLabel">
+                Fill your details
+              </h1>
+            </div>
+            <div className="modal-body">
+              You cannot continue untill your Profile is completed, Navigate to
+              Profile Page
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={closeModalAndNavigate}
+              >
+                Profile
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="d-flex">
         <div className="sidebar_div">
           <NavSidebar
@@ -85,7 +145,7 @@ function AdminDashboard() {
               <Card
                 title={'Energy Produced This Month'}
                 value={30.23}
-                perc={2.343}
+                perc={2.33}
                 date={'Last Month'}
               />
               <Card

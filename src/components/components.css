@@ -234,9 +234,7 @@
   font-size: 1.0625rem;
   margin-top: 0;
 }
-.profile .profilebox .profilebody h3 span {
-  font-weight: 300 !important;
-}
+
 .profile .profilebox .profilebody h6 {
   font-weight: 300 !important;
   font-size: 0.8125rem;
@@ -282,4 +280,26 @@
   .profile .detailsbox .boxbody > div .formdetails {
     padding-left: 0;
   }
+}
+
+.profilepopup {
+  color: white;
+}
+.profilepopup:hover {
+  color: white;
+}
+
+.edit {
+  background-color: #1171ef;
+  border: 0;
+  padding: 10px 20px;
+  float: right;
+  color: white;
+}
+.save {
+  background-color: green;
+  border: 0;
+  padding: 10px 20px;
+  float: right;
+  color: white;
 }

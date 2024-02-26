@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NavSidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import { useProSidebar } from 'react-pro-sidebar';
@@ -10,6 +10,34 @@ const Profile = () => {
   const { user } = useAuth();
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
     useProSidebar();
+
+  const [formData, setFormData] = useState({
+    username: 'Huzefa',
+    mobileNumber: '+9233342323431',
+    email: 'huzefahafdihaifahiafjioafjafiojf@gmail.com',
+    telephoneNumber: '-',
+    address: 'Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09',
+    postalCode: '75362',
+    city: 'Karachi',
+    country: 'Pakistan',
+    profilePicture: null, // You can set an initial value for profile picture if needed
+  });
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleEditButtonClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleSaveButtonClick = () => {
+    setIsEditing(false);
+    // You can perform any additional actions here, like sending the updated data to the server
+  };
+
   return (
     <>
       <div className="d-flex">
@@ -42,7 +70,7 @@ const Profile = () => {
             } */}
 
             <div className="welcome">
-              <h2>Hello {user.username}</h2>
+              <h2>Hello {formData.username}</h2>
               <p>This is your profile page. You can see your details here.</p>
             </div>
             <div className="container-fluid">
@@ -62,20 +90,22 @@ const Profile = () => {
                                 <label htmlFor="">Username</label>
                                 <input
                                   type="text"
-                                  name=""
-                                  id=""
-                                  placeholder="Username"
+                                  name="username"
+                                  value={formData.username}
+                                  onChange={handleInputChange}
+                                  disabled={!isEditing}
                                 />
                               </div>
                             </div>
                             <div className="col-lg-6">
                               <div className="form-group">
-                                <label htmlFor="">Username</label>
+                                <label htmlFor="">Mobile Number</label>
                                 <input
                                   type="text"
-                                  name=""
-                                  id=""
-                                  placeholder="Username"
+                                  name="mobileNumber"
+                                  value={formData.mobileNumber}
+                                  onChange={handleInputChange}
+                                  disabled={!isEditing}
                                 />
                               </div>
                             </div>
@@ -83,30 +113,32 @@ const Profile = () => {
                           <div className="row">
                             <div className="col-lg-6">
                               <div className="form-group">
-                                <label htmlFor="">Username</label>
+                                <label htmlFor="">Email</label>
                                 <input
                                   type="text"
-                                  name=""
-                                  id=""
-                                  placeholder="Username"
+                                  name="email"
+                                  value={formData.email}
+                                  onChange={handleInputChange}
+                                  disabled={!isEditing}
                                 />
                               </div>
                             </div>
                             <div className="col-lg-6">
                               <div className="form-group">
-                                <label htmlFor="">Username</label>
+                                <label htmlFor="">Telephone Number</label>
                                 <input
                                   type="text"
-                                  name=""
-                                  id=""
-                                  placeholder="Username"
+                                  name="telephoneNumber"
+                                  value={formData.telephoneNumber}
+                                  onChange={handleInputChange}
+                                  disabled={!isEditing}
                                 />
                               </div>
                             </div>
                           </div>
                         </div>
                         <hr />
-                        <h6>Contact Information</h6>
+                        <h6>Address Details</h6>
                         <div className="formdetails">
                           <div className="row">
                             <div className="col-md-12">
@@ -114,9 +146,10 @@ const Profile = () => {
                                 <label htmlFor="">Address</label>
                                 <input
                                   type="text"
-                                  name=""
-                                  id=""
-                                  placeholder="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+                                  name="address"
+                                  value={formData.address}
+                                  onChange={handleInputChange}
+                                  disabled={!isEditing}
                                 />
                               </div>
                             </div>
@@ -124,75 +157,86 @@ const Profile = () => {
                           <div className="row">
                             <div className="col-lg-4">
                               <div className="form-group">
-                                <label htmlFor="">Username</label>
+                                <label htmlFor="">Postal Code</label>
                                 <input
                                   type="text"
-                                  name=""
-                                  id=""
-                                  placeholder="Username"
+                                  name="postalCode"
+                                  value={formData.postalCode}
+                                  onChange={handleInputChange}
+                                  disabled={!isEditing}
                                 />
                               </div>
                             </div>
                             <div className="col-lg-4">
                               <div className="form-group">
-                                <label htmlFor="">Username</label>
+                                <label htmlFor="">City</label>
                                 <input
                                   type="text"
-                                  name=""
-                                  id=""
-                                  placeholder="Username"
+                                  name="city"
+                                  value={formData.city}
+                                  onChange={handleInputChange}
+                                  disabled={!isEditing}
                                 />
                               </div>
                             </div>
                             <div className="col-lg-4">
                               <div className="form-group">
-                                <label htmlFor="">Username</label>
+                                <label htmlFor="">Country</label>
                                 <input
                                   type="text"
-                                  name=""
-                                  id=""
-                                  placeholder="Username"
+                                  name="country"
+                                  value={formData.country}
+                                  onChange={handleInputChange}
+                                  disabled={!isEditing}
                                 />
                               </div>
                             </div>
                           </div>
                         </div>
                         <hr />
-                        <h6>About Me</h6>
+                        <h6>Profile Picture</h6>
                         <div className="formdetails">
                           <div className="form-group">
-                            <label htmlFor="">About Me</label>
-                            <textarea
-                              placeholder="A few words about you ..."
-                              rows="4"
-                            >
-                              A beautiful Dashboard for Bootstrap 4. It is Free
-                              and Open Source.
-                            </textarea>
+                            <label htmlFor="">Profile Picture</label>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              name="profilePicture"
+                              value={formData.profilePicture}
+                              onChange={handleInputChange}
+                              disabled={!isEditing}
+                            />
                           </div>
                         </div>
                       </div>
+                      <hr />
+                      <button
+                        className={isEditing ? 'save' : 'edit'}
+                        onClick={
+                          isEditing
+                            ? handleSaveButtonClick
+                            : handleEditButtonClick
+                        }
+                      >
+                        {isEditing ? 'Save' : 'Edit'}
+                      </button>
                     </div>
                   </div>
                 </div>
                 <div className="col-xl-4">
                   <div className="profilebox">
                     <div className="profileheader">
-                      <img src={profilepic} alt="" />
+                      <img src={formData.profilepic} alt="" />
                     </div>
                     <div className="profilebody">
-                      <h3>
-                        Huzefa Mustafa <span>22</span>
-                      </h3>
-                      <h6>Karachi, Pakistan</h6>
-                      <h4>Solution Manager - Creative Tim Officer</h4>
-                      <h5>University of Computer Science</h5>
+                      <h3>{formData.username}</h3>
+                      <h6>
+                        {formData.city}, {formData.country}
+                      </h6>
+                      <h4>{formData.email}</h4>
+                      <h5>{formData.mobileNumber}</h5>
                       <hr />
-                      <p>
-                        Ryan — the name taken by Melbourne-raised,
-                        Brooklyn-based Nick Murphy — writes, performs and
-                        records all of his own music.
-                      </p>
+                      <p>{formData.address}</p>
                     </div>
                   </div>
                 </div>
