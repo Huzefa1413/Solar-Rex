@@ -64,14 +64,14 @@ const CustProfile = () => {
           />
           <section className="container-fluid py-3 profile">
             {/* {
-              user.role == "admin" ?
-                <h1>Admin</h1>
-                :
-                <h1>User</h1>
-            } */}
+            user.role == "admin" ?
+              <h1>Admin</h1>
+              :
+              <h1>User</h1>
+          } */}
 
             <div className="welcome">
-              <h2>Hello {cust.username}</h2>
+              <h2>Hello, {cust.username}</h2>
               <p>This is your profile page. You can see your details here.</p>
             </div>
             <div className="container-fluid">
@@ -91,23 +91,21 @@ const CustProfile = () => {
                                 <label htmlFor="">Username</label>
                                 <input
                                   type="text"
-                                  name=""
-                                  id=""
-                                  placeholder="Username"
+                                  name="username"
                                   value={cust.username}
+                                  disabled
                                 />
                               </div>
                             </div>
                             <div className="col-lg-6">
                               <div className="form-group">
-                                <label htmlFor="">Username</label>
+                                <label htmlFor="">Mobile Number</label>
                                 <input
                                   type="text"
-                                  name=""
-                                  id=""
-                                  placeholder="Username"
+                                  name="mobileNumber"
+                                  value={cust.phone}
 
-                                  value={cust.username}
+                                  disabled
                                 />
                               </div>
                             </div>
@@ -115,34 +113,21 @@ const CustProfile = () => {
                           <div className="row">
                             <div className="col-lg-6">
                               <div className="form-group">
-                                <label htmlFor="">Username</label>
+                                <label htmlFor="">Email</label>
                                 <input
                                   type="text"
-                                  name=""
-                                  id=""
-                                  placeholder="Username"
+                                  name="email"
+                                  value={cust.email}
 
-                                  value={cust.username}
+                                  disabled
                                 />
                               </div>
                             </div>
-                            <div className="col-lg-6">
-                              <div className="form-group">
-                                <label htmlFor="">Username</label>
-                                <input
-                                  type="text"
-                                  name=""
-                                  id=""
-                                  placeholder="Username"
 
-                                  value={cust.username}
-                                />
-                              </div>
-                            </div>
                           </div>
                         </div>
                         <hr />
-                        <h6>Contact Information</h6>
+                        <h6>Address Details</h6>
                         <div className="formdetails">
                           <div className="row">
                             <div className="col-md-12">
@@ -150,9 +135,9 @@ const CustProfile = () => {
                                 <label htmlFor="">Address</label>
                                 <input
                                   type="text"
-                                  name=""
-                                  id=""
-                                  placeholder="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+                                  name="address"
+                                  value={cust.address}
+
                                 />
                               </div>
                             </div>
@@ -160,54 +145,55 @@ const CustProfile = () => {
                           <div className="row">
                             <div className="col-lg-4">
                               <div className="form-group">
-                                <label htmlFor="">Username</label>
+                                <label htmlFor="">Postal Code</label>
                                 <input
                                   type="text"
-                                  name=""
-                                  id=""
-                                  placeholder="Username"
+                                  name="postalCode"
+                                  value={cust.postalCode}
+
                                 />
                               </div>
                             </div>
                             <div className="col-lg-4">
                               <div className="form-group">
-                                <label htmlFor="">Username</label>
+                                <label htmlFor="">City</label>
                                 <input
                                   type="text"
-                                  name=""
-                                  id=""
-                                  placeholder="Username"
+                                  name="city"
+                                  value={cust.city}
+
                                 />
                               </div>
                             </div>
                             <div className="col-lg-4">
                               <div className="form-group">
-                                <label htmlFor="">Username</label>
+                                <label htmlFor="">Country</label>
                                 <input
                                   type="text"
-                                  name=""
-                                  id=""
-                                  placeholder="Username"
+                                  name="country"
+                                  value={cust.country}
+
                                 />
                               </div>
                             </div>
                           </div>
                         </div>
                         <hr />
-                        <h6>About Me</h6>
+                        <h6>Profile Picture</h6>
                         <div className="formdetails">
                           <div className="form-group">
-                            <label htmlFor="">About Me</label>
-                            <textarea
-                              placeholder="A few words about you ..."
-                              rows="4"
-                            >
-                              A beautiful Dashboard for Bootstrap 4. It is Free
-                              and Open Source.
-                            </textarea>
+                            <label htmlFor="">Profile Picture</label>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              name="profilePicture"
+                              value={cust.profilePicture}
+
+                            />
                           </div>
                         </div>
                       </div>
+                      <hr />
                     </div>
                   </div>
                 </div>
@@ -217,18 +203,14 @@ const CustProfile = () => {
                       <img src={profilepic} alt="" />
                     </div>
                     <div className="profilebody">
-                      <h3>
-                        Huzefa Mustafa <span>22</span>
-                      </h3>
-                      <h6>Karachi, Pakistan</h6>
-                      <h4>Solution Manager - Creative Tim Officer</h4>
-                      <h5>University of Computer Science</h5>
+                      <h3>{cust.username}</h3>
+                      <h6>
+                        {cust.city}  {cust.country}
+                      </h6>
+                      <h4>{cust.email}</h4>
+                      <h5>{cust.mobileNumber}</h5>
                       <hr />
-                      <p>
-                        Ryan — the name taken by Melbourne-raised,
-                        Brooklyn-based Nick Murphy — writes, performs and
-                        records all of his own music.
-                      </p>
+                      <p>{cust.address}</p>
                     </div>
                   </div>
                 </div>
@@ -238,6 +220,7 @@ const CustProfile = () => {
         </div>
       </div>
     </>
+
   );
 };
 

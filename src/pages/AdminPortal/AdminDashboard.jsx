@@ -64,7 +64,7 @@ function AdminDashboard() {
 
   return (
     <>
-      <button
+      {/* <button
         ref={modalRef}
         type="button"
         className="btn btn-primary"
@@ -105,7 +105,7 @@ function AdminDashboard() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="d-flex">
         <div className="sidebar_div">
           <NavSidebar

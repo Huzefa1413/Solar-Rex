@@ -5,25 +5,23 @@ import { useProSidebar } from 'react-pro-sidebar';
 import '../components/components.css';
 import profilepic from '../assets/avatar.jpg';
 import { useAuth } from '../ContextAPI/Components/auth';
+import { getLogin_user, update_profile } from '../ContextAPI/APIs/api';
 
 const Profile = () => {
-  const { user } = useAuth();
+  const { user, GetLoginUser } = useAuth();
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
     useProSidebar();
 
-  const [apiData, setApiData] = useState({
-    username: 'Huzefa',
-    mobileNumber: '+9233342323431',
-    email: 'huzefahafdihaifahiafjioafjafiojf@gmail.com',
-    telephoneNumber: '-',
-    address: 'Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09',
-    postalCode: '75362',
-    city: 'Karachi',
-    country: 'Pakistan',
-    profilePicture: null, // You can set an initial value for profile picture if needed}
-  });
 
-  const [formData, setFormData] = useState(apiData);
+
+  const [formData, setFormData] = useState({
+    username: user.username || "",
+    email: user.email || "",
+    phone: user.phone || "",
+    address: user.address || "",
+    city: user.cty || "",
+    country: user.country || "",
+  });
   const [isEditing, setIsEditing] = useState(false);
 
   const handleInputChange = (e) => {
@@ -35,10 +33,22 @@ const Profile = () => {
     setIsEditing(true);
   };
 
-  const handleSaveButtonClick = () => {
-    setIsEditing(false);
-    setApiData(formData);
+  const handleSaveButtonClick = async () => {
+    try {
+      setIsEditing(false);
+      const response = await update_profile(formData)
+      alert(response.success, response.message)
+      if (response.success) {
+        GetLoginUser()
+      }
+    }
+    catch (e) {
+      console.log(e);
+    }
   };
+
+
+
 
   return (
     <>
@@ -72,7 +82,7 @@ const Profile = () => {
             } */}
 
             <div className="welcome">
-              <h2>Hello, {apiData.username}</h2>
+              <h2>Hello, {user.username}</h2>
               <p>This is your profile page. You can see your details here.</p>
             </div>
             <div className="container-fluid">
@@ -95,7 +105,7 @@ const Profile = () => {
                                   name="username"
                                   value={formData.username}
                                   onChange={handleInputChange}
-                                  disabled={!isEditing}
+                                  disabled
                                 />
                               </div>
                             </div>
@@ -105,9 +115,9 @@ const Profile = () => {
                                 <input
                                   type="text"
                                   name="mobileNumber"
-                                  value={formData.mobileNumber}
+                                  value={formData.phone}
                                   onChange={handleInputChange}
-                                  disabled={!isEditing}
+                                  disabled
                                 />
                               </div>
                             </div>
@@ -121,22 +131,11 @@ const Profile = () => {
                                   name="email"
                                   value={formData.email}
                                   onChange={handleInputChange}
-                                  disabled={!isEditing}
+                                  disabled
                                 />
                               </div>
                             </div>
-                            <div className="col-lg-6">
-                              <div className="form-group">
-                                <label htmlFor="">Telephone Number</label>
-                                <input
-                                  type="text"
-                                  name="telephoneNumber"
-                                  value={formData.telephoneNumber}
-                                  onChange={handleInputChange}
-                                  disabled={!isEditing}
-                                />
-                              </div>
-                            </div>
+
                           </div>
                         </div>
                         <hr />
@@ -231,14 +230,14 @@ const Profile = () => {
                       <img src={profilepic} alt="" />
                     </div>
                     <div className="profilebody">
-                      <h3>{apiData.username}</h3>
+                      <h3>{user.username}</h3>
                       <h6>
-                        {apiData.city}, {apiData.country}
+                        {user.city}  {user.country}
                       </h6>
-                      <h4>{apiData.email}</h4>
-                      <h5>{apiData.mobileNumber}</h5>
+                      <h4>{user.email}</h4>
+                      <h5>{user.mobileNumber}</h5>
                       <hr />
-                      <p>{apiData.address}</p>
+                      <p>{user.address}</p>
                     </div>
                   </div>
                 </div>

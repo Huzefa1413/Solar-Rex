@@ -52,8 +52,8 @@ function Navbar() {
                 </div>
                 <div className="ml-2">
                   <h6 className={`${isMobile ? 'd-none' : 'd-block mb-0'}`}>
-                    {/* {user?.username} */}
-                    Huzefa Mustafa
+                    {user?.username}
+                    {/* Huzefa Mustafa */}
                   </h6>
                 </div>
               </div>

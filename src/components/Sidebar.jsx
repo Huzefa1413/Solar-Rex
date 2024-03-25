@@ -86,24 +86,21 @@ function NavSidebar({
 
             <Link to="/dashboard" className="link">
               <MenuItem
-                className={`${style === 'dashboard' ? 'active' : 'unactive'} ${
-                  collapsed === true ? 'd-flex jc-center' : ''
-                } mt-2 link_one `}
+                className={`${style === 'dashboard' ? 'active' : 'unactive'} ${collapsed === true ? 'd-flex jc-center' : ''
+                  } mt-2 link_one `}
                 icon={
                   <LuLayoutDashboard
-                    className={`${
-                      style === 'admin_dashboard'
-                        ? 'active_sidebar_icon'
-                        : 'sidebar_icon'
-                    }`}
+                    className={`${style === 'admin_dashboard'
+                      ? 'active_sidebar_icon'
+                      : 'sidebar_icon'
+                      }`}
                   />
                 }
               >
                 <Link
                   to="/dashboard"
-                  className={`mx-1 my-1 ${
-                    style === 'admin_dashboard' ? 'activeLink' : 'link'
-                  } ${collapsed === true ? 'd-none' : 'd-block'}`}
+                  className={`mx-1 my-1 ${style === 'admin_dashboard' ? 'activeLink' : 'link'
+                    } ${collapsed === true ? 'd-none' : 'd-block'}`}
                   style={{ width: 'maxContent' }}
                 >
                   {' '}
@@ -111,59 +108,53 @@ function NavSidebar({
                 </Link>
               </MenuItem>
             </Link>
-
-            <Link to="/customerlist" className="link">
-              <MenuItem
-                className={`${
-                  style === 'customerlist' ? 'active' : 'unactive'
-                } ${
-                  collapsed === true ? 'd-flex jc-center' : ''
-                } mt-2 link_one `}
-                icon={
-                  <LuUsers
-                    className={`${
-                      style === 'customerlist'
+            {user.role === "admin" && (
+              <Link to="/customerlist" className="link">
+                <MenuItem
+                  className={`${style === 'customerlist' ? 'active' : 'unactive'
+                    } ${collapsed === true ? 'd-flex jc-center' : ''
+                    } mt-2 link_one `}
+                  icon={
+                    <LuUsers
+                      className={`${style === 'customerlist'
                         ? 'active_sidebar_icon'
                         : 'sidebar_icon'
-                    }`}
-                  />
-                }
-              >
-                <Link
-                  to="/customerlist"
-                  className={`mx-1 my-1 ${
-                    style === 'customerlist' ? 'activeLink' : 'link'
-                  } ${collapsed === true ? 'd-none' : 'd-block'}`}
-                  style={{ width: 'maxContent' }}
+                        }`}
+                    />
+                  }
                 >
-                  {' '}
-                  Customer List{' '}
-                </Link>
-              </MenuItem>
-            </Link>
+                  <Link
+                    to="/customerlist"
+                    className={`mx-1 my-1 ${style === 'customerlist' ? 'activeLink' : 'link'
+                      } ${collapsed === true ? 'd-none' : 'd-block'}`}
+                    style={{ width: 'maxContent' }}
+                  >
+                    {' '}
+                    Customer List{' '}
+                  </Link>
+                </MenuItem>
+              </Link>
+
+            )}
 
             <Link to="/transactiontable" className="link">
               <MenuItem
-                className={`${
-                  style === 'transactiontable' ? 'active' : 'unactive'
-                } ${
-                  collapsed === true ? 'd-flex jc-center' : ''
-                } mt-2 link_one `}
+                className={`${style === 'transactiontable' ? 'active' : 'unactive'
+                  } ${collapsed === true ? 'd-flex jc-center' : ''
+                  } mt-2 link_one `}
                 icon={
                   <LuActivity
-                    className={`${
-                      style === 'transactiontable'
-                        ? 'active_sidebar_icon'
-                        : 'sidebar_icon'
-                    }`}
+                    className={`${style === 'transactiontable'
+                      ? 'active_sidebar_icon'
+                      : 'sidebar_icon'
+                      }`}
                   />
                 }
               >
                 <Link
                   to="/transactiontable"
-                  className={`mx-1 my-1 ${
-                    style === 'transactiontable' ? 'activeLink' : 'link'
-                  } ${collapsed === true ? 'd-none' : 'd-block'}`}
+                  className={`mx-1 my-1 ${style === 'transactiontable' ? 'activeLink' : 'link'
+                    } ${collapsed === true ? 'd-none' : 'd-block'}`}
                   style={{ width: 'maxContent' }}
                 >
                   {' '}
@@ -171,34 +162,34 @@ function NavSidebar({
                 </Link>
               </MenuItem>
             </Link>
-
-            <Link to="/buyenergy" className="link">
-              <MenuItem
-                className={`${style === 'buyenergy' ? 'active' : 'unactive'} ${
-                  collapsed === true ? 'd-flex jc-center' : ''
-                } mt-2 link_one `}
-                icon={
-                  <LuZap
-                    className={`${
-                      style === 'buyenergy'
-                        ? 'active_sidebar_icon'
-                        : 'sidebar_icon'
-                    }`}
-                  />
-                }
-              >
-                <Link
-                  to="/buyenergy"
-                  className={`mx-1 my-1 ${
-                    style === 'buyenergy' ? 'activeLink' : 'link'
-                  } ${collapsed === true ? 'd-none' : 'd-block'}`}
-                  style={{ width: 'maxContent' }}
-                >
-                  {' '}
-                  Energy{' '}
+            {
+              user.role === "user" && (
+                <Link to="/buyenergy" className="link">
+                  <MenuItem
+                    className={`${style === 'buyenergy' ? 'active' : 'unactive'} ${collapsed === true ? 'd-flex jc-center' : ''
+                      } mt-2 link_one `}
+                    icon={
+                      <LuZap
+                        className={`${style === 'buyenergy'
+                          ? 'active_sidebar_icon'
+                          : 'sidebar_icon'
+                          }`}
+                      />
+                    }
+                  >
+                    <Link
+                      to="/buyenergy"
+                      className={`mx-1 my-1 ${style === 'buyenergy' ? 'activeLink' : 'link'
+                        } ${collapsed === true ? 'd-none' : 'd-block'}`}
+                      style={{ width: 'maxContent' }}
+                    >
+                      {' '}
+                      Energy{' '}
+                    </Link>
+                  </MenuItem>
                 </Link>
-              </MenuItem>
-            </Link>
+              )
+            }
           </Menu>
         </Sidebar>
       </div>

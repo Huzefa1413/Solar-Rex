@@ -118,3 +118,18 @@ export const get_transactions = async (body) => {
     }
 }
 
+export const update_profile = async (body) => {
+    try {
+        const data = await axios.post(`${API_URL}/user/update_profile`, body)
+            .then(res => {
+                // console.log(res);
+                return (res.data);
+            })
+        return data;
+    }
+    catch (err) {
+        console.log(err.response.data);
+        return err.response.data;
+    }
+}
+

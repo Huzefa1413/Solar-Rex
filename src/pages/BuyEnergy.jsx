@@ -23,6 +23,7 @@ import { buy } from '../ContextAPI/APIs/api';
 import { useToast } from '../ContextAPI/Components/toast';
 const BuyEnergy = () => {
   const { user } = useAuth();
+  console.log("UUU", user);
   const { alert } = useToast();
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
     useProSidebar();

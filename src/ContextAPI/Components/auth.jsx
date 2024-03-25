@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }) => {
 
         if (res?.success) {
             console.log("token", res.hash);
+            console.log("token", res.user);
             setUser(res?.user)
 
             setCookie('pk2', res.hash, {
@@ -71,6 +72,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     function Logout() {
+        console.log("FUNCCC");
         removeCookie("pk2")
         setUser(null);
         // GetLoginUser()
