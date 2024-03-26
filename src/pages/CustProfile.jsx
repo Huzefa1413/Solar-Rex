@@ -9,35 +9,46 @@ import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { getCustProfile } from '../ContextAPI/APIs/api';
 import { useEffect } from 'react';
+import PredictionLineChart from '../components/Charts/PredictionChart';
+import BarChart from '../components/Charts/Charts.Students/BarChart';
 const CustProfile = () => {
   const { id } = useParams();
   const { user } = useAuth();
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
     useProSidebar();
 
-
-
-  const [cust, setCust] = useState({})
-
+  const [cust, setCust] = useState({});
+  const soldvsproduced = {
+    count: [2200, 2500],
+    names: ['Sold', 'Produced'],
+  };
+  const lastmonths = {
+    count: [100, 110, 90, 100, 110, 90],
+    names: [
+      'October',
+      'November',
+      'December',
+      'October',
+      'November',
+      'December',
+    ],
+  };
 
   const fetchAlldata = async () => {
     try {
-
-      const response = await getCustProfile(id)
+      const response = await getCustProfile(id);
 
       if (response.message !== null) {
-        setCust(response.message)
+        setCust(response.message);
       }
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
     }
-  }
-
+  };
 
   useEffect(() => {
-    fetchAlldata()
-  }, [])
+    fetchAlldata();
+  }, []);
 
   return (
     <>
@@ -71,129 +82,35 @@ const CustProfile = () => {
           } */}
 
             <div className="welcome">
-              <h2>Hello, {cust.username}</h2>
-              <p>This is your profile page. You can see your details here.</p>
+              <h2>{cust.username}'s Profile Page</h2>
+              <p>
+                This is {cust.username}'s profile page. You can see their
+                details here.
+              </p>
             </div>
             <div className="container-fluid">
               <div className="row" style={{ flexWrap: 'wrap-reverse' }}>
                 <div className="col-xl-8">
-                  <div className="detailsbox">
-                    <div className="boxheader">
-                      <h3>My account</h3>
-                    </div>
-                    <div className="boxbody">
-                      <div>
-                        <h6>User Information</h6>
-                        <div className="formdetails">
-                          <div className="row">
-                            <div className="col-lg-6">
-                              <div className="form-group">
-                                <label htmlFor="">Username</label>
-                                <input
-                                  type="text"
-                                  name="username"
-                                  value={cust.username}
-                                  disabled
-                                />
-                              </div>
-                            </div>
-                            <div className="col-lg-6">
-                              <div className="form-group">
-                                <label htmlFor="">Mobile Number</label>
-                                <input
-                                  type="text"
-                                  name="mobileNumber"
-                                  value={cust.phone}
-
-                                  disabled
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div className="row">
-                            <div className="col-lg-6">
-                              <div className="form-group">
-                                <label htmlFor="">Email</label>
-                                <input
-                                  type="text"
-                                  name="email"
-                                  value={cust.email}
-
-                                  disabled
-                                />
-                              </div>
-                            </div>
-
-                          </div>
-                        </div>
-                        <hr />
-                        <h6>Address Details</h6>
-                        <div className="formdetails">
-                          <div className="row">
-                            <div className="col-md-12">
-                              <div className="form-group">
-                                <label htmlFor="">Address</label>
-                                <input
-                                  type="text"
-                                  name="address"
-                                  value={cust.address}
-
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div className="row">
-                            <div className="col-lg-4">
-                              <div className="form-group">
-                                <label htmlFor="">Postal Code</label>
-                                <input
-                                  type="text"
-                                  name="postalCode"
-                                  value={cust.postalCode}
-
-                                />
-                              </div>
-                            </div>
-                            <div className="col-lg-4">
-                              <div className="form-group">
-                                <label htmlFor="">City</label>
-                                <input
-                                  type="text"
-                                  name="city"
-                                  value={cust.city}
-
-                                />
-                              </div>
-                            </div>
-                            <div className="col-lg-4">
-                              <div className="form-group">
-                                <label htmlFor="">Country</label>
-                                <input
-                                  type="text"
-                                  name="country"
-                                  value={cust.country}
-
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <hr />
-                        <h6>Profile Picture</h6>
-                        <div className="formdetails">
-                          <div className="form-group">
-                            <label htmlFor="">Profile Picture</label>
-                            <input
-                              type="file"
-                              accept="image/*"
-                              name="profilePicture"
-                              value={cust.profilePicture}
-
-                            />
-                          </div>
-                        </div>
+                  <div className="row py-4">
+                    <div className="my-2">
+                      <div className="chart-container">
+                        <span>Production Prediction</span>
+                        <PredictionLineChart
+                          predictions={[100, 120, 100, 90, 130]}
+                        />
                       </div>
-                      <hr />
+                    </div>
+                    <div className="my-2">
+                      <div className="chart-container">
+                        <span>Last 3 Months Production</span>
+                        <BarChart barData={lastmonths} />
+                      </div>
+                    </div>
+                    <div className="my-2">
+                      <div className="chart-container">
+                        <span>Energy Sold vs Produced</span>
+                        <BarChart barData={soldvsproduced} />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -205,7 +122,7 @@ const CustProfile = () => {
                     <div className="profilebody">
                       <h3>{cust.username}</h3>
                       <h6>
-                        {cust.city}  {cust.country}
+                        {cust.city} {cust.country}
                       </h6>
                       <h4>{cust.email}</h4>
                       <h5>{cust.mobileNumber}</h5>
@@ -220,7 +137,6 @@ const CustProfile = () => {
         </div>
       </div>
     </>
-
   );
 };
 

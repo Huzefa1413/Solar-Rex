@@ -159,7 +159,7 @@ function AdminDashboard() {
               <div className="col-md-5 my-2">
                 <div className="chart-container">
                   <span>Energy Meter</span>
-                  <RadialBarChart noStd={75} />
+                  <RadialBarChart noStd={75} energy={536} />
                 </div>
               </div>
               <div className="col-md-7 my-2">
