@@ -133,3 +133,149 @@ export const update_profile = async (body) => {
     }
 }
 
+
+
+export const adminCards = async () => {
+    try {
+        const data = await axios.get(`${API_URL}/analytics/adminCards`)
+            .then(res => {
+                // console.log(res);
+                return (res.data);
+            })
+        return data;
+    }
+    catch (err) {
+        console.log(err.response.data);
+        return err.response.data;
+    }
+}
+
+
+export const userCards = async () => {
+    try {
+        const data = await axios.get(`${API_URL}/analytics/userCards`)
+            .then(res => {
+                // console.log(res);
+                return (res.data);
+            })
+        return data;
+    }
+    catch (err) {
+        console.log(err.response.data);
+        return err.response.data;
+    }
+}
+
+
+
+
+export const UpdateProfilePic = async (body) => {
+    try {
+        const data = await axios.post(`${API_URL}/user/uploadProfilePic`, body)
+            .then(res => {
+                // console.log(res);
+                return (res.data);
+            })
+        return data;
+    }
+    catch (err) {
+        console.log(err.response.data);
+        return err.response.data;
+    }
+}
+
+
+export const last3months = async () => {
+    try {
+        const data = await axios.get(`${API_URL}/analytics/last3months`)
+            .then(res => {
+                // console.log(res);
+                return (res.data);
+            })
+        return data;
+    }
+    catch (err) {
+        console.log(err.response.data);
+        return err.response.data;
+    }
+}
+
+export const last3monthsSoldvsProduced = async () => {
+    try {
+        const data = await axios.get(`${API_URL}/analytics/last3monthsSoldvsProduced`)
+            .then(res => {
+                // console.log(res);
+                return (res.data);
+            })
+        return data;
+    }
+    catch (err) {
+        console.log(err.response.data);
+        return err.response.data;
+    }
+}
+
+
+export const last3monthsConsumption = async () => {
+    try {
+        const data = await axios.get(`${API_URL}/analytics/last3monthsConsumption`)
+            .then(res => {
+                // console.log(res);
+                return (res.data);
+            })
+        return data;
+    }
+    catch (err) {
+        console.log(err.response.data);
+        return err.response.data;
+    }
+}
+
+export const lastMonthsPurchasedVsConsumed = async () => {
+    try {
+        const data = await axios.get(`${API_URL}/analytics/lastMonthsPurchasedVsConsumed`)
+            .then(res => {
+                // console.log(res);
+                return (res.data);
+            })
+        return data;
+    }
+    catch (err) {
+        console.log(err.response.data);
+        return err.response.data;
+    }
+}
+
+
+export const productionPrediction = async () => {
+    try {
+        const data = await axios.get(`${API_URL}/analytics/productionPrediction`)
+            .then(res => {
+                // console.log(res);
+                return (res.data);
+            })
+        return data;
+    }
+    catch (err) {
+        console.log(err.response.data);
+        return err.response.data;
+    }
+}
+
+
+
+
+export const consumptionPrediction = async () => {
+    try {
+        const data = await axios.get(`${API_URL}/analytics/consumptionPrediction`)
+            .then(res => {
+                // console.log(res);
+                return (res.data);
+            })
+        return data;
+    }
+    catch (err) {
+        console.log(err.response.data);
+        return err.response.data;
+    }
+}

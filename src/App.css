@@ -1677,6 +1677,99 @@ body {
   width: 50%;
 }
 
+
+.profile_section .profile_picture {
+  max-width: 140px;
+}
+
+.profile_section .profile_picture .save_btn {
+  width: 100%;
+}
+.profile_picture .icon {
+  /* color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+  cursor: pointer; */
+  border: 2px solid var(--borderColor);
+  border-radius: 0.5rem;
+  width: 120px;
+}
+
+.profile_picture .icon i {
+  margin: 0% 7px;
+  color: var(--themePurpleColor);
+}
+
+
+.profile-image {
+  /* padding: 0.5rem; */
+  position: relative;
+  max-width: 120px;
+  max-height: 120px;
+  border-radius: var(--borderRadius);
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--borderColor) !important;
+}
+
+
+.profile-image.sm {
+  width: 50px;
+  max-width: 50px;
+  max-height: 50px;
+  min-height: 50px;
+  border-radius: 0.5rem;
+}
+
+.profile-image.md {
+  max-width: 60px;
+  max-height: 60px;
+  border-radius: 0.5rem;
+}
+
+.profile-image.lg {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.profile-image.xlg {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+.profile-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* padding: 0.5rem; */
+}
+
+.profile-image .overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: auto;
+  width: 100%;
+  opacity: 0;
+  transition: .3s ease;
+  background-color: rgba(177, 186, 211, 66%);
+  border-radius: var(--borderRadius);
+}
+
+.profile-image:hover .overlay {
+  opacity: 1;
+}
 /* =========================================== C R E A T E  U S E R =========================================== */
 
 .create_user_section {

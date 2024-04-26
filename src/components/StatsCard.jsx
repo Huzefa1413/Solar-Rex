@@ -3,8 +3,10 @@ import React from 'react';
 import { Card, CardBody, CardTitle, Row, Col } from 'reactstrap';
 
 import './components.css';
-
+import { useAuth } from '../ContextAPI/Components/auth';
 const Cards = (props) => {
+  const { user } = useAuth();
+
   return (
     <>
       <div className="col-sm-6 col-xl-3">

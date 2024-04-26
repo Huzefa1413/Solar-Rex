@@ -6,9 +6,12 @@ import '../components/components.css';
 import profilepic from '../assets/avatar.jpg';
 import { useAuth } from '../ContextAPI/Components/auth';
 import { getLogin_user, update_profile } from '../ContextAPI/APIs/api';
-
+import { useToast } from '../ContextAPI/Components/toast';
+import Upload_Profile_Pic from "../ContextAPI/Components/Upload_Profile_Pic"
 const Profile = () => {
   const { user, GetLoginUser } = useAuth();
+  const { alert } = useToast();
+
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
     useProSidebar();
 
@@ -19,8 +22,9 @@ const Profile = () => {
     email: user.email || "",
     phone: user.phone || "",
     address: user.address || "",
-    city: user.cty || "",
+    city: user.city || "",
     country: user.country || "",
+    inverterId: user.inverterId || "",
   });
   const [isEditing, setIsEditing] = useState(false);
 
@@ -37,7 +41,7 @@ const Profile = () => {
     try {
       setIsEditing(false);
       const response = await update_profile(formData)
-      alert(response.success, response.message)
+      alert(response.message, response.success)
       if (response.success) {
         GetLoginUser()
       }
@@ -83,7 +87,12 @@ const Profile = () => {
 
             <div className="welcome">
               <h2>Hello, {user.username}</h2>
-              <p>This is your profile page. You can see your details here.</p>
+              {
+                !user.profileSetup ?
+                  <p>Please Setup Your Profile to proceed.</p>
+                  :
+                  <p>This is your profile page. You can see your details here.</p>
+              }
             </div>
             <div className="container-fluid">
               <div className="row" style={{ flexWrap: 'wrap-reverse' }}>
@@ -139,6 +148,25 @@ const Profile = () => {
                           </div>
                         </div>
                         <hr />
+                        <h6>Inverter Details</h6>
+                        <div className="formdetails">
+                          <div className="row">
+                            <div className="col-md-12">
+                              <div className="form-group">
+                                <label htmlFor="">Inverter ID</label>
+                                <input
+                                  type="text"
+                                  name="inverterId"
+                                  value={formData.inverterId}
+                                  onChange={handleInputChange}
+
+                                />
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
                         <h6>Address Details</h6>
                         <div className="formdetails">
                           <div className="row">
@@ -150,7 +178,7 @@ const Profile = () => {
                                   name="address"
                                   value={formData.address}
                                   onChange={handleInputChange}
-                                  disabled={!isEditing}
+
                                 />
                               </div>
                             </div>
@@ -164,7 +192,7 @@ const Profile = () => {
                                   name="postalCode"
                                   value={formData.postalCode}
                                   onChange={handleInputChange}
-                                  disabled={!isEditing}
+
                                 />
                               </div>
                             </div>
@@ -176,7 +204,7 @@ const Profile = () => {
                                   name="city"
                                   value={formData.city}
                                   onChange={handleInputChange}
-                                  disabled={!isEditing}
+
                                 />
                               </div>
                             </div>
@@ -188,38 +216,23 @@ const Profile = () => {
                                   name="country"
                                   value={formData.country}
                                   onChange={handleInputChange}
-                                  disabled={!isEditing}
+
                                 />
                               </div>
                             </div>
                           </div>
                         </div>
                         <hr />
-                        <h6>Profile Picture</h6>
-                        <div className="formdetails">
-                          <div className="form-group">
-                            <label htmlFor="">Profile Picture</label>
-                            <input
-                              type="file"
-                              accept="image/*"
-                              name="profilePicture"
-                              value={formData.profilePicture}
-                              onChange={handleInputChange}
-                              disabled={!isEditing}
-                            />
-                          </div>
-                        </div>
+
                       </div>
                       <hr />
                       <button
-                        className={isEditing ? 'save' : 'edit'}
+                        className={'save'}
                         onClick={
-                          isEditing
-                            ? handleSaveButtonClick
-                            : handleEditButtonClick
+                          handleSaveButtonClick
                         }
                       >
-                        {isEditing ? 'Save' : 'Edit'}
+                        {'Save'}
                       </button>
                     </div>
                   </div>
@@ -227,7 +240,10 @@ const Profile = () => {
                 <div className="col-xl-4">
                   <div className="profilebox">
                     <div className="profileheader">
-                      <img src={profilepic} alt="" />
+                      {/* <img src={profilepic} alt="" /> */}
+                    </div>
+                    <div className="col-md-6 col-sm-6 col-12">
+                      <Upload_Profile_Pic />
                     </div>
                     <div className="profilebody">
                       <h3>{user.username}</h3>

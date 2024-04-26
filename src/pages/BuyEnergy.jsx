@@ -21,8 +21,14 @@ import {
 import { useAuth } from '../ContextAPI/Components/auth';
 import { buy } from '../ContextAPI/APIs/api';
 import { useToast } from '../ContextAPI/Components/toast';
+import { useNavigate } from 'react-router-dom';
 const BuyEnergy = () => {
+
+  const navigate = useNavigate();
   const { user } = useAuth();
+  if (user.role !== "admin" && !user.profileSetup) {
+    navigate("/profile")
+  }
   console.log("UUU", user);
   const { alert } = useToast();
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =

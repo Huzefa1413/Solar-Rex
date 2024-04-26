@@ -1,6 +1,6 @@
 import { API_URL } from "../config"
 
-export const profilePicUrl = `${API_URL}/static/files/ProfilePics`;
+export const profilePicUrl = `${API_URL}/static/files/pprofilePics`;
 
 
 
