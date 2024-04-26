@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../ContextAPI/Components/auth';
-
+import { profilePicUrl } from '../helpers/data';
 import LOGO from '../assets/logosolarrex.png';
 
 import avatar from '../assets/avatar.jpg';
@@ -48,7 +48,7 @@ function Navbar() {
             <div className="nav-item __account">
               <div className="account d-flex ai-center jc-end">
                 <div className="img">
-                  <img src={avatar} alt="" />
+                  <img src={`${profilePicUrl}/${user.profilepic}`} alt="" />
                 </div>
                 <div className="ml-2">
                   <h6 className={`${isMobile ? 'd-none' : 'd-block mb-0'}`}>

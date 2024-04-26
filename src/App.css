@@ -1710,7 +1710,7 @@ body {
   position: relative;
   max-width: 120px;
   max-height: 120px;
-  border-radius: var(--borderRadius);
+  border-radius: 100%;
   overflow: hidden;
   margin-bottom: 0.5rem;
   display: flex;

@@ -7,7 +7,8 @@ import profilepic from '../assets/avatar.jpg';
 import { useAuth } from '../ContextAPI/Components/auth';
 import { getLogin_user, update_profile } from '../ContextAPI/APIs/api';
 import { useToast } from '../ContextAPI/Components/toast';
-import Upload_Profile_Pic from "../ContextAPI/Components/Upload_Profile_Pic"
+import { profilePicUrl } from '../helpers/data';
+import Upload_Profile_Pic from '../ContextAPI/Components/Upload_Profile_Pic';
 const Profile = () => {
   const { user, GetLoginUser } = useAuth();
   const { alert } = useToast();
@@ -15,16 +16,14 @@ const Profile = () => {
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
     useProSidebar();
 
-
-
   const [formData, setFormData] = useState({
-    username: user.username || "",
-    email: user.email || "",
-    phone: user.phone || "",
-    address: user.address || "",
-    city: user.city || "",
-    country: user.country || "",
-    inverterId: user.inverterId || "",
+    username: user.username || '',
+    email: user.email || '',
+    phone: user.phone || '',
+    address: user.address || '',
+    city: user.city || '',
+    country: user.country || '',
+    inverterId: user.inverterId || '',
   });
   const [isEditing, setIsEditing] = useState(false);
 
@@ -40,19 +39,15 @@ const Profile = () => {
   const handleSaveButtonClick = async () => {
     try {
       setIsEditing(false);
-      const response = await update_profile(formData)
-      alert(response.message, response.success)
+      const response = await update_profile(formData);
+      alert(response.message, response.success);
       if (response.success) {
-        GetLoginUser()
+        GetLoginUser();
       }
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
     }
   };
-
-
-
 
   return (
     <>
@@ -87,12 +82,11 @@ const Profile = () => {
 
             <div className="welcome">
               <h2>Hello, {user.username}</h2>
-              {
-                !user.profileSetup ?
-                  <p>Please Setup Your Profile to proceed.</p>
-                  :
-                  <p>This is your profile page. You can see your details here.</p>
-              }
+              {!user.profileSetup ? (
+                <p>Please Setup Your Profile to proceed.</p>
+              ) : (
+                <p>This is your profile page. You can see your details here.</p>
+              )}
             </div>
             <div className="container-fluid">
               <div className="row" style={{ flexWrap: 'wrap-reverse' }}>
@@ -144,7 +138,6 @@ const Profile = () => {
                                 />
                               </div>
                             </div>
-
                           </div>
                         </div>
                         <hr />
@@ -159,14 +152,12 @@ const Profile = () => {
                                   name="inverterId"
                                   value={formData.inverterId}
                                   onChange={handleInputChange}
-
                                 />
                               </div>
                             </div>
                           </div>
-
                         </div>
-
+                        <hr />
                         <h6>Address Details</h6>
                         <div className="formdetails">
                           <div className="row">
@@ -178,7 +169,6 @@ const Profile = () => {
                                   name="address"
                                   value={formData.address}
                                   onChange={handleInputChange}
-
                                 />
                               </div>
                             </div>
@@ -192,7 +182,6 @@ const Profile = () => {
                                   name="postalCode"
                                   value={formData.postalCode}
                                   onChange={handleInputChange}
-
                                 />
                               </div>
                             </div>
@@ -204,7 +193,6 @@ const Profile = () => {
                                   name="city"
                                   value={formData.city}
                                   onChange={handleInputChange}
-
                                 />
                               </div>
                             </div>
@@ -216,23 +204,23 @@ const Profile = () => {
                                   name="country"
                                   value={formData.country}
                                   onChange={handleInputChange}
-
                                 />
                               </div>
                             </div>
                           </div>
                         </div>
                         <hr />
-
+                        <div className="formdetails">
+                          <h6>Profile Picture</h6>
+                          <Upload_Profile_Pic />
+                        </div>
                       </div>
                       <hr />
                       <button
                         className={'save'}
-                        onClick={
-                          handleSaveButtonClick
-                        }
+                        onClick={handleSaveButtonClick}
                       >
-                        {'Save'}
+                        Save
                       </button>
                     </div>
                   </div>
@@ -240,15 +228,14 @@ const Profile = () => {
                 <div className="col-xl-4">
                   <div className="profilebox">
                     <div className="profileheader">
-                      {/* <img src={profilepic} alt="" /> */}
+                      <img src={`${profilePicUrl}/${user.profilepic}`} alt="" />
                     </div>
-                    <div className="col-md-6 col-sm-6 col-12">
-                      <Upload_Profile_Pic />
-                    </div>
+                    {/* <div className="col-md-6 col-sm-6 col-12">
+                    </div> */}
                     <div className="profilebody">
                       <h3>{user.username}</h3>
                       <h6>
-                        {user.city}  {user.country}
+                        {user.city} {user.country}
                       </h6>
                       <h4>{user.email}</h4>
                       <h5>{user.mobileNumber}</h5>

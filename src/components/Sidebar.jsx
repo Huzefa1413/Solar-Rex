@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { useAuth } from '../ContextAPI/Components/auth';
 import { usePathname } from '../ContextAPI/Components/PathnameContext';
-
+import { profilePicUrl } from '../helpers/data';
 import {
   Sidebar,
   Menu,
@@ -220,7 +220,7 @@ function NavSidebar({
                         ? 'active_sidebar_icon'
                         : 'sidebar_icon'
                     }`}
-                    src={avatar}
+                    src={`${profilePicUrl}/${user.profilepic}`}
                     alt=""
                     style={{
                       width: '36px',

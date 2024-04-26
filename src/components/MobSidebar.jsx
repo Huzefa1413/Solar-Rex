@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { useAuth } from '../ContextAPI/Components/auth';
 import { usePathname } from '../ContextAPI/Components/PathnameContext';
-
+import { profilePicUrl } from '../helpers/data';
 import { BsBook } from 'react-icons/bs';
 import { HiBars3 } from 'react-icons/hi2';
 import { FaWpforms } from 'react-icons/fa';
@@ -167,7 +167,7 @@ function MobSidebar() {
                 <div className="d-flex ai-center">
                   <img
                     className="me-2 link_icon"
-                    src={avatar}
+                    src={`${profilePicUrl}/${user.profilepic}`}
                     alt=""
                     style={{
                       width: '36px',
