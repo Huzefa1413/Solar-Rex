@@ -1677,7 +1677,6 @@ body {
   width: 50%;
 }
 
-
 .profile_section .profile_picture {
   max-width: 140px;
 }
@@ -1706,7 +1705,6 @@ body {
   color: var(--themePurpleColor);
 }
 
-
 .profile-image {
   /* padding: 0.5rem; */
   position: relative;
@@ -1720,7 +1718,6 @@ body {
   justify-content: center;
   border: 1px solid var(--borderColor) !important;
 }
-
 
 .profile-image.sm {
   width: 50px;
@@ -1762,7 +1759,7 @@ body {
   height: auto;
   width: 100%;
   opacity: 0;
-  transition: .3s ease;
+  transition: 0.3s ease;
   background-color: rgba(177, 186, 211, 66%);
   border-radius: var(--borderRadius);
 }
@@ -1934,22 +1931,38 @@ body {
 
 .signup_pass_page {
   /* background-color: rgba(146, 74, 239, 0.25); */
-  background: linear-gradient(87deg, #11cdef, #1171ef) !important;
+  /* background: linear-gradient(87deg, #11cdef, #1171ef) !important; */
+  background-image: url('./assets/bg.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
 }
 
 .signin_pass_page {
   /* background-color: rgb(144, 72, 239, 0.6); */
-  background: linear-gradient(87deg, #11cdef, #1171ef) !important;
+  /* background: linear-gradient(87deg, #11cdef, #1171ef) !important; */
+  background-image: url('./assets/bg.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
 }
 
 .forgot_pass_page {
   /* background-color: rgba(15, 9, 3, 0.25); */
-  background: linear-gradient(87deg, #11cdef, #1171ef) !important;
+  /* background: linear-gradient(87deg, #11cdef, #1171ef) !important; */
+  background-image: url('./assets/bg.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
 }
 
 .reset_pass_page {
   /* background-color: rgba(255, 74, 85, 0.25); */
-  background: linear-gradient(87deg, #11cdef, #1171ef) !important;
+  /* background: linear-gradient(87deg, #11cdef, #1171ef) !important; */
+  background-image: url('./assets/bg.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
 }
 
 .authentication_section {
@@ -2020,7 +2033,7 @@ body {
 
 .authentication_section .sign_form .sign_btn:hover {
   background-color: var(--btnHoverBgColor);
-  border: 2px dashed white !important;
+  border: 2px solid black !important;
 }
 
 .authentication_section .sign_form .signup_btn {
@@ -2040,7 +2053,7 @@ body {
 
 .authentication_section .sign_form .signup_btn:hover {
   background-color: var(--themePinkColor);
-  border: 2px dashed white !important;
+  border: 2px solid black !important;
 }
 
 .authentication_section .sign_form .link:hover {

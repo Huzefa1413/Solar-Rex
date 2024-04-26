@@ -28,12 +28,13 @@ import logo from '../assets/logosolarrex.png';
 import logo2 from '../assets/logo-icon.png';
 import germany_flag from '../assets/language icons/germany.png';
 import england_flag from '../assets/language icons/united-kingdom.png';
+import avatar from '../assets/avatar.jpg';
 
 import Collapse from 'react-bootstrap/Collapse';
 
 function MobSidebar() {
   const navigate = useNavigate();
-  const { user, setUser } = useAuth();
+  const { user } = useAuth();
   const { handlePathname, style } = usePathname();
   const [cookies, setCookie, removeCookie] = useCookies(['pk2']);
 
@@ -41,7 +42,7 @@ function MobSidebar() {
 
   function signout() {
     removeCookie('pk2');
-    setUser(null);
+    // setUser(null);
   }
 
   return (
@@ -86,7 +87,9 @@ function MobSidebar() {
                 style={{ width: '150px' }}
               />
             </li>
-
+            <Link>
+              <hr />
+            </Link>
             <li
               className={`${
                 style == 'admin_dashboard' ? 'active' : 'unactive'
@@ -104,19 +107,25 @@ function MobSidebar() {
                 </div>
               </Link>
             </li>
-            <li
-              className={`${style == 'customerlist' ? 'active' : 'unactive'}`}
-            >
-              <Link
-                to="/customerlist"
-                className={`${style == 'customerlist' ? 'activeLink' : 'link'}`}
+
+            {user.role === 'admin' && (
+              <li
+                className={`${style == 'customerlist' ? 'active' : 'unactive'}`}
               >
-                <div className="d-flex ai-center">
-                  <LuUsers className="me-2 link_icon" />
-                  <p>Customer List</p>
-                </div>
-              </Link>
-            </li>
+                <Link
+                  to="/customerlist"
+                  className={`${
+                    style == 'customerlist' ? 'activeLink' : 'link'
+                  }`}
+                >
+                  <div className="d-flex ai-center">
+                    <LuUsers className="me-2 link_icon" />
+                    <p>Customer List</p>
+                  </div>
+                </Link>
+              </li>
+            )}
+
             <li
               className={`${
                 style == 'transactiontable' ? 'active' : 'unactive'
@@ -134,17 +143,45 @@ function MobSidebar() {
                 </div>
               </Link>
             </li>
-            <li className={`${style == 'buyenergy' ? 'active' : 'unactive'}`}>
+            {user.role === 'user' && (
+              <li className={`${style == 'buyenergy' ? 'active' : 'unactive'}`}>
+                <Link
+                  to="/buyenergy"
+                  className={`${style == 'buyenergy' ? 'activeLink' : 'link'}`}
+                >
+                  <div className="d-flex ai-center">
+                    <LuZap className="me-2 link_icon" />
+                    <p>Energy</p>
+                  </div>
+                </Link>
+              </li>
+            )}
+            <Link>
+              <hr />
+            </Link>
+            <li className={`${style == 'profile' ? 'active' : 'unactive'}`}>
               <Link
-                to="/buyenergy"
-                className={`${style == 'buyenergy' ? 'activeLink' : 'link'}`}
+                to="/profile"
+                className={`${style == 'profile' ? 'activeLink' : 'link'}`}
               >
                 <div className="d-flex ai-center">
-                  <LuZap className="me-2 link_icon" />
-                  <p>Energy</p>
+                  <img
+                    className="me-2 link_icon"
+                    src={avatar}
+                    alt=""
+                    style={{
+                      width: '36px',
+                      borderRadius: '50px',
+                    }}
+                  />
+                  <p>{user?.username}</p>
                 </div>
               </Link>
             </li>
+
+            <Link>
+              <hr />
+            </Link>
           </ul>
         </div>
       </div>

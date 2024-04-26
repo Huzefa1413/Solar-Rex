@@ -25,11 +25,10 @@ import { LuZap } from 'react-icons/lu';
 import { LiaUniversitySolid } from 'react-icons/lia';
 import { MdAutorenew } from 'react-icons/md';
 import { PiSignInBold, PiStudent, PiUserCirclePlus } from 'react-icons/pi';
-
+import avatar from '../assets/avatar.jpg';
 import logo from '../assets/logosolarrex.png';
 import logo2 from '../assets/logo-icon.png';
 import DarkMode from './Darkmode';
-
 function NavSidebar({
   collapseSidebar,
   toggleSidebar,
@@ -38,6 +37,7 @@ function NavSidebar({
   broken,
   rtl,
 }) {
+  const isMobile = useMediaQuery({ query: '(max-width: 1200px)' });
   const { user } = useAuth();
 
   const { pathname: currentPath } = useLocation();
@@ -74,7 +74,7 @@ function NavSidebar({
               },
             }}
           >
-            <Link className="link">
+            <Link to="/dashboard" className="link">
               <MenuItem className="py-3 text-center">
                 <img
                   src={logo}
@@ -83,24 +83,29 @@ function NavSidebar({
                 />
               </MenuItem>
             </Link>
-
+            <Link>
+              <hr />
+            </Link>
             <Link to="/dashboard" className="link">
               <MenuItem
-                className={`${style === 'dashboard' ? 'active' : 'unactive'} ${collapsed === true ? 'd-flex jc-center' : ''
-                  } mt-2 link_one `}
+                className={`${style === 'dashboard' ? 'active' : 'unactive'} ${
+                  collapsed === true ? 'd-flex jc-center' : ''
+                } mt-2 link_one `}
                 icon={
                   <LuLayoutDashboard
-                    className={`${style === 'admin_dashboard'
-                      ? 'active_sidebar_icon'
-                      : 'sidebar_icon'
-                      }`}
+                    className={`${
+                      style === 'admin_dashboard'
+                        ? 'active_sidebar_icon'
+                        : 'sidebar_icon'
+                    }`}
                   />
                 }
               >
                 <Link
                   to="/dashboard"
-                  className={`mx-1 my-1 ${style === 'admin_dashboard' ? 'activeLink' : 'link'
-                    } ${collapsed === true ? 'd-none' : 'd-block'}`}
+                  className={`mx-1 my-1 ${
+                    style === 'admin_dashboard' ? 'activeLink' : 'link'
+                  } ${collapsed === true ? 'd-none' : 'd-block'}`}
                   style={{ width: 'maxContent' }}
                 >
                   {' '}
@@ -108,25 +113,29 @@ function NavSidebar({
                 </Link>
               </MenuItem>
             </Link>
-            {user.role === "admin" && (
+            {user.role === 'admin' && (
               <Link to="/customerlist" className="link">
                 <MenuItem
-                  className={`${style === 'customerlist' ? 'active' : 'unactive'
-                    } ${collapsed === true ? 'd-flex jc-center' : ''
-                    } mt-2 link_one `}
+                  className={`${
+                    style === 'customerlist' ? 'active' : 'unactive'
+                  } ${
+                    collapsed === true ? 'd-flex jc-center' : ''
+                  } mt-2 link_one `}
                   icon={
                     <LuUsers
-                      className={`${style === 'customerlist'
-                        ? 'active_sidebar_icon'
-                        : 'sidebar_icon'
-                        }`}
+                      className={`${
+                        style === 'customerlist'
+                          ? 'active_sidebar_icon'
+                          : 'sidebar_icon'
+                      }`}
                     />
                   }
                 >
                   <Link
                     to="/customerlist"
-                    className={`mx-1 my-1 ${style === 'customerlist' ? 'activeLink' : 'link'
-                      } ${collapsed === true ? 'd-none' : 'd-block'}`}
+                    className={`mx-1 my-1 ${
+                      style === 'customerlist' ? 'activeLink' : 'link'
+                    } ${collapsed === true ? 'd-none' : 'd-block'}`}
                     style={{ width: 'maxContent' }}
                   >
                     {' '}
@@ -134,27 +143,29 @@ function NavSidebar({
                   </Link>
                 </MenuItem>
               </Link>
-
             )}
-
             <Link to="/transactiontable" className="link">
               <MenuItem
-                className={`${style === 'transactiontable' ? 'active' : 'unactive'
-                  } ${collapsed === true ? 'd-flex jc-center' : ''
-                  } mt-2 link_one `}
+                className={`${
+                  style === 'transactiontable' ? 'active' : 'unactive'
+                } ${
+                  collapsed === true ? 'd-flex jc-center' : ''
+                } mt-2 link_one `}
                 icon={
                   <LuActivity
-                    className={`${style === 'transactiontable'
-                      ? 'active_sidebar_icon'
-                      : 'sidebar_icon'
-                      }`}
+                    className={`${
+                      style === 'transactiontable'
+                        ? 'active_sidebar_icon'
+                        : 'sidebar_icon'
+                    }`}
                   />
                 }
               >
                 <Link
                   to="/transactiontable"
-                  className={`mx-1 my-1 ${style === 'transactiontable' ? 'activeLink' : 'link'
-                    } ${collapsed === true ? 'd-none' : 'd-block'}`}
+                  className={`mx-1 my-1 ${
+                    style === 'transactiontable' ? 'activeLink' : 'link'
+                  } ${collapsed === true ? 'd-none' : 'd-block'}`}
                   style={{ width: 'maxContent' }}
                 >
                   {' '}
@@ -162,34 +173,76 @@ function NavSidebar({
                 </Link>
               </MenuItem>
             </Link>
-            {
-              user.role === "user" && (
-                <Link to="/buyenergy" className="link">
-                  <MenuItem
-                    className={`${style === 'buyenergy' ? 'active' : 'unactive'} ${collapsed === true ? 'd-flex jc-center' : ''
-                      } mt-2 link_one `}
-                    icon={
-                      <LuZap
-                        className={`${style === 'buyenergy'
+            {user.role === 'user' && (
+              <Link to="/buyenergy" className="link">
+                <MenuItem
+                  className={`${
+                    style === 'buyenergy' ? 'active' : 'unactive'
+                  } ${
+                    collapsed === true ? 'd-flex jc-center' : ''
+                  } mt-2 link_one `}
+                  icon={
+                    <LuZap
+                      className={`${
+                        style === 'buyenergy'
                           ? 'active_sidebar_icon'
                           : 'sidebar_icon'
-                          }`}
-                      />
-                    }
+                      }`}
+                    />
+                  }
+                >
+                  <Link
+                    to="/buyenergy"
+                    className={`mx-1 my-1 ${
+                      style === 'buyenergy' ? 'activeLink' : 'link'
+                    } ${collapsed === true ? 'd-none' : 'd-block'}`}
+                    style={{ width: 'maxContent' }}
                   >
-                    <Link
-                      to="/buyenergy"
-                      className={`mx-1 my-1 ${style === 'buyenergy' ? 'activeLink' : 'link'
-                        } ${collapsed === true ? 'd-none' : 'd-block'}`}
-                      style={{ width: 'maxContent' }}
-                    >
-                      {' '}
-                      Energy{' '}
-                    </Link>
-                  </MenuItem>
+                    {' '}
+                    Energy{' '}
+                  </Link>
+                </MenuItem>
+              </Link>
+            )}
+            <Link>
+              <hr />
+            </Link>
+
+            <Link to="/profile" className="link">
+              <MenuItem
+                className={`${style === 'profile' ? 'active' : 'unactive'} ${
+                  collapsed === true ? 'd-flex jc-center' : ''
+                } mt-2 link_one `}
+                icon={
+                  <img
+                    className={`${
+                      style === 'profile'
+                        ? 'active_sidebar_icon'
+                        : 'sidebar_icon'
+                    }`}
+                    src={avatar}
+                    alt=""
+                    style={{
+                      width: '36px',
+                      borderRadius: '50px',
+                    }}
+                  />
+                }
+              >
+                <Link
+                  to="/profile"
+                  className={`mx-1 my-1 ${
+                    style === 'profile' ? 'activeLink' : 'link'
+                  } ${collapsed === true ? 'd-none' : 'd-block'}`}
+                  style={{ width: 'maxContent' }}
+                >
+                  {user?.username}
                 </Link>
-              )
-            }
+              </MenuItem>
+            </Link>
+            <Link>
+              <hr />
+            </Link>
           </Menu>
         </Sidebar>
       </div>

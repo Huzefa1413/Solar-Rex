@@ -6,7 +6,6 @@ import './components.css';
 import { useAuth } from '../ContextAPI/Components/auth';
 const Cards = (props) => {
   const { user } = useAuth();
-
   return (
     <>
       <div className="col-sm-6 col-xl-3">
@@ -21,11 +20,11 @@ const Cards = (props) => {
               </div>
               <Col className="col-auto">
                 <div className="icon icon-shape bg-primary text-white rounded-circle shadow">
-                  <i className="fa fa-refresh" />
+                  <i className="fa fa-bolt" />
                 </div>
               </Col>
             </Row>
-            <p className="mt-3 mb-0 text-sm">
+            {/* <p className="mt-3 mb-0 text-sm">
               {props.perc > 0 ? (
                 <span className="mr-2 perc text-success">
                   <i className="fa fa-arrow-up" />
@@ -39,7 +38,7 @@ const Cards = (props) => {
               )}
 
               <span className="text-nowrap time">Since {props.date}</span>
-            </p>
+            </p> */}
           </CardBody>
         </Card>
       </div>
