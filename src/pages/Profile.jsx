@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
-import NavSidebar from '../components/Sidebar';
-import Navbar from '../components/Navbar';
-import { useProSidebar } from 'react-pro-sidebar';
-import '../components/components.css';
-import profilepic from '../assets/avatar.jpg';
 import { useAuth } from '../ContextAPI/Components/auth';
-import { getLogin_user, update_profile } from '../ContextAPI/APIs/api';
+import { update_profile } from '../ContextAPI/APIs/api';
 import { useToast } from '../ContextAPI/Components/toast';
 import { profilePicUrl } from '../helpers/data';
 import Upload_Profile_Pic from '../ContextAPI/Components/Upload_Profile_Pic';
+import Navbar from '../components/Navbar';
+import NavSidebar from '../components/Sidebar';
+import { useProSidebar } from 'react-pro-sidebar';
+import '../components/components.css';
+
 const Profile = () => {
   const { user, GetLoginUser } = useAuth();
   const { alert } = useToast();
-
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
     useProSidebar();
-
   const [formData, setFormData] = useState({
     username: user.username || '',
     email: user.email || '',
@@ -24,28 +22,23 @@ const Profile = () => {
     city: user.city || '',
     country: user.country || '',
     inverterId: user.inverterId || '',
+    postalCode: user.postalCode || '',
   });
-  const [isEditing, setIsEditing] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleEditButtonClick = () => {
-    setIsEditing(true);
-  };
-
   const handleSaveButtonClick = async () => {
     try {
-      setIsEditing(false);
       const response = await update_profile(formData);
       alert(response.message, response.success);
       if (response.success) {
         GetLoginUser();
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
@@ -73,13 +66,6 @@ const Profile = () => {
             rtl={rtl}
           />
           <section className="container-fluid py-3 profile">
-            {/* {
-              user.role == "admin" ?
-                <h1>Admin</h1>
-                :
-                <h1>User</h1>
-            } */}
-
             <div className="welcome">
               <h2>Hello, {user.username}</h2>
               {!user.profileSetup ? (
@@ -117,10 +103,9 @@ const Profile = () => {
                                 <label htmlFor="">Mobile Number</label>
                                 <input
                                   type="text"
-                                  name="mobileNumber"
+                                  name="phone"
                                   value={formData.phone}
                                   onChange={handleInputChange}
-                                  disabled
                                 />
                               </div>
                             </div>
@@ -141,23 +126,27 @@ const Profile = () => {
                           </div>
                         </div>
                         <hr />
-                        <h6>Inverter Details</h6>
-                        <div className="formdetails">
-                          <div className="row">
-                            <div className="col-md-12">
-                              <div className="form-group">
-                                <label htmlFor="">Inverter ID</label>
-                                <input
-                                  type="text"
-                                  name="inverterId"
-                                  value={formData.inverterId}
-                                  onChange={handleInputChange}
-                                />
+                        {user.role !== 'admin' && (
+                          <>
+                            <h6>Inverter Details</h6>
+                            <div className="formdetails">
+                              <div className="row">
+                                <div className="col-md-12">
+                                  <div className="form-group">
+                                    <label htmlFor="">Inverter ID</label>
+                                    <input
+                                      type="text"
+                                      name="inverterId"
+                                      value={formData.inverterId}
+                                      onChange={handleInputChange}
+                                    />
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
-                        <hr />
+                            <hr />
+                          </>
+                        )}
                         <h6>Address Details</h6>
                         <div className="formdetails">
                           <div className="row">
@@ -228,17 +217,18 @@ const Profile = () => {
                 <div className="col-xl-4">
                   <div className="profilebox">
                     <div className="profileheader">
-                      <img src={`${profilePicUrl}/${user.profilepic}`} alt="" />
+                      <img
+                        src={`${profilePicUrl}/${user.profilepic}`}
+                        alt="User Avatar"
+                      />
                     </div>
-                    {/* <div className="col-md-6 col-sm-6 col-12">
-                    </div> */}
                     <div className="profilebody">
                       <h3>{user.username}</h3>
                       <h6>
                         {user.city} {user.country}
                       </h6>
                       <h4>{user.email}</h4>
-                      <h5>{user.mobileNumber}</h5>
+                      <h5>{user.phone}</h5>
                       <hr />
                       <p>{user.address}</p>
                     </div>
