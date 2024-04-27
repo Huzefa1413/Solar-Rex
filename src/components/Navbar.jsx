@@ -97,7 +97,7 @@ function Navbar() {
                 </div> */}
 
                 <div className="logout_box">
-                  <Link to="#" className="link" onClick={() => Logout()}>
+                  <Link to="/" className="link" onClick={() => Logout()}>
                     <PiSignOutBold className="logOut_icon" />
                     Log Out
                   </Link>

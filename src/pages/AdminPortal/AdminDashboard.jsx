@@ -372,7 +372,7 @@ function AdminDashboard() {
                     <>
                       {productionPredict.dates.length > 0 && (
                         <>
-                          <span>This Month's Production Prediction</span>
+                          <span>This Month's Production</span>
                           <PredictionChart
                             predictionData={productionPredict.predictions}
                             dates={productionPredict.dates}
@@ -385,7 +385,7 @@ function AdminDashboard() {
                     <>
                       {consumptionPredict.dates.length > 0 && (
                         <>
-                          <span>Consumption Prediction</span>
+                          <span>This Month's Consumption</span>
                           <PredictionChart
                             predictionData={consumptionPredict.predictions}
                             dates={consumptionPredict.dates}

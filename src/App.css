@@ -967,7 +967,7 @@ body {
   color: var(--textColor);
   text-decoration: none;
   background-color: var(--sidebarLinkHoverColor);
-  border-radius: 0.5rem;
+  /* border-radius: 0.5rem; */
   font-size: 1rem;
   font-weight: 600;
 }
@@ -978,7 +978,7 @@ body {
 
 .css-1krfvan > .ps-menu-button:hover {
   background-color: var(--sidebarLinkHoverColor) !important;
-  border-radius: 0.5rem;
+  /* border-radius: 0.5rem; */
   color: var(--activeLinkColor);
   transition: all 0.5s ease-in-out;
 }
@@ -1001,7 +1001,7 @@ body {
 }
 
 .navsidebar .link:hover {
-  /* background-color: var(--sidebarLinkHoverColor); */
+  background-color: var(--sidebarLinkHoverColor);
   color: var(--activeLinkColor) !important;
   text-decoration: none;
 }
@@ -1117,10 +1117,12 @@ body {
   list-style: none;
   font-size: 16px;
   font-weight: 600;
-  margin-bottom: 1rem;
-  padding: 8px 15px;
+  /* margin-bottom: 1rem;
+  padding: 8px 15px; */
 }
-
+.mob_sidebar .mob_sidebar_body ul li:hover {
+  color: var(--activeLinkColor);
+}
 .mob_sidebar .mob_sidebar_body ul li .link_icon {
   font-size: 22px;
   font-weight: 600;
@@ -1134,10 +1136,10 @@ body {
   color: var(--textColor);
   text-decoration: none;
   background-color: var(--grayCardColor);
-  border-radius: 8px;
+  /* border-radius: 8px; */
   font-size: 16px;
   font-weight: 600;
-  padding: 0.8rem;
+  /* padding: 0.8rem; */
 }
 
 .mob_sidebar .unactive {

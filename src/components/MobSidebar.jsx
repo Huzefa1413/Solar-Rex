@@ -1,53 +1,21 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { useAuth } from '../ContextAPI/Components/auth';
-import { usePathname } from '../ContextAPI/Components/PathnameContext';
 import { profilePicUrl } from '../helpers/data';
-import { BsBook } from 'react-icons/bs';
+import { Sidebar, Menu, MenuItem, sidebarClasses } from 'react-pro-sidebar';
 import { HiBars3 } from 'react-icons/hi2';
-import { FaWpforms } from 'react-icons/fa';
-import { CgProfile } from 'react-icons/cg';
 import { AiOutlineClose } from 'react-icons/ai';
-import { BiMoneyWithdraw } from 'react-icons/bi';
-import { LuLayoutDashboard } from 'react-icons/lu';
-import { LuUsers } from 'react-icons/lu';
-import { LuActivity } from 'react-icons/lu';
-import { LuZap } from 'react-icons/lu';
-import { LiaUniversitySolid } from 'react-icons/lia';
-import { FiChevronDown, FiUsers } from 'react-icons/fi';
-import { MdAutorenew, MdOutlineLanguage } from 'react-icons/md';
-import {
-  PiSignInBold,
-  PiSignOutBold,
-  PiUserCirclePlus,
-  PiStudent,
-} from 'react-icons/pi';
-
+import { LuLayoutDashboard, LuUsers, LuActivity, LuZap } from 'react-icons/lu';
 import logo from '../assets/logosolarrex.png';
-import logo2 from '../assets/logo-icon.png';
-import germany_flag from '../assets/language icons/germany.png';
-import england_flag from '../assets/language icons/united-kingdom.png';
-import avatar from '../assets/avatar.jpg';
-
-import Collapse from 'react-bootstrap/Collapse';
 
 function MobSidebar() {
-  const navigate = useNavigate();
+  const location = useLocation();
   const { user } = useAuth();
-  const { handlePathname, style } = usePathname();
-  const [cookies, setCookie, removeCookie] = useCookies(['pk2']);
-
-  const [open, setOpen] = useState(false);
-
-  function signout() {
-    removeCookie('pk2');
-    // setUser(null);
-  }
+  const pathname = location.pathname;
 
   return (
     <>
-      {/* <img src={logo2} alt="logo" className='img-fluid me-1' style={{ width: "50px" }} /> */}
       <button
         className="btn nav_sidebar_toggle_btn px-0"
         type="button"
@@ -61,13 +29,18 @@ function MobSidebar() {
       <div
         className="offcanvas offcanvas-start mob_sidebar"
         data-bs-scroll="true"
-        tabindex="-1"
+        tabIndex="-1"
         id="offcanvasWithBothOptions"
         aria-labelledby="offcanvasWithBothOptionsLabel"
       >
         <div className="offcanvas-header d-flex ai-center">
           <h5 className="offcanvas-title" id="offcanvasWithBothOptionsLabel">
-            {/* <img src={logo} alt="logo" className='img-fluid' /> */}
+            <img
+              src={logo}
+              className="img-fluid"
+              style={{ width: '200px' }}
+              alt="Logo"
+            />
           </h5>
           <button
             type="button"
@@ -79,111 +52,92 @@ function MobSidebar() {
           </button>
         </div>
         <div className="offcanvas-body mob_sidebar_body">
-          <ul>
-            <li className="py-3">
-              <img
-                src={logo}
-                className="img-fluid"
-                style={{ width: '150px' }}
-              />
-            </li>
-            <Link>
+          <Sidebar
+            id="sideBar"
+            className="navsidebar"
+            rootStyles={{
+              [`.${sidebarClasses.container}`]: {
+                padding: '10px',
+                width: '100%',
+              },
+            }}
+          >
+            <Menu>
               <hr />
-            </Link>
-            <li
-              className={`${
-                style == 'admin_dashboard' ? 'active' : 'unactive'
-              }`}
-            >
-              <Link
-                to="/dashboard"
-                className={`${
-                  style == 'admin_dashboard' ? 'activeLink' : 'link'
-                }`}
-              >
-                <div className="d-flex ai-center">
-                  <LuLayoutDashboard className="me-2 link_icon" />
-                  <p>Dashboard</p>
-                </div>
-              </Link>
-            </li>
 
-            {user.role === 'admin' && (
-              <li
-                className={`${style == 'customerlist' ? 'active' : 'unactive'}`}
-              >
-                <Link
-                  to="/customerlist"
-                  className={`${
-                    style == 'customerlist' ? 'activeLink' : 'link'
+              <Link to="/dashboard" className="link">
+                <MenuItem
+                  className={`link_one ${
+                    pathname === '/dashboard' ? 'active' : 'unactive'
                   }`}
+                  active={pathname === '/dashboard'}
+                  icon={<LuLayoutDashboard className="sidebar_icon" />}
                 >
-                  <div className="d-flex ai-center">
-                    <LuUsers className="me-2 link_icon" />
-                    <p>Customer List</p>
-                  </div>
-                </Link>
-              </li>
-            )}
-
-            <li
-              className={`${
-                style == 'transactiontable' ? 'active' : 'unactive'
-              }`}
-            >
-              <Link
-                to="/transactiontable"
-                className={`${
-                  style == 'transactiontable' ? 'activeLink' : 'link'
-                }`}
-              >
-                <div className="d-flex ai-center">
-                  <LuActivity className="me-2 link_icon" />
-                  <p>Transaction Table</p>
-                </div>
+                  Dashboard
+                </MenuItem>
               </Link>
-            </li>
-            {user.role === 'user' && (
-              <li className={`${style == 'buyenergy' ? 'active' : 'unactive'}`}>
-                <Link
-                  to="/buyenergy"
-                  className={`${style == 'buyenergy' ? 'activeLink' : 'link'}`}
+              {user.role === 'admin' && (
+                <Link to="/customerlist" className="link">
+                  <MenuItem
+                    className={`link_one ${
+                      pathname === '/customerlist' ? 'active' : 'unactive'
+                    }`}
+                    active={pathname === '/customerlist'}
+                    icon={<LuUsers className="sidebar_icon" />}
+                  >
+                    Customer List
+                  </MenuItem>
+                </Link>
+              )}
+              <Link to="/transactiontable" className="link">
+                <MenuItem
+                  className={`link_one ${
+                    pathname === '/transactiontable' ? 'active' : 'unactive'
+                  }`}
+                  active={pathname === '/transactiontable'}
+                  icon={<LuActivity className="sidebar_icon" />}
                 >
-                  <div className="d-flex ai-center">
-                    <LuZap className="me-2 link_icon" />
-                    <p>Energy</p>
-                  </div>
-                </Link>
-              </li>
-            )}
-            <Link>
-              <hr />
-            </Link>
-            <li className={`${style == 'profile' ? 'active' : 'unactive'}`}>
-              <Link
-                to="/profile"
-                className={`${style == 'profile' ? 'activeLink' : 'link'}`}
-              >
-                <div className="d-flex ai-center">
-                  <img
-                    className="me-2 link_icon"
-                    src={`${profilePicUrl}/${user.profilepic}`}
-                    alt=""
-                    style={{
-                      width: '36px',
-                      marginTop: '6px',
-                      borderRadius: '50px',
-                    }}
-                  />
-                  <p>{user?.username}</p>
-                </div>
+                  Transaction table
+                </MenuItem>
               </Link>
-            </li>
-
-            <Link>
+              {user.role === 'user' && (
+                <Link to="/buyenergy" className="link">
+                  <MenuItem
+                    className={`link_one ${
+                      pathname === '/buyenergy' ? 'active' : 'unactive'
+                    }`}
+                    active={pathname === '/buyenergy'}
+                    icon={<LuZap className="sidebar_icon" />}
+                  >
+                    Energy
+                  </MenuItem>
+                </Link>
+              )}
               <hr />
-            </Link>
-          </ul>
+              <Link to="/profile" className="link">
+                <MenuItem
+                  className={`link_one ${
+                    pathname === '/profile' ? 'active' : 'unactive'
+                  }`}
+                  active={pathname === '/profile'}
+                  icon={
+                    <img
+                      className="sidebar_icon"
+                      src={`${profilePicUrl}/${user.profilepic}`}
+                      alt=""
+                      style={{
+                        width: '36px',
+                        marginTop: '6px',
+                        borderRadius: '50px',
+                      }}
+                    />
+                  }
+                >
+                  {user?.username}
+                </MenuItem>
+              </Link>
+            </Menu>
+          </Sidebar>
         </div>
       </div>
     </>
