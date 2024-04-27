@@ -7,6 +7,7 @@ import Upload_Profile_Pic from '../ContextAPI/Components/Upload_Profile_Pic';
 import Navbar from '../components/Navbar';
 import NavSidebar from '../components/Sidebar';
 import { useProSidebar } from 'react-pro-sidebar';
+import profile from '../assets/profile.svg';
 import '../components/components.css';
 
 const Profile = () => {
@@ -106,6 +107,7 @@ const Profile = () => {
                                   name="phone"
                                   value={formData.phone}
                                   onChange={handleInputChange}
+                                  disabled
                                 />
                               </div>
                             </div>
@@ -163,18 +165,7 @@ const Profile = () => {
                             </div>
                           </div>
                           <div className="row">
-                            <div className="col-lg-4">
-                              <div className="form-group">
-                                <label htmlFor="">Postal Code</label>
-                                <input
-                                  type="text"
-                                  name="postalCode"
-                                  value={formData.postalCode}
-                                  onChange={handleInputChange}
-                                />
-                              </div>
-                            </div>
-                            <div className="col-lg-4">
+                            <div className="col-lg-6">
                               <div className="form-group">
                                 <label htmlFor="">City</label>
                                 <input
@@ -185,7 +176,7 @@ const Profile = () => {
                                 />
                               </div>
                             </div>
-                            <div className="col-lg-4">
+                            <div className="col-lg-6">
                               <div className="form-group">
                                 <label htmlFor="">Country</label>
                                 <input
@@ -218,7 +209,11 @@ const Profile = () => {
                   <div className="profilebox">
                     <div className="profileheader">
                       <img
-                        src={`${profilePicUrl}/${user.profilepic}`}
+                        src={
+                          user.profilepic
+                            ? `${profilePicUrl}/${user.profilepic}`
+                            : profile
+                        }
                         alt="User Avatar"
                       />
                     </div>

@@ -1,136 +1,82 @@
-import React, { useState } from 'react';
-// reactstrap components
-import {
-  Badge,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Media,
-  Progress,
-  Table,
-  UncontrolledTooltip,
-} from 'reactstrap';
-
-import '../components/components.css';
-import Image from '../assets/avatar.jpg';
+import React, { useState, useEffect } from 'react';
+import { Table } from 'reactstrap';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../ContextAPI/Components/auth';
+import { get_transactions } from '../ContextAPI/APIs/api';
 import NavSidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
-import {
-  Sidebar,
-  Menu,
-  MenuItem,
-  SubMenu,
-  useProSidebar,
-  sidebarClasses,
-} from 'react-pro-sidebar';
-import { get_transactions } from '../ContextAPI/APIs/api';
-import { useEffect } from 'react';
-import { useAuth } from "../ContextAPI/Components/auth"
-import { useNavigate } from 'react-router-dom';
 
 function TransactionTable() {
-
   const navigate = useNavigate();
   const { user } = useAuth();
-
-  if (user.role !== "admin" && !user.profileSetup) {
-    navigate("/profile")
-  }
-  const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
-    useProSidebar();
-
-
-
-
-  const [tx, setTX] = useState([])
-
-
-  const getTX = async () => {
-    try {
-      const response = await get_transactions()
-      setTX(response.message)
-    }
-    catch (e) {
-      console.log(e);
-    }
-  }
-
+  const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
-    getTX()
-  }, [])
+    if (user.role !== 'admin' && !user.profileSetup) {
+      navigate('/profile');
+    }
+  }, [user, navigate]);
 
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        const response = await get_transactions();
+        setTransactions(response.message);
+      } catch (error) {
+        console.error('Error fetching transactions:', error);
+      }
+    };
 
-  function convertTimestampToDateTime(timestamp) {
-    var date = new Date(timestamp);
-    var year = date.getFullYear();
-    var month = ("0" + (date.getMonth() + 1)).slice(-2);
-    var day = ("0" + date.getDate()).slice(-2);
-    var hours = date.getHours();
-    var minutes = ("0" + date.getMinutes()).slice(-2);
-    var seconds = ("0" + date.getSeconds()).slice(-2);
-    var meridiem = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // Handle midnight (0 hours) as 12 AM
-    var dateTimeString = year + "-" + month + "-" + day + " " + hours + ":" + minutes + " " + meridiem;
-    return dateTimeString;
-  }
+    fetchTransactions();
+  }, []);
 
+  const convertTimestampToDateTime = (timestamp) => {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    let hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const meridiem = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12; // Convert midnight (0 hours) to 12 AM
+    const formattedTime = `${year}-${month}-${day} ${hours}:${minutes} ${meridiem}`;
+    return formattedTime;
+  };
 
   return (
-    <>
-      <div className="d-flex">
-        <div className="sidebar_div">
-          <NavSidebar
-            collapseSidebar={collapseSidebar}
-            toggleSidebar={toggleSidebar}
-            collapsed={collapsed}
-            toggled={toggled}
-            broken={broken}
-            rtl={rtl}
-          />
-        </div>
-
-        <div className="page_div">
-          <Navbar
-            collapseSidebar={collapseSidebar}
-            toggleSidebar={toggleSidebar}
-            collapsed={collapsed}
-            toggled={toggled}
-            broken={broken}
-            rtl={rtl}
-          />
-          <section className="container-fluid py-3">
-            <h2>Transactions</h2>
-            <Table className="align-items-center " responsive>
-              <thead className="thead-light">
-                <tr>
-                  <th scope="col">Buyer</th>
-                  <th scope="col">Seller</th>
-                  <th scope="col">Price</th>
-                  <th scope="col">Quantity</th>
-                  <th scope="col">Time</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  tx.length > 0 && tx.map((item, i) => (
-                    <tr>
-                      <td>{item?.buyerid.username}</td>
-                      <td>{item?.sellerid.username}</td>
-                      <td>{item?.price}</td>
-                      <td>{item?.quantity}</td>
-                      <td>{convertTimestampToDateTime(item?.timestamp)}</td>
-                    </tr>
-                  ))
-                }
-              </tbody>
-            </Table>
-          </section>
-        </div>
+    <div className="d-flex">
+      <div className="sidebar_div">
+        <NavSidebar />
       </div>
-    </>
+      <div className="page_div">
+        <Navbar />
+        <section className="container-fluid py-3">
+          <h2>Transactions</h2>
+          <Table className="align-items-center" responsive>
+            <thead className="thead-light">
+              <tr>
+                <th scope="col">Buyer</th>
+                <th scope="col">Inverter ID</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              {transactions.map((transaction, index) => (
+                <tr key={index}>
+                  <td>{transaction?.buyerid.username}</td>
+                  <td>{transaction?.buyerid.inverterId}</td>
+                  <td>{transaction?.price}</td>
+                  <td>{transaction?.quantity}</td>
+                  <td>{convertTimestampToDateTime(transaction?.timestamp)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </section>
+      </div>
+    </div>
   );
 }
 

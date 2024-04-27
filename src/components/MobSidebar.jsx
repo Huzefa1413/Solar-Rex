@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../ContextAPI/Components/auth';
 import { profilePicUrl } from '../helpers/data';
 import { Sidebar, Menu, MenuItem, sidebarClasses } from 'react-pro-sidebar';
@@ -8,6 +7,7 @@ import { HiBars3 } from 'react-icons/hi2';
 import { AiOutlineClose } from 'react-icons/ai';
 import { LuLayoutDashboard, LuUsers, LuActivity, LuZap } from 'react-icons/lu';
 import logo from '../assets/logosolarrex.png';
+import profile from '../assets/profile.svg';
 
 function MobSidebar() {
   const location = useLocation();
@@ -123,7 +123,11 @@ function MobSidebar() {
                   icon={
                     <img
                       className="sidebar_icon"
-                      src={`${profilePicUrl}/${user.profilepic}`}
+                      src={
+                        user.profilepic
+                          ? `${profilePicUrl}/${user.profilepic}`
+                          : profile
+                      }
                       alt=""
                       style={{
                         width: '36px',

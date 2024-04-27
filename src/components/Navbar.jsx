@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../ContextAPI/Components/auth';
 import { profilePicUrl } from '../helpers/data';
 import LOGO from '../assets/logosolarrex.png';
+import profile from '../assets/profile.svg';
 import MobSidebar from './MobSidebar';
 import { PiSignOutBold } from 'react-icons/pi';
 import { HiOutlineUserCircle } from 'react-icons/hi2';
@@ -31,8 +32,12 @@ function Navbar() {
             <div className="account d-flex ai-center jc-end">
               <div className="img">
                 <img
-                  src={`${profilePicUrl}/${user.profilepic}`}
-                  alt="User Avatar"
+                  alt="Profile"
+                  src={
+                    user.profilepic
+                      ? `${profilePicUrl}/${user.profilepic}`
+                      : profile
+                  }
                 />
               </div>
               <div className="ml-2">

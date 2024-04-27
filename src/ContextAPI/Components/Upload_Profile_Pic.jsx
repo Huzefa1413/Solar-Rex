@@ -80,7 +80,19 @@ function Upload_Profile_Pic() {
             <div className="d-flex jc-center ai-center text-center">
               {!user.profilepic || user.profilepic == ''
                 ? (typeof logo == 'undefined' || logo === null) && (
-                    <div className="upload_image_btn ml-2">Upload</div>
+                    <div
+                      className="upload_image_btn ml-2"
+                      style={{
+                        color: '#525f7f',
+                        fontSize: '0.875rem',
+                        fontWeight: '600',
+                        display: 'inline-block',
+                        marginBottom: '0.5rem',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      Upload
+                    </div>
                   )
                 : (typeof logo == 'undefined' || logo === null) && (
                     <div className="icon">

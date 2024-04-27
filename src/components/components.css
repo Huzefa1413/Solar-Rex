@@ -180,6 +180,7 @@
 }
 .profile .detailsbox .boxbody > div .formdetails .form-group input:focus {
   outline: none;
+  color: #000000;
   box-shadow: 0 3px 3px rgba(50, 50, 93, 0.15), 0 3px 0 rgba(0, 0, 0, 0.02);
   transition: box-shadow 0.15s ease;
 }

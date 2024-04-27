@@ -5,8 +5,8 @@ import { profilePicUrl } from '../helpers/data';
 import { Sidebar, Menu, MenuItem, sidebarClasses } from 'react-pro-sidebar';
 import { useMediaQuery } from 'react-responsive';
 import { LuLayoutDashboard, LuUsers, LuActivity, LuZap } from 'react-icons/lu';
-import logo from '../assets/logosolarrex.png'; // Import logo here
-
+import logo from '../assets/logosolarrex.png';
+import profile from '../assets/profile.svg';
 function NavSidebar() {
   const { user } = useAuth();
   const { pathname } = useLocation();
@@ -98,7 +98,11 @@ function NavSidebar() {
               icon={
                 <img
                   className="sidebar_icon"
-                  src={`${profilePicUrl}/${user.profilepic}`}
+                  src={
+                    user.profilepic
+                      ? `${profilePicUrl}/${user.profilepic}`
+                      : profile
+                  }
                   alt=""
                   style={{
                     width: '36px',
