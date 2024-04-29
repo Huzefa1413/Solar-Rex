@@ -7,7 +7,7 @@ import MobSidebar from './MobSidebar';
 import { PiSignOutBold } from 'react-icons/pi';
 import { HiOutlineUserCircle } from 'react-icons/hi2';
 import { useMediaQuery } from 'react-responsive';
-import './components.css';
+
 
 function Navbar() {
   const { user, Logout } = useAuth();

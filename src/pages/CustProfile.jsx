@@ -1,54 +1,96 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import NavSidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import { useProSidebar } from 'react-pro-sidebar';
-import '../components/components.css';
-import profilepic from '../assets/avatar.jpg';
-import { useAuth } from '../ContextAPI/Components/auth';
-import { useParams } from 'react-router-dom';
-import { useState } from 'react';
 import { getCustProfile } from '../ContextAPI/APIs/api';
-import { useEffect } from 'react';
-import PredictionLineChart from '../components/Charts/PredictionChart';
-import BarChart from '../components/Charts/Charts.Students/BarChart';
+import {
+  last3monthsConsumption,
+  consumptionPrediction,
+  lastMonthsPurchasedVsConsumed,
+} from '../ContextAPI/APIs/api';
+import { profilePicUrl } from '../helpers/data';
+import profile from '../assets/profile.svg';
+import PredictionChart from '../components/Charts/prediction';
+import BarChart from '../components/Charts/BarChart';
+
 const CustProfile = () => {
   const { id } = useParams();
-  const { user } = useAuth();
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
     useProSidebar();
 
   const [cust, setCust] = useState({});
-  const soldvsproduced = {
-    count: [2200, 2500],
-    names: ['Sold', 'Produced'],
-  };
-  const lastmonths = {
-    count: [100, 110, 90, 100, 110, 90],
-    names: [
-      'October',
-      'November',
-      'December',
-      'October',
-      'November',
-      'December',
-    ],
+  const [monthsConsumption, setMonthsConsumption] = useState({
+    count: [],
+    names: [],
+  });
+  const [purchasedVsConsumed, setPurchasedVsConsumed] = useState({
+    count: [],
+    names: [],
+  });
+  const [consumptionPredict, setConsumptionPrediction] = useState({
+    predictions: [],
+    dates: [],
+    forecast: 0,
+  });
+
+  const fetchLast3MonthsConsumption = async (id) => {
+    try {
+      const response = await last3monthsConsumption(id);
+      if (response.count.length > 0 && response.names.length > 0) {
+        setMonthsConsumption({ count: response.count, names: response.names });
+      }
+    } catch (error) {
+      console.error('Error fetching last 3 months consumption:', error);
+    }
   };
 
-  const fetchAlldata = async () => {
+  const fetchPurchasedVsConsumed = async (id) => {
+    try {
+      const response = await lastMonthsPurchasedVsConsumed(id);
+      if (response.count.length > 0 && response.names.length > 0) {
+        setPurchasedVsConsumed({
+          count: response.count,
+          names: response.names,
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching purchased vs consumed:', error);
+    }
+  };
+
+  const fetchConsumptionPrediction = async (id) => {
+    try {
+      const response = await consumptionPrediction(id);
+      if (response.success && response.predictions.length > 0) {
+        setConsumptionPrediction({
+          predictions: response.predictions,
+          dates: response.date,
+          forecast: response.forecastPoint,
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching consumption prediction:', error);
+    }
+  };
+
+  const fetchAllData = async () => {
     try {
       const response = await getCustProfile(id);
-
       if (response.message !== null) {
         setCust(response.message);
       }
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.error('Error fetching all data:', error);
     }
   };
 
   useEffect(() => {
-    fetchAlldata();
-  }, []);
+    fetchAllData();
+    fetchLast3MonthsConsumption(id);
+    fetchPurchasedVsConsumed(id);
+    fetchConsumptionPrediction(id);
+  }, [id]);
 
   return (
     <>
@@ -63,7 +105,6 @@ const CustProfile = () => {
             rtl={rtl}
           />
         </div>
-
         <div className="page_div">
           <Navbar
             collapseSidebar={collapseSidebar}
@@ -74,13 +115,6 @@ const CustProfile = () => {
             rtl={rtl}
           />
           <section className="container-fluid py-3 profile">
-            {/* {
-            user.role == "admin" ?
-              <h1>Admin</h1>
-              :
-              <h1>User</h1>
-          } */}
-
             <div className="welcome">
               <h2>{cust.username}'s Profile Page</h2>
               <p>
@@ -94,22 +128,36 @@ const CustProfile = () => {
                   <div className="row py-4">
                     <div className="my-2">
                       <div className="chart-container">
-                        <span>Production Prediction</span>
-                        <PredictionLineChart
-                          predictions={[100, 120, 100, 90, 130]}
-                        />
+                        {consumptionPredict.dates.length > 0 && (
+                          <>
+                            <span>This Month's Consumption</span>
+                            <PredictionChart
+                              predictionData={consumptionPredict.predictions}
+                              dates={consumptionPredict.dates}
+                              forecastPoint={consumptionPredict.forecast}
+                            />
+                          </>
+                        )}
                       </div>
                     </div>
                     <div className="my-2">
                       <div className="chart-container">
-                        <span>Last 3 Months Production</span>
-                        <BarChart barData={lastmonths} />
+                        {monthsConsumption.count.length > 0 && (
+                          <>
+                            <span>Last 3 Months Consumption</span>
+                            <BarChart barData={monthsConsumption} />
+                          </>
+                        )}
                       </div>
                     </div>
                     <div className="my-2">
                       <div className="chart-container">
-                        <span>Energy Sold vs Produced</span>
-                        <BarChart barData={soldvsproduced} />
+                        {purchasedVsConsumed.count.length > 0 && (
+                          <>
+                            <span>Energy Purchased vs Consumed</span>
+                            <BarChart barData={purchasedVsConsumed} />
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -117,7 +165,14 @@ const CustProfile = () => {
                 <div className="col-xl-4">
                   <div className="profilebox">
                     <div className="profileheader">
-                      <img src={profilepic} alt="" />
+                      <img
+                        src={
+                          cust.profilepic
+                            ? `${profilePicUrl}/${cust.profilepic}`
+                            : profile
+                        }
+                        alt="User Avatar"
+                      />
                     </div>
                     <div className="profilebody">
                       <h3>{cust.username}</h3>

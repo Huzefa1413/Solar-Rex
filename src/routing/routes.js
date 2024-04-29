@@ -11,7 +11,7 @@ import SignIn from '../pages/Signin';
 import ForgotPassword from '../pages/ForgotPassword';
 import ResetPassword from '../pages/ResetPassword';
 
-import AdminDashboard from '../pages/AdminPortal/AdminDashboard';
+import AdminDashboard from '../pages/AdminDashboard';
 
 import CustomerList from '../pages/CustomerList';
 import TransactionTable from '../pages/TransactionTable';
@@ -86,7 +86,11 @@ function MyRoutes() {
 
         <Route element={<PrivateRoute />}>
           <Route exact path="/customerlist" element={<CustomerList />} />
-          <Route exact path="/transactiontable" element={<TransactionTable />} />
+          <Route
+            exact
+            path="/transactiontable"
+            element={<TransactionTable />}
+          />
           <Route exact path="/buyenergy" element={<BuyEnergy />} />
           <Route exact path="/dashboard" element={<AdminDashboard />} />
           <Route exact path="/profile" element={<Profile />} />

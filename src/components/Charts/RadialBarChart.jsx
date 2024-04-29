@@ -3,7 +3,7 @@ import ReactApexChart from 'react-apexcharts';
 
 function RadialBarChart(props) {
   const data = {
-    series: [props.noStd],
+    series: [props.currentEnergy],
     options: {
       chart: {
         type: 'radialBar',

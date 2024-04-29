@@ -144,7 +144,7 @@ function SignUp() {
                   </button>
                 </div>
                 <small>
-                  Already have an account?{' '}
+                  Already have an account?
                   <Link to="/" className="Link">
                     Sign In
                   </Link>

@@ -363,10 +363,6 @@ h4 {
   box-shadow: var(--boxShadow);
 }
 
-.required_doc_card {
-  /* padding: 1rem 0.9rem !important; */
-}
-
 .update_msg {
   height: 75vh;
   display: flex;

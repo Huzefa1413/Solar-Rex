@@ -8,7 +8,6 @@ import Navbar from '../components/Navbar';
 import NavSidebar from '../components/Sidebar';
 import { useProSidebar } from 'react-pro-sidebar';
 import profile from '../assets/profile.svg';
-import '../components/components.css';
 
 const Profile = () => {
   const { user, GetLoginUser } = useAuth();

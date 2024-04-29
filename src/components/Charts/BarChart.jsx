@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 
-import { cities } from '../../../helpers/data';
+import { cities } from '../../helpers/data';
 
 function BarChart(props) {
   const data = {
