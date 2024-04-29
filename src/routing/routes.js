@@ -1,30 +1,25 @@
+import React, { useEffect } from 'react';
 import axios from 'axios';
-import { useEffect } from 'react';
-import { Routes, Route, useNavigate, useParams } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { useAuth } from '../ContextAPI/Components/auth';
 import PrivateRoute from './privateRoutes';
 
-// import Profile from '../pages/Profile';
 import SignUp from '../pages/SignUp';
 import SignIn from '../pages/Signin';
 import ForgotPassword from '../pages/ForgotPassword';
 import ResetPassword from '../pages/ResetPassword';
-
 import AdminDashboard from '../pages/AdminDashboard';
-
 import CustomerList from '../pages/CustomerList';
 import TransactionTable from '../pages/TransactionTable';
 import BuyEnergy from '../pages/BuyEnergy';
 import Profile from '../pages/Profile';
 import CustProfile from '../pages/CustProfile';
-
 import { PageNotFound } from '../pages/PageNotFound';
 
 function MyRoutes() {
   const { setUser } = useAuth();
-  const [cookies, setCookie, removeCookie] = useCookies(['pk2']);
-  console.log('cookies', cookies);
+  const [cookies] = useCookies(['pk2']);
   const navigate = useNavigate();
 
   axios.defaults.withCredentials = true;
@@ -34,72 +29,40 @@ function MyRoutes() {
       return response;
     },
     function (error) {
-      // Do something with response error
       if (error.response) {
-        // The request was made and the server responded with a status code that falls out of the range of 200 to 299
         if (error.response.data.error === 'auth token required') {
-          removeCookie('pk2');
           setUser(null);
-          console.clear();
           navigate('/sign-in');
         }
-      } else if (error.request) {
-        // The request was made but no response was received
-        // console.log(error.request);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        // console.log('Error', error.message);
       }
-      console.log(error.config);
-
-      // Return a new promise that rejects with the error
       return Promise.reject(error);
     }
   );
 
   useEffect(() => {
-    if (window.location.host.search('localhost') > -1) {
-      return () => {
-        // Get_Login_User(encodeURIComponent(cookies?.pk2))
-        //     .then(dispatch(login(data.user)))
-        //     .catch()
-      };
-    } else {
-      // Get_Login_User(encodeURIComponent(cookies?.pk2))
-      //     .then(data => dispatch(login(data.user)))
-      //     .catch();
+    if (window.location.host.search('localhost') === -1) {
+      // API call or other setup for production environment
     }
   }, []);
 
   return (
-    <>
-      <Routes>
-        <Route exact path="/" element={<SignIn />} />
-        {/* <Route exact path="/sign-in" element={<SignIn />} /> */}
-        <Route exact path="/sign-up" element={<SignUp />} />
-        <Route exact path="/forgot-password/" element={<ForgotPassword />} />
-        <Route
-          exact
-          path="/reset-password/:token"
-          element={<ResetPassword />}
-        />
+    <Routes>
+      <Route exact path="/" element={<SignIn />} />
+      <Route exact path="/sign-up" element={<SignUp />} />
+      <Route exact path="/forgot-password" element={<ForgotPassword />} />
+      <Route exact path="/reset-password/:token" element={<ResetPassword />} />
 
-        <Route element={<PrivateRoute />}>
-          <Route exact path="/customerlist" element={<CustomerList />} />
-          <Route
-            exact
-            path="/transactiontable"
-            element={<TransactionTable />}
-          />
-          <Route exact path="/buyenergy" element={<BuyEnergy />} />
-          <Route exact path="/dashboard" element={<AdminDashboard />} />
-          <Route exact path="/profile" element={<Profile />} />
-          <Route exact path="/customer-profile/:id" element={<CustProfile />} />
-        </Route>
+      <Route element={<PrivateRoute />}>
+        <Route path="/customerlist" element={<CustomerList />} />
+        <Route path="/transactiontable" element={<TransactionTable />} />
+        <Route path="/buyenergy" element={<BuyEnergy />} />
+        <Route path="/dashboard" element={<AdminDashboard />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/customer-profile/:id" element={<CustProfile />} />
+      </Route>
 
-        <Route exact path="*" element={<PageNotFound />} />
-      </Routes>
-    </>
+      <Route path="*" element={<PageNotFound />} />
+    </Routes>
   );
 }
 

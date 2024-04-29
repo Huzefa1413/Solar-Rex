@@ -61,9 +61,10 @@ function AdminDashboard() {
     try {
       const response = await (user.role === 'admin'
         ? adminCards()
-        : userCards());
+        : userCards(user._id));
       if (response.success) {
         setCardsData(response.message);
+        console.log('Huzefa Cards', response);
       }
     } catch (error) {
       console.log(error);
@@ -327,7 +328,7 @@ function AdminDashboard() {
                     <>
                       {soldvsProduced.count.length > 0 && (
                         <>
-                          <span>Energy Sold vs Produced</span>
+                          <span>This Month's Energy Sold vs Produced</span>
                           <BarChart barData={soldvsProduced} />
                         </>
                       )}
@@ -336,7 +337,7 @@ function AdminDashboard() {
                     <>
                       {purchasedvsConsumed.count.length > 0 && (
                         <>
-                          <span>Energy Purchased vs Consumed</span>
+                          <span>This Month's Energy Purchased vs Consumed</span>
                           <BarChart barData={purchasedvsConsumed} />
                         </>
                       )}

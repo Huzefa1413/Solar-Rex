@@ -154,7 +154,9 @@ const CustProfile = () => {
                       <div className="chart-container">
                         {purchasedVsConsumed.count.length > 0 && (
                           <>
-                            <span>Energy Purchased vs Consumed</span>
+                            <span>
+                              This Month's Energy Purchased vs Consumed
+                            </span>
                             <BarChart barData={purchasedVsConsumed} />
                           </>
                         )}
