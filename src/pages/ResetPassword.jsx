@@ -27,11 +27,11 @@ function ResetPassword() {
 
   const reset = async () => {
     try {
-      // const response = await reset_password(data, token)
-      // alert(response.message)
-      // if (response.success) {
-      //     Navigate("/sign-in")
-      // }
+      const response = await reset_password(data, token)
+      alert(response.message)
+      if (response.success) {
+        Navigate("/")
+      }
     } catch (e) {
       console.log(e);
     }

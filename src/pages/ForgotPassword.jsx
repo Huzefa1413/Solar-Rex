@@ -26,11 +26,12 @@ function ForgotPassword() {
 
       console.log('DDD', payload);
       // return
-      // const response = await forget_password(payload)
-      // alert(response.message)
-      // if (response.success) {
-      //     navigate(`/reset-password/${response?.newtoken}`)
-      // }
+      const response = await forget_password(payload)
+      console.log("response", response);
+      alert(response.message)
+      if (response.success) {
+        navigate(`/reset-password/${response?.token}`)
+      }
     } catch (e) {
       console.log(e);
     }
