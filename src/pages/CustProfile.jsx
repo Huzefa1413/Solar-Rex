@@ -11,7 +11,7 @@ import {
 } from '../ContextAPI/APIs/api';
 import { profilePicUrl } from '../helpers/data';
 import profile from '../assets/profile.svg';
-import PredictionChart from '../components/Charts/prediction';
+import PredictionChart from '../components/Charts/PredictionChart';
 import BarChart from '../components/Charts/BarChart';
 
 const CustProfile = () => {

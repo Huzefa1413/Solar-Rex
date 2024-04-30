@@ -5,8 +5,8 @@ import { useProSidebar } from 'react-pro-sidebar';
 import NavSidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import BarChart from '../components/Charts/BarChart';
-import RadialBarChart from '../components/Charts/RadialBarChart';
-import PredictionChart from '../components/Charts/prediction';
+import RadialBarChart from '../components/Charts/EnergyMeter';
+import PredictionChart from '../components/Charts/PredictionChart';
 import Card from '../components/StatsCard';
 import {
   adminCards,
@@ -64,7 +64,6 @@ function AdminDashboard() {
         : userCards(user._id));
       if (response.success) {
         setCardsData(response.message);
-        console.log('Huzefa Cards', response);
       }
     } catch (error) {
       console.log(error);
@@ -75,8 +74,11 @@ function AdminDashboard() {
     try {
       const response = await last3months();
       if (response.count.length > 0 && response.names.length > 0) {
+        const formattedCount = response.count.map((value) =>
+          Number(value).toFixed(2)
+        );
         setLast3monthsProduction({
-          count: response.count,
+          count: formattedCount,
           names: response.names,
         });
       }
@@ -89,7 +91,13 @@ function AdminDashboard() {
     try {
       const response = await last3monthsConsumption(user._id);
       if (response.count.length > 0 && response.names.length > 0) {
-        setMonthsConsumption({ count: response.count, names: response.names });
+        const formattedCount = response.count.map((value) =>
+          Number(value).toFixed(2)
+        );
+        setMonthsConsumption({
+          count: formattedCount,
+          names: response.names,
+        });
       }
     } catch (error) {
       console.log(error);
@@ -100,7 +108,13 @@ function AdminDashboard() {
     try {
       const response = await last3monthsSoldvsProduced();
       if (response.count.length > 0 && response.names.length > 0) {
-        setSoldvsProduced({ count: response.count, names: response.names });
+        const formattedCount = response.count.map((value) =>
+          Number(value).toFixed(2)
+        );
+        setSoldvsProduced({
+          count: formattedCount,
+          names: response.names,
+        });
       }
     } catch (error) {
       console.log(error);
@@ -111,8 +125,11 @@ function AdminDashboard() {
     try {
       const response = await lastMonthsPurchasedVsConsumed(user._id);
       if (response.count.length > 0 && response.names.length > 0) {
+        const formattedCount = response.count.map((value) =>
+          Number(value).toFixed(2)
+        );
         setPurchasedvsConsumed({
-          count: response.count,
+          count: formattedCount,
           names: response.names,
         });
       }
@@ -125,8 +142,11 @@ function AdminDashboard() {
     try {
       const response = await productionPrediction();
       if (response.success && response.predictions.length > 0) {
+        const formattedPredictions = response.predictions.map((value) =>
+          Number(value).toFixed(2)
+        );
         setProductionPrediction({
-          predictions: response.predictions,
+          predictions: formattedPredictions,
           dates: response.date,
           forecast: response.forecastPoint,
         });
@@ -140,8 +160,11 @@ function AdminDashboard() {
     try {
       const response = await consumptionPrediction(user._id);
       if (response.success && response.predictions.length > 0) {
+        const formattedPredictions = response.predictions.map((value) =>
+          Number(value).toFixed(2)
+        );
         setConsumptionPrediction({
-          predictions: response.predictions,
+          predictions: formattedPredictions,
           dates: response.date,
           forecast: response.forecastPoint,
         });
@@ -197,7 +220,7 @@ function AdminDashboard() {
                     ? `Energy Produced Today`
                     : `Energy Consumed Today`
                 }`}
-                value={cardsData.dp}
+                value={parseFloat(cardsData.dp).toFixed(2)}
               />
               <Card
                 title={`${
@@ -205,7 +228,7 @@ function AdminDashboard() {
                     ? `Energy Produced This Week`
                     : `Energy Consumed This Week`
                 }`}
-                value={cardsData.wp}
+                value={parseFloat(cardsData.wp).toFixed(2)}
               />
               <Card
                 title={`${
@@ -213,7 +236,7 @@ function AdminDashboard() {
                     ? `Energy Produced This Month`
                     : `Energy Consumed This Month`
                 }`}
-                value={cardsData.mp}
+                value={parseFloat(cardsData.mp).toFixed(2)}
               />
               <Card
                 title={`${
@@ -221,7 +244,7 @@ function AdminDashboard() {
                     ? `Energy Produced This Year`
                     : `Energy Consumed This Year`
                 }`}
-                value={cardsData.yp}
+                value={parseFloat(cardsData.yp).toFixed(2)}
               />
             </div>
 

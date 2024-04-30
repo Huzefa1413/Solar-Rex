@@ -8,9 +8,8 @@ import { PiSignOutBold } from 'react-icons/pi';
 import { HiOutlineUserCircle } from 'react-icons/hi2';
 import { useMediaQuery } from 'react-responsive';
 
-
 function Navbar() {
-  const { user, Logout } = useAuth();
+  const { user, logout } = useAuth();
   const isMobile = useMediaQuery({ query: '(max-width: 1200px)' });
 
   return (
@@ -54,7 +53,7 @@ function Navbar() {
                 </Link>
               </div>
               <div className="logout_box">
-                <Link to="/" className="link" onClick={() => Logout()}>
+                <Link to="/" className="link" onClick={() => logout()}>
                   <PiSignOutBold className="logOut_icon" />
                   Log Out
                 </Link>

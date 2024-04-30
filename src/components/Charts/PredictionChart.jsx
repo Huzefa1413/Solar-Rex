@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 
-const PredictionChart = ({ predictionData, dates, forcastPoint }) => {
-  console.log('C?HA', predictionData);
-  console.log('C?HA', dates);
-  console.log('C?HAjhi', forcastPoint);
+const PredictionChart = ({ predictionData, dates, forecastPoint }) => {
   const options = {
     series: [
       {
@@ -17,7 +14,7 @@ const PredictionChart = ({ predictionData, dates, forcastPoint }) => {
       type: 'line',
     },
     forecastDataPoints: {
-      count: forcastPoint,
+      count: forecastPoint,
     },
     stroke: {
       width: 7,
@@ -26,16 +23,13 @@ const PredictionChart = ({ predictionData, dates, forcastPoint }) => {
     xaxis: {
       type: 'text',
       categories: dates.map((date) => {
-        const dateParts = date.split('-');
-        const month = new Date(
-          Date.parse(`${dateParts[1]}/${dateParts[0]}/${dateParts[2]}`)
-        ).toLocaleString('default', { month: 'short' });
-        const day = parseInt(dateParts[0], 10);
-        return `${month} ${day}`;
+        const [day, month, year] = date.split('-');
+        return `${new Date(year, month - 1, day).toLocaleString('default', {
+          month: 'short',
+        })} ${parseInt(day, 10)}`;
       }),
       tickAmount: 10,
     },
-
     fill: {
       type: 'gradient',
       gradient: {

@@ -1,95 +1,86 @@
-import { createContext, useContext, useState, useEffect } from "react"
-import { login_user, getLogin_user, } from "../APIs/api";
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { login_user, getLogin_user } from '../APIs/api';
 import { useCookies } from 'react-cookie';
 
+// Step 1: Create the context
+const AuthContext = createContext();
 
-// Step 1
-const AuthContext = createContext()
-
-// Step 2
+// Step 2: Create a custom hook for using the AuthContext
 export const useAuth = () => {
-    return useContext(AuthContext);
-}
+  return useContext(AuthContext);
+};
 
-// Step 3
+// Step 3: Define the AuthProvider component
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+  // State for user information
+  const [user, setUser] = useState(null);
 
-    const [tabData, setTabData] = useState({});
+  // State for tab data, renewal tab data, and file data
+  const [tabData, setTabData] = useState({});
+  const [renewalTabData, setRenewalTabData] = useState({});
+  const [fileData, setFileData] = useState({});
 
-    const [renewalTabData, setRenewalTabData] = useState({});
-    const [fileData, setfileData] = useState({});
+  // State for managing cookies
+  const [cookies, setCookie, removeCookie] = useCookies();
 
-    const [cookies, setCookie, removeCookie] = useCookies();
-    // const [cookies, setCookie, removeCookie] = useCookies(["pk2"]);
-
-
-    async function Login(body) {
-        const res = await login_user(body)
-        console.log("RREESS", res);
-
-        if (res?.success) {
-            console.log("token", res.hash);
-            console.log("token", res.user);
-            setUser(res?.user)
-
-            setCookie('pk2', res.hash, {
-                path: '/',
-                maxAge: 6000000,
-            });
-
-        }
-        return res
+  // Function for user login
+  async function login(body) {
+    try {
+      const res = await login_user(body);
+      if (res?.success) {
+        setUser(res.user);
+        setCookie('pk2', res.hash, {
+          path: '/',
+          maxAge: 6000000,
+        });
+      }
+      return res;
+    } catch (error) {
+      console.log('Error occurred during login:', error);
+      return { success: false, message: 'An error occurred during login' };
     }
+  }
 
-
-
-
-    async function GetLoginUser() {
-        const response = await getLogin_user()
-        console.log("RESPONSE", response);
-        if (response.success) {
-            setUser(response?.message)
-
-        }
-
-
-        // if (cookies.pk2) {
-        //     const response = {
-        //         user: {
-        //             name: process.env.REACT_APP_Username,
-        //             email: process.env.REACT_APP_REACT_APP_Email,
-        //             id: "123123123132",
-        //             wallet: "9784653145864532"
-        //         }
-        //     }
-        //     setUser(response?.user)
-
-        //     return response?.user
-        // }
-        // return null
-
+  // Function for getting logged-in user information
+  async function getLoggedInUser() {
+    try {
+      const response = await getLogin_user();
+      if (response.success) {
+        setUser(response.message);
+      }
+      return response;
+    } catch (error) {
+      console.log('Error occurred while fetching logged-in user:', error);
+      return {
+        success: false,
+        message: 'An error occurred while fetching user information',
+      };
     }
+  }
 
-    function Logout() {
-        console.log("FUNCCC");
-        removeCookie("pk2")
-        setUser(null);
-        // GetLoginUser()
-    }
+  // Function for user logout
+  function logout() {
+    removeCookie('pk2');
+    setUser(null);
+  }
 
+  // useEffect to get logged-in user information on component mount
+  useEffect(() => {
+    getLoggedInUser();
+  }, []);
 
-    return (
-        <AuthContext.Provider value={{
-            user,
-            setUser,
-            Login,
-            GetLoginUser,
-            Logout,
-        }}>
-            {children}
-        </AuthContext.Provider>
-    )
-}
-
-
+  // Provide the AuthContext value to children components
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        setUser,
+        login,
+        getLoggedInUser,
+        logout,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};

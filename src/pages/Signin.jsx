@@ -5,7 +5,7 @@ import { useToast } from '../ContextAPI/Components/toast';
 
 function SignIn() {
   const { alert } = useToast();
-  const { Login } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -20,7 +20,7 @@ function SignIn() {
 
   const loginUser = async () => {
     try {
-      const response = await Login(formData);
+      const response = await login(formData);
       alert(response.message, response.success);
       if (response.success) {
         navigate('/dashboard');

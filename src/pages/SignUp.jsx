@@ -8,7 +8,6 @@ import { useToast } from '../ContextAPI/Components/toast';
 
 function SignUp() {
   const { alert } = useToast();
-  const { SignUp } = useAuth();
   const navigate = useNavigate();
 
   const formik = useFormik({

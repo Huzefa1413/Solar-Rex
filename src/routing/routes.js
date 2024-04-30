@@ -32,7 +32,7 @@ function MyRoutes() {
       if (error.response) {
         if (error.response.data.error === 'auth token required') {
           setUser(null);
-          navigate('/sign-in');
+          navigate('/');
         }
       }
       return Promise.reject(error);
