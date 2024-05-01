@@ -83,7 +83,7 @@ const BuyEnergy = () => {
               <h1>Admin</h1>
             ) : (
               <div className="buyenergy">
-                <h2>Buy Energy</h2>
+                <h2 className="px-3">Buy Solar Energy</h2>
                 <p className="d-flex align-items-center justify-content-start">
                   <span className="col-md-3">Amount of Energy:</span>
                   <Input
@@ -105,6 +105,9 @@ const BuyEnergy = () => {
                   >
                     Buy Now
                   </Button>
+                </p>
+                <p className="text-muted px-3">
+                  Note: The price is calculated at Rs 20 per unit of energy.
                 </p>
               </div>
             )}

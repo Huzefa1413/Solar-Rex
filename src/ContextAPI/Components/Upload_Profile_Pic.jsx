@@ -8,7 +8,7 @@ import profile from '../../assets/profile.svg';
 
 function Upload_Profile_Pic() {
   const { alert } = useToast();
-  const { user, GetLoginUser } = useAuth();
+  const { user, getLoggedInUser } = useAuth();
 
   const [logo, setLogo] = useState(null);
   const [showLogo, setShowLogo] = useState([]);
@@ -37,7 +37,7 @@ function Upload_Profile_Pic() {
     const res = await UpdateProfilePic(myForm);
     // const res = {}
     if (res.success) {
-      GetLoginUser();
+      getLoggedInUser();
       setLogo(null);
       return alert(res.message, res.success);
     } else return alert(res.message, res.success);
