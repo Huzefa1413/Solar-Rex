@@ -78,30 +78,30 @@ const BuyEnergy = () => {
             broken={broken}
             rtl={rtl}
           />
-          <section className="container-fluid py-3">
+          <section className="container-fluid">
             {user.role == 'admin' ? (
               <h1>Admin</h1>
             ) : (
               <div className="buyenergy">
                 <h2 className="px-3">Buy Solar Energy</h2>
                 <p className="d-flex align-items-center justify-content-start">
-                  <span className="col-md-3">Amount of Energy:</span>
+                  <span className="col-md-5">Amount of Energy:</span>
                   <Input
                     type="number"
                     onChange={handleAmount}
-                    className="col-md-3"
+                    className="col-md-7"
                   />
                 </p>
                 <p className="d-flex align-items-center justify-content-start">
-                  <span className="col-md-3">Price:</span>
-                  <span className="col-md-3">{data.price} Rs</span>
+                  <span className="col-md-5">Price:</span>
+                  <span className="col-md-7">{data.price} Rs</span>
                 </p>
                 <p className="px-3">
                   <Button
                     onClick={() => buyEnergy()}
                     color="primary"
                     type="button"
-                    className="col-md-6"
+                    className="col-md-12"
                   >
                     Buy Now
                   </Button>
