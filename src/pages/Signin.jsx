@@ -43,7 +43,7 @@ function SignIn() {
               <input
                 type="text"
                 className="form-control"
-                placeholder="email"
+                placeholder="Email"
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
