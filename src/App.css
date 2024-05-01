@@ -2577,6 +2577,14 @@ body {
   font-weight: 600;
   line-height: 30px;
 }
+.buyenergy {
+  background-color: white;
+  width: fit-content;
+  padding: 20px;
+  margin: 50px auto;
+  border-radius: 20px;
+  box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.15) !important;
+}
 .buyenergy button {
   background-color: #924aef;
   color: #fff;
