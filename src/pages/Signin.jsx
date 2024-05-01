@@ -9,7 +9,7 @@ function SignIn() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    username: '',
+    email: '',
     password: '',
   });
 
@@ -43,9 +43,9 @@ function SignIn() {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Username"
-                name="username"
-                value={formData.username}
+                placeholder="email"
+                name="email"
+                value={formData.email}
                 onChange={handleInputChange}
               />
             </div>
