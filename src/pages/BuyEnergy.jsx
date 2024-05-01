@@ -45,7 +45,7 @@ const BuyEnergy = () => {
   const buyEnergy = async () => {
     try {
       if (data.amount > 0 && data.price > 0) {
-        const response = await buy(data);
+        const response = await buy({ amount: data.amount, price: data.amount * 20 });
         alert(response.message, response.success);
       } else {
         alert('Please Enter Amount', false);
