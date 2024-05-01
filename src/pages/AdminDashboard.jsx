@@ -184,6 +184,7 @@ function AdminDashboard() {
       fetchLast3MonthsConsumption();
       fetchPurchasedVsConsumed();
       fetchConsumptionPredictionData();
+      console.log('pur', purchasedvsConsumed);
     }
   }, []);
 
@@ -271,7 +272,7 @@ function AdminDashboard() {
                     </>
                   ) : (
                     <>
-                      {purchasedvsConsumed.count[0] > 0 && (
+                      {purchasedvsConsumed.count.length > 0 && (
                         <>
                           <span>Energy Meter</span>
                           <RadialBarChart

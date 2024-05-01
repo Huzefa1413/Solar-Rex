@@ -22,8 +22,12 @@ function SignUp() {
       username: Yup.string()
         .min(3, 'Username must be at least 3 characters')
         .max(20, 'Username must be at most 20 characters')
-        .matches(/^[a-zA-Z]+$/, 'Only alphabets are allowed')
+        .matches(
+          /^[a-zA-Z]+(?: [a-zA-Z]+)*$/,
+          'Only alphabets are allowed with single spaces'
+        )
         .required('Username is required'),
+
       email: Yup.string()
         .email('Invalid email address')
         .required('Email is required'),

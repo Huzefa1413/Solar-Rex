@@ -16,7 +16,7 @@ function CustomerList() {
       try {
         const response = await get_all_users();
         if (response.success) {
-          setData(response.message);
+          setData(response.message.reverse());
         }
       } catch (error) {
         console.error('Error fetching users:', error);

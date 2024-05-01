@@ -34,43 +34,54 @@ const CustProfile = () => {
     forecast: 0,
   });
 
-  const fetchLast3MonthsConsumption = async (id) => {
+  const fetchLast3MonthsConsumption = async () => {
     try {
       const response = await last3monthsConsumption(id);
       if (response.count.length > 0 && response.names.length > 0) {
-        setMonthsConsumption({ count: response.count, names: response.names });
-      }
-    } catch (error) {
-      console.error('Error fetching last 3 months consumption:', error);
-    }
-  };
-
-  const fetchPurchasedVsConsumed = async (id) => {
-    try {
-      const response = await lastMonthsPurchasedVsConsumed(id);
-      if (response.count.length > 0 && response.names.length > 0) {
-        setPurchasedVsConsumed({
-          count: response.count,
+        const formattedCount = response.count.map((value) =>
+          Number(value).toFixed(2)
+        );
+        setMonthsConsumption({
+          count: formattedCount,
           names: response.names,
         });
       }
     } catch (error) {
-      console.error('Error fetching purchased vs consumed:', error);
+      console.log(error);
+    }
+  };
+  const fetchPurchasedVsConsumed = async () => {
+    try {
+      const response = await lastMonthsPurchasedVsConsumed(id);
+      if (response.count.length > 0 && response.names.length > 0) {
+        const formattedCount = response.count.map((value) =>
+          Number(value).toFixed(2)
+        );
+        setPurchasedVsConsumed({
+          count: formattedCount,
+          names: response.names,
+        });
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const fetchConsumptionPrediction = async (id) => {
+  const fetchConsumptionPrediction = async () => {
     try {
       const response = await consumptionPrediction(id);
       if (response.success && response.predictions.length > 0) {
+        const formattedPredictions = response.predictions.map((value) =>
+          Number(value).toFixed(2)
+        );
         setConsumptionPrediction({
-          predictions: response.predictions,
+          predictions: formattedPredictions,
           dates: response.date,
           forecast: response.forecastPoint,
         });
       }
     } catch (error) {
-      console.error('Error fetching consumption prediction:', error);
+      console.log(error);
     }
   };
 

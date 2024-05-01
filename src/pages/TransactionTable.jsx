@@ -21,7 +21,7 @@ function TransactionTable() {
     const fetchTransactions = async () => {
       try {
         const response = await get_transactions();
-        setTransactions(response.message);
+        setTransactions(response.message.reverse());
       } catch (error) {
         console.error('Error fetching transactions:', error);
       }

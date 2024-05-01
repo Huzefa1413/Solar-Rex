@@ -74,7 +74,7 @@ function SignIn() {
               </div>
               <div>
                 <label className="mb-0">
-                  <Link to="/reset-password/:token" className="link reset_pass">
+                  <Link to="/forgot-password" className="link reset_pass">
                     Reset Here
                   </Link>
                 </label>

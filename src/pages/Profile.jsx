@@ -8,9 +8,10 @@ import Navbar from '../components/Navbar';
 import NavSidebar from '../components/Sidebar';
 import { useProSidebar } from 'react-pro-sidebar';
 import profile from '../assets/profile.svg';
+import countryData from '../assets/countries+cities.json'; // Import your country data here
 
 const Profile = () => {
-  const { user, GetLoginUser } = useAuth();
+  const { user, getLoggedInUser } = useAuth();
   const { alert } = useToast();
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
     useProSidebar();
@@ -19,8 +20,8 @@ const Profile = () => {
     email: user.email || '',
     phone: user.phone || '',
     address: user.address || '',
-    city: user.city || '',
     country: user.country || '',
+    city: user.city || '',
     inverterId: user.inverterId || '',
     postalCode: user.postalCode || '',
   });
@@ -35,7 +36,7 @@ const Profile = () => {
       const response = await update_profile(formData);
       alert(response.message, response.success);
       if (response.success) {
-        GetLoginUser();
+        getLoggedInUser();
       }
     } catch (e) {
       console.error(e);
@@ -166,24 +167,44 @@ const Profile = () => {
                           <div className="row">
                             <div className="col-lg-6">
                               <div className="form-group">
-                                <label htmlFor="">City</label>
-                                <input
-                                  type="text"
-                                  name="city"
-                                  value={formData.city}
+                                <label htmlFor="">Country</label>
+                                <select
+                                  name="country"
+                                  value={formData.country}
                                   onChange={handleInputChange}
-                                />
+                                >
+                                  <option value="">Select Country</option>
+                                  {countryData.map((country) => (
+                                    <option
+                                      key={country.id}
+                                      value={country.name}
+                                    >
+                                      {country.name}
+                                    </option>
+                                  ))}
+                                </select>
                               </div>
                             </div>
                             <div className="col-lg-6">
                               <div className="form-group">
-                                <label htmlFor="">Country</label>
-                                <input
-                                  type="text"
-                                  name="country"
-                                  value={formData.country}
+                                <label htmlFor="">City</label>
+                                <select
+                                  name="city"
+                                  value={formData.city}
                                   onChange={handleInputChange}
-                                />
+                                >
+                                  <option value="">Select City</option>
+                                  {countryData
+                                    .find(
+                                      (country) =>
+                                        country.name === formData.country
+                                    )
+                                    ?.cities.map((city) => (
+                                      <option key={city.id} value={city.name}>
+                                        {city.name}
+                                      </option>
+                                    ))}
+                                </select>
                               </div>
                             </div>
                           </div>
