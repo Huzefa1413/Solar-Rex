@@ -55,6 +55,7 @@ function AdminDashboard() {
     dates: [],
     forecast: 0,
   });
+
   const [cardsData, setCardsData] = useState({});
 
   const getAllCardsData = async () => {
@@ -184,7 +185,6 @@ function AdminDashboard() {
       fetchLast3MonthsConsumption();
       fetchPurchasedVsConsumed();
       fetchConsumptionPredictionData();
-      console.log('pur', purchasedvsConsumed);
     }
   }, []);
 
@@ -314,7 +314,7 @@ function AdminDashboard() {
                           <PredictionChart
                             predictionData={consumptionPredict.predictions}
                             dates={consumptionPredict.dates}
-                            forcastPoint={consumptionPredict.forecast}
+                            forecastPoint={consumptionPredict.forecast}
                           />
                         </>
                       )}
