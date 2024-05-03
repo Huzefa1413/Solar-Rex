@@ -216,35 +216,31 @@ function AdminDashboard() {
             <div className="row">
               {/* Cards */}
               <Card
-                title={`${
-                  user.role === 'admin'
-                    ? `Energy Produced Today`
-                    : `Energy Consumed Today`
-                }`}
+                title={`${user.role === 'admin'
+                  ? `Energy Produced Today`
+                  : `Energy Consumed Today`
+                  }`}
                 value={parseFloat(cardsData.dp).toFixed(2)}
               />
               <Card
-                title={`${
-                  user.role === 'admin'
-                    ? `Energy Produced This Week`
-                    : `Energy Consumed This Week`
-                }`}
+                title={`${user.role === 'admin'
+                  ? `Energy Produced This Week`
+                  : `Energy Consumed This Week`
+                  }`}
                 value={parseFloat(cardsData.wp).toFixed(2)}
               />
               <Card
-                title={`${
-                  user.role === 'admin'
-                    ? `Energy Produced This Month`
-                    : `Energy Consumed This Month`
-                }`}
+                title={`${user.role === 'admin'
+                  ? `Energy Produced This Month`
+                  : `Energy Consumed This Month`
+                  }`}
                 value={parseFloat(cardsData.mp).toFixed(2)}
               />
               <Card
-                title={`${
-                  user.role === 'admin'
-                    ? `Energy Produced This Year`
-                    : `Energy Consumed This Year`
-                }`}
+                title={`${user.role === 'admin'
+                  ? `Energy Produced This Year`
+                  : `Energy Consumed This Year`
+                  }`}
                 value={parseFloat(cardsData.yp).toFixed(2)}
               />
             </div>
@@ -264,7 +260,7 @@ function AdminDashboard() {
                               100 -
                               (soldvsProduced.count[0] /
                                 soldvsProduced.count[1]) *
-                                100
+                              100
                             ).toFixed(2)}
                           />
                         </>
@@ -280,7 +276,7 @@ function AdminDashboard() {
                               100 -
                               (purchasedvsConsumed.count[1] /
                                 purchasedvsConsumed.count[0]) *
-                                100
+                              100
                             ).toFixed(2)}
                           />
                         </>
@@ -301,7 +297,7 @@ function AdminDashboard() {
                           <PredictionChart
                             predictionData={productionPredict.predictions}
                             dates={productionPredict.dates}
-                            forcastPoint={productionPredict.forecast}
+                            forecastPoint={productionPredict.forecast}
                           />
                         </>
                       )}
@@ -352,7 +348,7 @@ function AdminDashboard() {
                     <>
                       {soldvsProduced.count.length > 0 && (
                         <>
-                          <span>This Month's Energy Sold vs Produced</span>
+                          <span>Energy Sold vs Produced</span>
                           <BarChart barData={soldvsProduced} />
                         </>
                       )}
@@ -361,7 +357,7 @@ function AdminDashboard() {
                     <>
                       {purchasedvsConsumed.count.length > 0 && (
                         <>
-                          <span>This Month's Energy Purchased vs Consumed</span>
+                          <span>Energy Purchased vs Consumed</span>
                           <BarChart barData={purchasedvsConsumed} />
                         </>
                       )}
