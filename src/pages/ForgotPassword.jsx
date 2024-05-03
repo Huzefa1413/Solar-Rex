@@ -1,39 +1,38 @@
 import React from 'react';
 import { useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
-
 import { forget_password } from '../ContextAPI/APIs/api';
 import { useToast } from '../ContextAPI/Components/toast';
+import Loader from '../components/Loader';
 
 function ForgotPassword() {
   const { alert } = useToast();
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     email: '',
   });
 
-  const hnadleEmail = (e) => {
+  const handleEmail = (e) => {
     setData({ ...data, email: e.target.value });
   };
 
   const forget = async (e) => {
+    setLoading(true);
     try {
       const payload = {
         email: data.email,
       };
-
-      console.log('DDD', payload);
-      // return
       const response = await forget_password(payload);
-      console.log('response', response);
       alert(response.message, response.success);
       if (response.success) {
         navigate(`/reset-password/${response?.token}`);
       }
     } catch (e) {
       console.log(e);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -42,7 +41,6 @@ function ForgotPassword() {
       <section className="authentication_section forgot_pass_page d-flex ai-center">
         <div className="container">
           <div className="card">
-            {/* <img src={LOGO} alt="logo" className='img-fluid' /> */}
             <div className="sign_form">
               <h3>Forgot your password?</h3>
               <p>
@@ -52,14 +50,18 @@ function ForgotPassword() {
               <div className="form-group">
                 <input
                   type="email"
-                  onChange={(e) => hnadleEmail(e)}
+                  onChange={(e) => handleEmail(e)}
                   className="form-control"
                   placeholder="Email"
                 />
               </div>
               <div>
-                <button onClick={() => forget()} className="btn sign_btn">
-                  Send Request
+                <button
+                  disabled={loading}
+                  onClick={() => forget()}
+                  className="btn sign_btn"
+                >
+                  {loading ? <Loader /> : 'Send Request'}
                 </button>
               </div>
             </div>

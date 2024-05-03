@@ -1390,6 +1390,7 @@ body {
 }
 .navbar .nav-item .account .img img {
   width: 36px;
+  height: 36px;
   border-radius: 50px;
 }
 .navbar .nav-item .account h6,
@@ -2278,10 +2279,6 @@ body {
     z-index: 101;
   }
 
-  .navsidebar .link_one {
-    margin-top: 5.5rem !important;
-  }
-
   .navsidebar .sidebar_toggle {
     padding-top: 0rem !important;
     padding-bottom: 0rem !important;
@@ -2780,7 +2777,8 @@ body {
   color: #32325d;
 }
 .profile .profilebox .profileheader img {
-  max-width: 180px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   transform: translate(-50%, -30%);
   position: absolute;
@@ -2856,4 +2854,36 @@ body {
   color: white;
   text-decoration: none;
   background-color: #0056b3; /* Darker blue */
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 60px;
+  height: 60px;
+  animation: spin 3s linear infinite;
+  margin: 50px auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(360deg);
+  }
+
+  50% {
+    transform: rotate(720deg);
+  }
+
+  75% {
+    transform: rotate(1080deg);
+  }
+
+  100% {
+    transform: rotate(1440deg);
+  }
 }

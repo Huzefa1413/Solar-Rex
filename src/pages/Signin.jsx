@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../ContextAPI/Components/auth';
 import { useToast } from '../ContextAPI/Components/toast';
+import Loader from '../components/Loader';
 
 function SignIn() {
   const { alert } = useToast();
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -20,6 +22,7 @@ function SignIn() {
 
   const loginUser = async () => {
     try {
+      setLoading(true);
       const response = await login(formData);
       alert(response.message, response.success);
       if (response.success) {
@@ -29,6 +32,8 @@ function SignIn() {
       }
     } catch (error) {
       console.error('Error logging in:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -60,8 +65,12 @@ function SignIn() {
               />
             </div>
             <div className="">
-              <button onClick={loginUser} className="btn sign_btn">
-                Sign In
+              <button
+                disabled={loading}
+                onClick={loginUser}
+                className="btn sign_btn"
+              >
+                {loading ? <Loader /> : 'Sign In'}
               </button>
             </div>
             <div className="form-check-group my-4 d-flex jc-between mx-2">

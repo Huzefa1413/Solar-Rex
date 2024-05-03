@@ -22,7 +22,7 @@ const PrivateRoute = () => {
   }, [user, cookies.pk2]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p className="loader"></p>;
   }
 
   if (!loading && !user) {

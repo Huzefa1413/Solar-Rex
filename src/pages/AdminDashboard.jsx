@@ -8,6 +8,7 @@ import BarChart from '../components/Charts/BarChart';
 import RadialBarChart from '../components/Charts/EnergyMeter';
 import PredictionChart from '../components/Charts/PredictionChart';
 import Card from '../components/StatsCard';
+import Loader from '../components/Loader';
 import {
   adminCards,
   last3monthsConsumption,
@@ -22,13 +23,14 @@ import {
 function AdminDashboard() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
-    useProSidebar();
 
   if (user.role !== 'admin' && !user.profileSetup) {
     navigate('/profile');
   }
 
+  const [loading, setLoading] = useState(true);
+  const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
+    useProSidebar();
   const [last3monthsProduction, setLast3monthsProduction] = useState({
     count: [],
     names: [],
@@ -176,16 +178,23 @@ function AdminDashboard() {
   };
 
   useEffect(() => {
-    getAllCardsData();
-    if (user.role === 'admin') {
-      fetchLast3MonthsProduction();
-      fetchSoldVsProduced();
-      fetchProductionPredictionData();
-    } else {
-      fetchLast3MonthsConsumption();
-      fetchPurchasedVsConsumed();
-      fetchConsumptionPredictionData();
-    }
+    const fetchData = async () => {
+      await Promise.all([
+        getAllCardsData(),
+        user.role === 'admin'
+          ? fetchLast3MonthsProduction()
+          : fetchLast3MonthsConsumption(),
+        user.role === 'admin'
+          ? fetchSoldVsProduced()
+          : fetchPurchasedVsConsumed(),
+        user.role === 'admin'
+          ? fetchProductionPredictionData()
+          : fetchConsumptionPredictionData(),
+      ]);
+      setLoading(false);
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -211,162 +220,169 @@ function AdminDashboard() {
             broken={broken}
             rtl={rtl}
           />
-
-          <section className="container-fluid py-4 dashboard">
-            <div className="row">
-              {/* Cards */}
-              <Card
-                title={`${user.role === 'admin'
-                  ? `Energy Produced Today`
-                  : `Energy Consumed Today`
+          {loading ? (
+            <Loader />
+          ) : (
+            <section className="container-fluid py-4 dashboard">
+              <div className="row">
+                {/* Cards */}
+                <Card
+                  title={`${
+                    user.role === 'admin'
+                      ? `Energy Produced Today`
+                      : `Energy Consumed Today`
                   }`}
-                value={parseFloat(cardsData.dp).toFixed(2)}
-              />
-              <Card
-                title={`${user.role === 'admin'
-                  ? `Energy Produced This Week`
-                  : `Energy Consumed This Week`
+                  value={parseFloat(cardsData.dp).toFixed(2)}
+                />
+                <Card
+                  title={`${
+                    user.role === 'admin'
+                      ? `Energy Produced This Week`
+                      : `Energy Consumed This Week`
                   }`}
-                value={parseFloat(cardsData.wp).toFixed(2)}
-              />
-              <Card
-                title={`${user.role === 'admin'
-                  ? `Energy Produced This Month`
-                  : `Energy Consumed This Month`
+                  value={parseFloat(cardsData.wp).toFixed(2)}
+                />
+                <Card
+                  title={`${
+                    user.role === 'admin'
+                      ? `Energy Produced This Month`
+                      : `Energy Consumed This Month`
                   }`}
-                value={parseFloat(cardsData.mp).toFixed(2)}
-              />
-              <Card
-                title={`${user.role === 'admin'
-                  ? `Energy Produced This Year`
-                  : `Energy Consumed This Year`
+                  value={parseFloat(cardsData.mp).toFixed(2)}
+                />
+                <Card
+                  title={`${
+                    user.role === 'admin'
+                      ? `Energy Produced This Year`
+                      : `Energy Consumed This Year`
                   }`}
-                value={parseFloat(cardsData.yp).toFixed(2)}
-              />
-            </div>
-
-            {/* Charts */}
-            <div className="row py-4">
-              {/* Energy Meter */}
-              <div className="col-md-5 my-2">
-                <div className="chart-container">
-                  {user.role === 'admin' ? (
-                    <>
-                      {soldvsProduced.count.length > 0 && (
-                        <>
-                          <span>Energy Meter</span>
-                          <RadialBarChart
-                            currentEnergy={(
-                              100 -
-                              (soldvsProduced.count[0] /
-                                soldvsProduced.count[1]) *
-                              100
-                            ).toFixed(2)}
-                          />
-                        </>
-                      )}
-                    </>
-                  ) : (
-                    <>
-                      {purchasedvsConsumed.count.length > 0 && (
-                        <>
-                          <span>Energy Meter</span>
-                          <RadialBarChart
-                            currentEnergy={(
-                              100 -
-                              (purchasedvsConsumed.count[1] /
-                                purchasedvsConsumed.count[0]) *
-                              100
-                            ).toFixed(2)}
-                          />
-                        </>
-                      )}
-                    </>
-                  )}
-                </div>
+                  value={parseFloat(cardsData.yp).toFixed(2)}
+                />
               </div>
 
-              {/* Production/Consumption Charts */}
-              <div className="col-md-7 my-2">
-                <div className="chart-container">
-                  {user.role === 'admin' ? (
-                    <>
-                      {productionPredict.dates.length > 0 && (
-                        <>
-                          <span>This Month's Production</span>
-                          <PredictionChart
-                            predictionData={productionPredict.predictions}
-                            dates={productionPredict.dates}
-                            forecastPoint={productionPredict.forecast}
-                          />
-                        </>
-                      )}
-                    </>
-                  ) : (
-                    <>
-                      {consumptionPredict.dates.length > 0 && (
-                        <>
-                          <span>This Month's Consumption</span>
-                          <PredictionChart
-                            predictionData={consumptionPredict.predictions}
-                            dates={consumptionPredict.dates}
-                            forecastPoint={consumptionPredict.forecast}
-                          />
-                        </>
-                      )}
-                    </>
-                  )}
+              {/* Charts */}
+              <div className="row py-4">
+                {/* Energy Meter */}
+                <div className="col-md-5 my-2">
+                  <div className="chart-container">
+                    {user.role === 'admin' ? (
+                      <>
+                        {soldvsProduced.count.length > 0 && (
+                          <>
+                            <span>Energy Meter</span>
+                            <RadialBarChart
+                              currentEnergy={(
+                                100 -
+                                (soldvsProduced.count[0] /
+                                  soldvsProduced.count[1]) *
+                                  100
+                              ).toFixed(2)}
+                            />
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        {purchasedvsConsumed.count.length > 0 && (
+                          <>
+                            <span>Energy Meter</span>
+                            <RadialBarChart
+                              currentEnergy={(
+                                100 -
+                                (purchasedvsConsumed.count[1] /
+                                  purchasedvsConsumed.count[0]) *
+                                  100
+                              ).toFixed(2)}
+                            />
+                          </>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                {/* Production/Consumption Charts */}
+                <div className="col-md-7 my-2">
+                  <div className="chart-container">
+                    {user.role === 'admin' ? (
+                      <>
+                        {productionPredict.dates.length > 0 && (
+                          <>
+                            <span>This Month's Production</span>
+                            <PredictionChart
+                              predictionData={productionPredict.predictions}
+                              dates={productionPredict.dates}
+                              forecastPoint={productionPredict.forecast}
+                            />
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        {consumptionPredict.dates.length > 0 && (
+                          <>
+                            <span>This Month's Consumption</span>
+                            <PredictionChart
+                              predictionData={consumptionPredict.predictions}
+                              dates={consumptionPredict.dates}
+                              forecastPoint={consumptionPredict.forecast}
+                            />
+                          </>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+                {/* Other Charts */}
+                <div className="col-md-6 my-2">
+                  <div className="chart-container">
+                    {user.role === 'admin' ? (
+                      <>
+                        {last3monthsProduction.count.length > 0 && (
+                          <>
+                            <span>Last 3 Months Production</span>
+                            <BarChart barData={last3monthsProduction} />
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        {monthsConsumption.count.length > 0 && (
+                          <>
+                            <span>Last 3 Months Consumption</span>
+                            <BarChart barData={monthsConsumption} />
+                          </>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+                <div className="col-md-6 my-2">
+                  <div className="chart-container">
+                    {user.role === 'admin' ? (
+                      <>
+                        {soldvsProduced.count.length > 0 && (
+                          <>
+                            <span>Energy Sold vs Produced</span>
+                            <BarChart barData={soldvsProduced} />
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        {purchasedvsConsumed.count.length > 0 && (
+                          <>
+                            <span>Energy Purchased vs Consumed</span>
+                            <BarChart barData={purchasedvsConsumed} />
+                          </>
+                        )}
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
-              {/* Other Charts */}
-              <div className="col-md-6 my-2">
-                <div className="chart-container">
-                  {user.role === 'admin' ? (
-                    <>
-                      {last3monthsProduction.count.length > 0 && (
-                        <>
-                          <span>Last 3 Months Production</span>
-                          <BarChart barData={last3monthsProduction} />
-                        </>
-                      )}
-                    </>
-                  ) : (
-                    <>
-                      {monthsConsumption.count.length > 0 && (
-                        <>
-                          <span>Last 3 Months Consumption</span>
-                          <BarChart barData={monthsConsumption} />
-                        </>
-                      )}
-                    </>
-                  )}
-                </div>
-              </div>
-              <div className="col-md-6 my-2">
-                <div className="chart-container">
-                  {user.role === 'admin' ? (
-                    <>
-                      {soldvsProduced.count.length > 0 && (
-                        <>
-                          <span>Energy Sold vs Produced</span>
-                          <BarChart barData={soldvsProduced} />
-                        </>
-                      )}
-                    </>
-                  ) : (
-                    <>
-                      {purchasedvsConsumed.count.length > 0 && (
-                        <>
-                          <span>Energy Purchased vs Consumed</span>
-                          <BarChart barData={purchasedvsConsumed} />
-                        </>
-                      )}
-                    </>
-                  )}
-                </div>
-              </div>
-            </div>
-          </section>
+            </section>
+          )}
         </div>
       </div>
     </>

@@ -131,6 +131,7 @@ function MobSidebar() {
                       alt=""
                       style={{
                         width: '36px',
+                        height: '36px',
                         marginTop: '6px',
                         borderRadius: '50px',
                       }}

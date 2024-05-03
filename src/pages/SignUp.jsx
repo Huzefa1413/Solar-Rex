@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useAuth } from '../ContextAPI/Components/auth';
 import { signUp } from '../ContextAPI/APIs/api';
 import { useToast } from '../ContextAPI/Components/toast';
+import Loader from '../components/Loader';
 
 function SignUp() {
   const { alert } = useToast();
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -47,13 +50,18 @@ function SignUp() {
     }),
     onSubmit: async (values) => {
       try {
+        setLoading(true);
         const response = await signUp(values);
-        alert(response?.message, response.success);
+        alert(response.message, response.success);
         if (response.success) {
           navigate('/');
+        } else {
+          navigate('/sign-up');
         }
       } catch (error) {
         console.error('Error registering:', error);
+      } finally {
+        setLoading(false);
       }
     },
   });
@@ -142,8 +150,12 @@ function SignUp() {
                 </div>
 
                 <div className="mb-4">
-                  <button type="submit" className="btn sign_btn">
-                    Register
+                  <button
+                    disabled={loading}
+                    type="submit"
+                    className="btn sign_btn"
+                  >
+                    {loading ? <Loader /> : 'Register'}
                   </button>
                 </div>
                 <small>

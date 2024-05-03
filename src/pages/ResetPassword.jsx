@@ -1,39 +1,40 @@
 import React from 'react';
 import { useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { useNavigate, useParams } from 'react-router-dom';
-
 import { reset_password } from '../ContextAPI/APIs/api';
 import { useToast } from '../ContextAPI/Components/toast';
+import Loader from '../components/Loader';
 
 function ResetPassword() {
-  const Navigate = useNavigate();
+  const { alert } = useToast();
+  const navigate = useNavigate();
   const { token } = useParams();
 
-  const { alert } = useToast();
-
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     otp: '',
     password: '',
   });
-
   const handleOTP = (e) => {
     setData({ ...data, otp: e.target.value });
   };
-
   const handlePass = (e) => {
     setData({ ...data, password: e.target.value });
   };
 
   const reset = async () => {
+    setLoading(true);
+
     try {
-      const response = await reset_password(data, token)
-      alert(response.message)
+      const response = await reset_password(data, token);
+      alert(response.message);
       if (response.success) {
-        Navigate("/")
+        navigate('/');
       }
     } catch (e) {
       console.log(e);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -41,7 +42,6 @@ function ResetPassword() {
       <section className="authentication_section reset_pass_page d-flex ai-center">
         <div className="container">
           <div className="card">
-            {/* <img src={LOGO} alt="logo" className='img-fluid' /> */}
             <div className="sign_form">
               <h3>Reset your Password</h3>
               <p>Set your new password.</p>
@@ -62,8 +62,12 @@ function ResetPassword() {
                 />
               </div>
               <div>
-                <button onClick={() => reset()} className="btn sign_btn">
-                  Reset Password
+                <button
+                  disabled={loading}
+                  onClick={() => reset()}
+                  className="btn sign_btn"
+                >
+                  {loading ? <Loader /> : 'Reset Password'}
                 </button>
               </div>
             </div>

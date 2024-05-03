@@ -5,11 +5,13 @@ import { useAuth } from '../ContextAPI/Components/auth';
 import { get_transactions } from '../ContextAPI/APIs/api';
 import NavSidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
+import Loader from '../components/Loader'; // Import Loader component
 
 function TransactionTable() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     if (user.role !== 'admin' && !user.profileSetup) {
@@ -24,6 +26,8 @@ function TransactionTable() {
         setTransactions(response.message.reverse());
       } catch (error) {
         console.error('Error fetching transactions:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -52,28 +56,34 @@ function TransactionTable() {
         <Navbar />
         <section className="container-fluid py-3">
           <h2>Transactions</h2>
-          <Table className="align-items-center" responsive>
-            <thead className="thead-light">
-              <tr>
-                <th scope="col">Buyer</th>
-                <th scope="col">Inverter ID</th>
-                <th scope="col">Price</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              {transactions.map((transaction, index) => (
-                <tr key={index}>
-                  <td>{transaction?.buyerid.username}</td>
-                  <td>{transaction?.buyerid.inverterId}</td>
-                  <td>{transaction?.price}</td>
-                  <td>{transaction?.quantity}</td>
-                  <td>{convertTimestampToDateTime(transaction?.timestamp)}</td>
+          {loading ? (
+            <Loader />
+          ) : (
+            <Table className="align-items-center" responsive>
+              <thead className="thead-light">
+                <tr>
+                  <th scope="col">Buyer</th>
+                  <th scope="col">Inverter ID</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Time</th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
+              </thead>
+              <tbody>
+                {transactions.map((transaction, index) => (
+                  <tr key={index}>
+                    <td>{transaction?.buyerid.username}</td>
+                    <td>{transaction?.buyerid.inverterId}</td>
+                    <td>{transaction?.price}</td>
+                    <td>{transaction?.quantity}</td>
+                    <td>
+                      {convertTimestampToDateTime(transaction?.timestamp)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          )}
         </section>
       </div>
     </div>

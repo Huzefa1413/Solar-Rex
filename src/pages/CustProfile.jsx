@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useAuth } from '../ContextAPI/Components/auth';
+import { useParams, useNavigate } from 'react-router-dom';
 import NavSidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
+import Loader from '../components/Loader';
 import { useProSidebar } from 'react-pro-sidebar';
 import { getCustProfile } from '../ContextAPI/APIs/api';
 import {
@@ -16,6 +18,14 @@ import BarChart from '../components/Charts/BarChart';
 
 const CustProfile = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  if (user.role !== 'admin') {
+    navigate('/dashboard');
+  }
+
+  const [loading, setLoading] = useState(true);
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
     useProSidebar();
 
@@ -97,10 +107,17 @@ const CustProfile = () => {
   };
 
   useEffect(() => {
-    fetchAllData();
-    fetchLast3MonthsConsumption(id);
-    fetchPurchasedVsConsumed(id);
-    fetchConsumptionPrediction(id);
+    const fetchData = async () => {
+      await Promise.all([
+        fetchAllData(),
+        fetchLast3MonthsConsumption(id),
+        fetchPurchasedVsConsumed(id),
+        fetchConsumptionPrediction(id),
+      ]);
+      setLoading(false);
+    };
+
+    fetchData();
   }, [id]);
 
   return (
@@ -125,83 +142,87 @@ const CustProfile = () => {
             broken={broken}
             rtl={rtl}
           />
-          <section className="container-fluid py-3 profile">
-            <div className="welcome">
-              <h2>{cust.username}'s Profile Page</h2>
-              <p>
-                This is {cust.username}'s profile page. You can see their
-                details here.
-              </p>
-            </div>
-            <div className="container-fluid">
-              <div className="row" style={{ flexWrap: 'wrap-reverse' }}>
-                <div className="col-xl-8">
-                  <div className="row py-4">
-                    <div className="my-2">
-                      <div className="chart-container">
-                        {consumptionPredict.dates.length > 0 && (
-                          <>
-                            <span>This Month's Consumption</span>
-                            <PredictionChart
-                              predictionData={consumptionPredict.predictions}
-                              dates={consumptionPredict.dates}
-                              forecastPoint={consumptionPredict.forecast}
-                            />
-                          </>
-                        )}
+          {loading ? (
+            <Loader />
+          ) : (
+            <section className="container-fluid py-3 profile">
+              <div className="welcome">
+                <h2>{cust.username}'s Profile Page</h2>
+                <p>
+                  This is {cust.username}'s profile page. You can see their
+                  details here.
+                </p>
+              </div>
+              <div className="container-fluid">
+                <div className="row" style={{ flexWrap: 'wrap-reverse' }}>
+                  <div className="col-xl-8">
+                    <div className="row py-4">
+                      <div className="my-2">
+                        <div className="chart-container">
+                          {consumptionPredict.dates.length > 0 && (
+                            <>
+                              <span>This Month's Consumption</span>
+                              <PredictionChart
+                                predictionData={consumptionPredict.predictions}
+                                dates={consumptionPredict.dates}
+                                forecastPoint={consumptionPredict.forecast}
+                              />
+                            </>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    <div className="my-2">
-                      <div className="chart-container">
-                        {monthsConsumption.count.length > 0 && (
-                          <>
-                            <span>Last 3 Months Consumption</span>
-                            <BarChart barData={monthsConsumption} />
-                          </>
-                        )}
+                      <div className="my-2">
+                        <div className="chart-container">
+                          {monthsConsumption.count.length > 0 && (
+                            <>
+                              <span>Last 3 Months Consumption</span>
+                              <BarChart barData={monthsConsumption} />
+                            </>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    <div className="my-2">
-                      <div className="chart-container">
-                        {purchasedVsConsumed.count.length > 0 && (
-                          <>
-                            <span>
-                              This Month's Energy Purchased vs Consumed
-                            </span>
-                            <BarChart barData={purchasedVsConsumed} />
-                          </>
-                        )}
+                      <div className="my-2">
+                        <div className="chart-container">
+                          {purchasedVsConsumed.count.length > 0 && (
+                            <>
+                              <span>
+                                This Month's Energy Purchased vs Consumed
+                              </span>
+                              <BarChart barData={purchasedVsConsumed} />
+                            </>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="col-xl-4">
-                  <div className="profilebox">
-                    <div className="profileheader">
-                      <img
-                        src={
-                          cust.profilepic
-                            ? `${profilePicUrl}/${cust.profilepic}`
-                            : profile
-                        }
-                        alt="User Avatar"
-                      />
-                    </div>
-                    <div className="profilebody">
-                      <h3>{cust.username}</h3>
-                      <h6>
-                        {cust.city} {cust.country}
-                      </h6>
-                      <h4>{cust.email}</h4>
-                      <h5>{cust.mobileNumber}</h5>
-                      <hr />
-                      <p>{cust.address}</p>
+                  <div className="col-xl-4">
+                    <div className="profilebox">
+                      <div className="profileheader">
+                        <img
+                          src={
+                            cust.profilepic
+                              ? `${profilePicUrl}/${cust.profilepic}`
+                              : profile
+                          }
+                          alt="User Avatar"
+                        />
+                      </div>
+                      <div className="profilebody">
+                        <h3>{cust.username}</h3>
+                        <h6>
+                          {cust.city} {cust.country}
+                        </h6>
+                        <h4>{cust.email}</h4>
+                        <h5>{cust.mobileNumber}</h5>
+                        <hr />
+                        <p>{cust.address}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          )}
         </div>
       </div>
     </>
