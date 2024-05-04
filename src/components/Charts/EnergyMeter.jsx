@@ -42,7 +42,10 @@ function RadialBarChart({ currentEnergy }) {
     },
   };
 
-  const series = [currentEnergy];
+  let series = [0];
+  if (!isNaN(currentEnergy)) {
+    series = [currentEnergy];
+  }
 
   return (
     <ReactApexChart

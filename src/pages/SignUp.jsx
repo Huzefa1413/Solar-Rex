@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useAuth } from '../ContextAPI/Components/auth';
 import { signUp } from '../ContextAPI/APIs/api';
 import { useToast } from '../ContextAPI/Components/toast';
 import Loader from '../components/Loader';
