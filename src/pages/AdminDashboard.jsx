@@ -18,6 +18,7 @@ import {
   last3months,
   last3monthsSoldvsProduced,
   lastMonthsPurchasedVsConsumed,
+  energyMeter,
 } from '../ContextAPI/APIs/api';
 
 function AdminDashboard() {
@@ -141,6 +142,18 @@ function AdminDashboard() {
     }
   };
 
+  const [energyMeterData, setEnergyMeterData] = useState({});
+
+  const getEnergyMeterData = async () => {
+    try {
+      const response = await energyMeter(user._id);
+      if (response.success) {
+        setEnergyMeterData(response);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const fetchProductionPredictionData = async () => {
     try {
       const response = await productionPrediction();
@@ -190,6 +203,7 @@ function AdminDashboard() {
         user.role === 'admin'
           ? fetchProductionPredictionData()
           : fetchConsumptionPredictionData(),
+        user.role !== 'admin' && getEnergyMeterData(),
       ]);
       setLoading(false);
     };
@@ -270,6 +284,18 @@ function AdminDashboard() {
                         {soldvsProduced.count.length > 0 && (
                           <>
                             <span>Energy Meter</span>
+                            <hr />
+                            <p>
+                              <b>Energy Left:</b>
+                              <i>
+                                {' '}
+                                {(
+                                  soldvsProduced.count[1] -
+                                  soldvsProduced.count[0]
+                                ).toFixed(2)}{' '}
+                                kWh
+                              </i>
+                            </p>
                             <RadialBarChart
                               currentEnergy={(
                                 100 -
@@ -283,14 +309,26 @@ function AdminDashboard() {
                       </>
                     ) : (
                       <>
-                        {purchasedvsConsumed.count.length > 0 && (
+                        {energyMeterData.success && (
                           <>
                             <span>Energy Meter</span>
+                            <hr />
+                            <p>
+                              <b>Energy Left:</b>
+                              <i>
+                                {' '}
+                                {(
+                                  energyMeterData.message[1] -
+                                  energyMeterData.message[0]
+                                ).toFixed(2)}{' '}
+                                kWh
+                              </i>
+                            </p>
                             <RadialBarChart
                               currentEnergy={(
                                 100 -
-                                (purchasedvsConsumed.count[1] /
-                                  purchasedvsConsumed.count[0]) *
+                                (energyMeterData.message[0] /
+                                  energyMeterData.message[1]) *
                                   100
                               ).toFixed(2)}
                             />

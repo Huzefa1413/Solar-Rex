@@ -56,6 +56,10 @@ export const userCards = async (body) => {
   return apiRequest('GET', `/analytics/userCards?id=${body}`);
 };
 
+export const energyMeter = async (body) => {
+  return apiRequest('GET', `/analytics/energyMeter?id=${body}`);
+};
+
 export const UpdateProfilePic = async (body) => {
   return apiRequest('POST', '/user/uploadProfilePic', body);
 };
