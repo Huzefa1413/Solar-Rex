@@ -8,6 +8,7 @@ import PrivateRoute from './privateRoutes';
 import SignUp from '../pages/SignUp';
 import SignIn from '../pages/Signin';
 import ForgotPassword from '../pages/ForgotPassword';
+import Newne from '../pages/newNEW';
 import ResetPassword from '../pages/ResetPassword';
 import AdminDashboard from '../pages/AdminDashboard';
 import CustomerList from '../pages/CustomerList';
@@ -50,7 +51,8 @@ function MyRoutes() {
       <Route exact path="/" element={<SignIn />} />
       <Route exact path="/sign-up" element={<SignUp />} />
       <Route exact path="/forgot-password" element={<ForgotPassword />} />
-      <Route exact path="/reset-password/:token" element={<ResetPassword />} />
+       <Route exact path="/reset-password/:token" element={<ResetPassword />} />
+       <Route exact path="/nnnnn" element={<Newne />} />
 
       <Route element={<PrivateRoute />}>
         <Route path="/customerlist" element={<CustomerList />} />
