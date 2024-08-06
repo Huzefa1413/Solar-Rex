@@ -10,14 +10,14 @@ const VerificationPage = () => {
   };
 
   return (
-    <section className="authentication_section reset_pass_page verification_page d-flex ai-center">
+    <section className="authentication_section forgot_pass_page verification_page d-flex ai-center">
       <div className="container">
         <div className="card text-center">
-          <div className="verification_form">
+          <div className="sign_form">
             <FaCheckCircle className="check-icon" size={60} color="green" />
             <h3 className="mt-3">Account Verified Successfully!</h3>
             <p>Your account has been verified. You can now sign in.</p>
-            <button onClick={handleSignIn} className="btn btn-primary mt-3">
+            <button onClick={handleSignIn} className="btn mt-3 sign_btn">
               Go to Sign In
             </button>
           </div>

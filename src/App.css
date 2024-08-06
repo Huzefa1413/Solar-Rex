@@ -2913,25 +2913,6 @@ body {
   color: #495057;
 }
 
-/* VerificationPage.css */
-
-.authentication_section {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.verification_page .card {
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.verification_form {
-  padding: 20px;
-}
-
 .check-icon {
   display: block;
   margin: 0 auto;
