@@ -2887,3 +2887,28 @@ body {
     transform: rotate(1440deg);
   }
 }
+
+.support-container .btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  transition: background-color 0.2s ease;
+}
+
+.support-container .btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+.support-container .accordion-button {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.support-container .accordion-button:not(.collapsed) {
+  color: #343a40;
+  background-color: #e2e6ea;
+}
+
+.support-container .accordion-body {
+  color: #495057;
+}

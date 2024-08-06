@@ -5,7 +5,13 @@ import { profilePicUrl } from '../helpers/data';
 import { Sidebar, Menu, MenuItem, sidebarClasses } from 'react-pro-sidebar';
 import { HiBars3 } from 'react-icons/hi2';
 import { AiOutlineClose } from 'react-icons/ai';
-import { LuLayoutDashboard, LuUsers, LuActivity, LuZap } from 'react-icons/lu';
+import {
+  LuLayoutDashboard,
+  LuUsers,
+  LuActivity,
+  LuZap,
+  LuHeadphones,
+} from 'react-icons/lu';
 import logo from '../assets/logosolarrex.png';
 import profile from '../assets/profile.svg';
 
@@ -101,17 +107,30 @@ function MobSidebar() {
                 </MenuItem>
               </Link>
               {user.role === 'user' && (
-                <Link to="/buyenergy" className="link">
-                  <MenuItem
-                    className={`link_one ${
-                      pathname === '/buyenergy' ? 'active' : 'unactive'
-                    }`}
-                    active={pathname === '/buyenergy'}
-                    icon={<LuZap className="sidebar_icon" />}
-                  >
-                    Energy
-                  </MenuItem>
-                </Link>
+                <>
+                  <Link to="/support" className="link">
+                    <MenuItem
+                      className={`link_one ${
+                        pathname === '/support' ? 'active' : 'unactive'
+                      }`}
+                      active={pathname === '/support'}
+                      icon={<LuHeadphones className="sidebar_icon" />}
+                    >
+                      Customer Support
+                    </MenuItem>
+                  </Link>
+                  <Link to="/buyenergy" className="link">
+                    <MenuItem
+                      className={`link_one ${
+                        pathname === '/buyenergy' ? 'active' : 'unactive'
+                      }`}
+                      active={pathname === '/buyenergy'}
+                      icon={<LuZap className="sidebar_icon" />}
+                    >
+                      Energy
+                    </MenuItem>
+                  </Link>
+                </>
               )}
               <hr />
               <Link to="/profile" className="link">

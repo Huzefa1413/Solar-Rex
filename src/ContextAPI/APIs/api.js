@@ -19,6 +19,9 @@ const apiRequest = async (method, url, body = null) => {
 export const login_user = async (body) => {
   return apiRequest('POST', '/user/sign-in', body);
 };
+export const getAdminEmail = async () => {
+  return apiRequest('GET', '/user/getAdminEmail');
+};
 
 export const signUp = async (body) => {
   return apiRequest('POST', '/user/sign-up', body);

@@ -8,7 +8,6 @@ import PrivateRoute from './privateRoutes';
 import SignUp from '../pages/SignUp';
 import SignIn from '../pages/Signin';
 import ForgotPassword from '../pages/ForgotPassword';
-import Newne from '../pages/newNEW';
 import ResetPassword from '../pages/ResetPassword';
 import AdminDashboard from '../pages/AdminDashboard';
 import CustomerList from '../pages/CustomerList';
@@ -16,6 +15,7 @@ import TransactionTable from '../pages/TransactionTable';
 import BuyEnergy from '../pages/BuyEnergy';
 import Profile from '../pages/Profile';
 import CustProfile from '../pages/CustProfile';
+import Support from '../pages/Support';
 import { PageNotFound } from '../pages/PageNotFound';
 
 function MyRoutes() {
@@ -51,8 +51,7 @@ function MyRoutes() {
       <Route exact path="/" element={<SignIn />} />
       <Route exact path="/sign-up" element={<SignUp />} />
       <Route exact path="/forgot-password" element={<ForgotPassword />} />
-       <Route exact path="/reset-password/:token" element={<ResetPassword />} />
-       <Route exact path="/nnnnn" element={<Newne />} />
+      <Route exact path="/reset-password/:token" element={<ResetPassword />} />
 
       <Route element={<PrivateRoute />}>
         <Route path="/customerlist" element={<CustomerList />} />
@@ -60,6 +59,7 @@ function MyRoutes() {
         <Route path="/buyenergy" element={<BuyEnergy />} />
         <Route path="/dashboard" element={<AdminDashboard />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/support" element={<Support />} />
         <Route path="/customer-profile/:id" element={<CustProfile />} />
       </Route>
 

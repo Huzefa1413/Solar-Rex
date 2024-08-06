@@ -5,14 +5,13 @@ import { useAuth } from '../ContextAPI/Components/auth';
 import { get_transactions } from '../ContextAPI/APIs/api';
 import NavSidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
-import Loader from '../components/Loader'; // Import Loader component
+import Loader from '../components/Loader';
 
 function TransactionTable() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [transactions, setTransactions] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (user.role !== 'admin' && !user.profileSetup) {
       navigate('/profile');
