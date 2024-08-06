@@ -101,3 +101,7 @@ export const forget_password = async (body) => {
 export const reset_password = async (body, token) => {
   return apiRequest('POST', `/user/reset_password/${token}`, body);
 };
+
+export const account_verification = async (body) => {
+  return apiRequest('POST', `/user/account-verification`, body);
+};

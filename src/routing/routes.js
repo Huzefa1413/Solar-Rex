@@ -55,10 +55,9 @@ function MyRoutes() {
       <Route exact path="/reset-password/:token" element={<ResetPassword />} />
       <Route
         exact
-        path="/account-verification"
+        path="/account-verification/:token"
         element={<VerificationPage />}
       />
-
       <Route element={<PrivateRoute />}>
         <Route path="/customerlist" element={<CustomerList />} />
         <Route path="/transactiontable" element={<TransactionTable />} />
