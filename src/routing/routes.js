@@ -17,6 +17,7 @@ import Profile from '../pages/Profile';
 import CustProfile from '../pages/CustProfile';
 import Support from '../pages/Support';
 import { PageNotFound } from '../pages/PageNotFound';
+import VerificationPage from '../pages/VerificationPage';
 
 function MyRoutes() {
   const { setUser } = useAuth();
@@ -52,6 +53,11 @@ function MyRoutes() {
       <Route exact path="/sign-up" element={<SignUp />} />
       <Route exact path="/forgot-password" element={<ForgotPassword />} />
       <Route exact path="/reset-password/:token" element={<ResetPassword />} />
+      <Route
+        exact
+        path="/account-verification"
+        element={<VerificationPage />}
+      />
 
       <Route element={<PrivateRoute />}>
         <Route path="/customerlist" element={<CustomerList />} />
