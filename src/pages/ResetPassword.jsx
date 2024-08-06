@@ -28,6 +28,7 @@ function ResetPassword() {
     try {
       const response = await reset_password(data, token);
       alert(response.message);
+      console.log(response);
       if (response.success) {
         navigate('/');
       }

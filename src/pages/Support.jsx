@@ -9,7 +9,6 @@ import Loader from '../components/Loader';
 const Support = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: user.username,
     email: user.email,
@@ -59,62 +58,58 @@ const Support = () => {
         <section className="container-fluid py-3">
           <div className="support-container container my-5">
             <div className="row">
-              {loading ? (
-                <Loader />
-              ) : (
-                <div className="col-md-6 mb-5">
-                  <h2>Contact Us</h2>
-                  <p>
-                    If you have any questions or need assistance, feel free to
-                    contact us through the form below.
-                  </p>
-                  <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                      <label htmlFor="name" className="form-label">
-                        Name
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="name"
-                        value={formData.name}
-                        readOnly
-                        disabled
-                      />
-                    </div>
-                    <div className="mb-3">
-                      <label htmlFor="email" className="form-label">
-                        Email
-                      </label>
-                      <input
-                        type="email"
-                        className="form-control"
-                        id="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        readOnly
-                        disabled
-                      />
-                    </div>
-                    <div className="mb-3">
-                      <label htmlFor="message" className="form-label">
-                        Message
-                      </label>
-                      <textarea
-                        className="form-control"
-                        id="message"
-                        rows="5"
-                        placeholder="Your Message"
-                        value={formData.message}
-                        onChange={handleChange}
-                      ></textarea>
-                    </div>
-                    <button type="submit" className="btn btn-primary">
-                      Submit
-                    </button>
-                  </form>
-                </div>
-              )}
+              <div className="col-md-6 mb-5">
+                <h2>Contact Us</h2>
+                <p>
+                  If you have any questions or need assistance, feel free to
+                  contact us through the form below.
+                </p>
+                <form onSubmit={handleSubmit}>
+                  <div className="mb-3">
+                    <label htmlFor="name" className="form-label">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="name"
+                      value={formData.name}
+                      readOnly
+                      disabled
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="email" className="form-label">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      id="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      readOnly
+                      disabled
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="message" className="form-label">
+                      Message
+                    </label>
+                    <textarea
+                      className="form-control"
+                      id="message"
+                      rows="5"
+                      placeholder="Your Message"
+                      value={formData.message}
+                      onChange={handleChange}
+                    ></textarea>
+                  </div>
+                  <button type="submit" className="btn btn-primary">
+                    Submit
+                  </button>
+                </form>
+              </div>
 
               <div className="col-md-6">
                 <h2>Frequently Asked Questions</h2>

@@ -26,9 +26,6 @@ function ForgotPassword() {
       };
       const response = await forget_password(payload);
       alert(response.message, response.success);
-      if (response.success) {
-        navigate(`/reset-password/${response?.token}`);
-      }
     } catch (e) {
       console.log(e);
     } finally {
