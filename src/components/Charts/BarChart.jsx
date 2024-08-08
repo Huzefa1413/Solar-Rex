@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
-import { cities } from '../../helpers/data';
 
 function BarChart({ barData }) {
   const series = [{ data: barData?.count || [] }];

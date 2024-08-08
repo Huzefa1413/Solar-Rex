@@ -3,7 +3,7 @@ import { useAuth } from '../ContextAPI/Components/auth';
 import { update_profile } from '../ContextAPI/APIs/api';
 import { useToast } from '../ContextAPI/Components/toast';
 import { profilePicUrl } from '../helpers/data';
-import Upload_Profile_Pic from '../ContextAPI/Components/Upload_Profile_Pic';
+import UploadProfilePic from '../ContextAPI/Components/UploadProfilePic';
 import Navbar from '../components/Navbar';
 import NavSidebar from '../components/Sidebar';
 import Loader from '../components/Loader';
@@ -228,7 +228,7 @@ const Profile = () => {
                           <hr />
                           <div className="formdetails">
                             <h6>Profile Picture</h6>
-                            <Upload_Profile_Pic />
+                            <UploadProfilePic />
                           </div>
                         </div>
                         <hr />

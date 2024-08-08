@@ -207,9 +207,8 @@ function AdminDashboard() {
       ]);
       setLoading(false);
     };
-
     fetchData();
-  }, []);
+  });
 
   return (
     <>

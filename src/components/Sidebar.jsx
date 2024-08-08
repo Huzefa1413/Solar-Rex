@@ -13,6 +13,7 @@ import {
 } from 'react-icons/lu';
 import logo from '../assets/logosolarrex.png';
 import profile from '../assets/profile.svg';
+
 function NavSidebar() {
   const { user } = useAuth();
   const { pathname } = useLocation();
@@ -42,6 +43,7 @@ function NavSidebar() {
                 src={logo}
                 className="img-fluid"
                 style={{ width: '150px' }}
+                alt="logo"
               />
             </MenuItem>
           </Link>
