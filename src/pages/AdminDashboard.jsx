@@ -209,14 +209,7 @@ function AdminDashboard() {
     };
 
     fetchData();
-  }, [
-    fetchConsumptionPredictionData,
-    fetchLast3MonthsConsumption,
-    fetchPurchasedVsConsumed,
-    getAllCardsData,
-    getEnergyMeterData,
-    user.role,
-  ]);
+  });
 
   return (
     <>

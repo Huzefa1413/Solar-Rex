@@ -32,7 +32,7 @@ export const ToastProvider = ({ children }) => {
       );
     if (typeof _autohide != 'undefined' && _autohide != null)
       setAutohide(
-        _autohide.toString() == 'true' || _autohide == true ? true : false
+        _autohide.toString() === 'true' || _autohide === true ? true : false
       );
   }
 
