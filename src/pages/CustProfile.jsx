@@ -118,7 +118,13 @@ const CustProfile = () => {
     };
 
     fetchData();
-  }, [id]);
+  }, [
+    id,
+    fetchAllData,
+    fetchConsumptionPrediction,
+    fetchLast3MonthsConsumption,
+    fetchPurchasedVsConsumed,
+  ]);
 
   return (
     <>

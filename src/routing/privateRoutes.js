@@ -19,7 +19,7 @@ const PrivateRoute = () => {
     } else {
       setLoading(false);
     }
-  }, [user, cookies.pk2]);
+  }, [user, cookies.pk2, getLoggedInUser]);
 
   if (loading) {
     return <p className="loader"></p>;
