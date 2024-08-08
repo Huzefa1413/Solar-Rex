@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../ContextAPI/Components/auth';
 import { update_profile } from '../ContextAPI/APIs/api';
 import { useToast } from '../ContextAPI/Components/toast';
@@ -9,14 +9,12 @@ import NavSidebar from '../components/Sidebar';
 import Loader from '../components/Loader';
 import { useProSidebar } from 'react-pro-sidebar';
 import profile from '../assets/profile.svg';
-import countryData from '../assets/countries+cities.json'; // Import your country data here
+import countryData from '../assets/countries+cities.json';
 
 const Profile = () => {
   const { user, getLoggedInUser } = useAuth();
   const { alert } = useToast();
   const [loading, setLoading] = useState(false);
-  const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
-    useProSidebar();
   const [formData, setFormData] = useState({
     userrole: user.role || '',
     username: user.username || '',
@@ -28,6 +26,17 @@ const Profile = () => {
     inverterId: user.inverterId || '',
     postalCode: user.postalCode || '',
   });
+  const [cities, setCities] = useState([]);
+
+  const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
+    useProSidebar();
+
+  useEffect(() => {
+    const selectedCountry = countryData.find(
+      (country) => country.name === formData.country
+    );
+    setCities(selectedCountry ? selectedCountry.cities : []);
+  }, [formData.country]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -40,12 +49,12 @@ const Profile = () => {
       const response = await update_profile(formData);
       alert(response.message, response.success);
       if (response.success) {
-        setLoading(false);
         getLoggedInUser();
       }
     } catch (e) {
-      setLoading(false);
       console.error(e);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -79,7 +88,7 @@ const Profile = () => {
               <div className="welcome">
                 <h2>Hello, {user.username}</h2>
                 {!user.profileSetup ? (
-                  <p>Please Setup Your Profile to proceed.</p>
+                  <p>Please setup your profile to proceed.</p>
                 ) : (
                   <p>
                     This is your profile page. You can see your details here.
@@ -91,7 +100,7 @@ const Profile = () => {
                   <div className="col-xl-8">
                     <div className="detailsbox">
                       <div className="boxheader">
-                        <h3>My account</h3>
+                        <h3>My Account</h3>
                       </div>
                       <div className="boxbody">
                         <div>
@@ -187,7 +196,7 @@ const Profile = () => {
                                     <option value="">Select Country</option>
                                     {countryData.map((country) => (
                                       <option
-                                        key={country.id}
+                                        key={country.name}
                                         value={country.name}
                                       >
                                         {country.name}
@@ -203,18 +212,14 @@ const Profile = () => {
                                     name="city"
                                     value={formData.city}
                                     onChange={handleInputChange}
+                                    disabled={!formData.country}
                                   >
                                     <option value="">Select City</option>
-                                    {countryData
-                                      .find(
-                                        (country) =>
-                                          country.name === formData.country
-                                      )
-                                      ?.cities.map((city) => (
-                                        <option key={city.id} value={city.name}>
-                                          {city.name}
-                                        </option>
-                                      ))}
+                                    {cities.map((city) => (
+                                      <option key={city.name} value={city.name}>
+                                        {city.name}
+                                      </option>
+                                    ))}
                                   </select>
                                 </div>
                               </div>

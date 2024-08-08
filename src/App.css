@@ -1,6 +1,8 @@
 @font-face {
   font-family: 'Poppins';
   src: url(./assets/Poppins/Poppins-Regular.ttf);
+  /* src: url(./assets/poppins-v5-latin-300.woff2); */
+
   /* font-family: "Proxima Nova Rg"; */
   /* src: url(./assets/Proxima-Nova-Font/Proxima\ Nova\ Font.otf); */
 }

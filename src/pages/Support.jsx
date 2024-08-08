@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../ContextAPI/Components/auth';
 import NavSidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { getAdminEmail } from '../ContextAPI/APIs/api';
-import Loader from '../components/Loader';
 
 const Support = () => {
   const { user } = useAuth();
@@ -15,6 +14,7 @@ const Support = () => {
     message: '',
   });
   const [adminEmail, setAdminEmail] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (user.role !== 'admin' && !user.profileSetup) {
@@ -22,32 +22,47 @@ const Support = () => {
     }
   }, [user, navigate]);
 
-  const handleChange = (e) => {
+  const handleChange = useCallback((e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [id]: value,
     }));
-  };
+  }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const mailtoLink = `mailto:${adminEmail}?subject=Support Request from ${
-      formData.name
-    }&body=${encodeURIComponent(formData.message)}`;
-    window.location.href = mailtoLink;
-  };
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (adminEmail) {
+        const mailtoLink = `mailto:${adminEmail}?subject=Support Request from ${
+          formData.name
+        }&body=${encodeURIComponent(formData.message)}`;
+        window.location.href = mailtoLink;
+      } else {
+        setError('Admin email not available.');
+      }
+    },
+    [formData, adminEmail]
+  );
 
-  const getEmailForAdmin = async () => {
-    const response = await getAdminEmail();
-    console.log('response', response);
-    if (response.success) {
-      setAdminEmail(response.message);
+  const getEmailForAdmin = useCallback(async () => {
+    try {
+      const response = await getAdminEmail();
+      if (response.success) {
+        setAdminEmail(response.message);
+      } else {
+        setError('Failed to retrieve admin email.');
+      }
+    } catch (e) {
+      setError('An error occurred while fetching admin email.');
+      console.error(e);
     }
-  };
+  }, []);
+
   useEffect(() => {
     getEmailForAdmin();
-  }, []);
+  }, [getEmailForAdmin]);
+
   return (
     <div className="d-flex">
       <div className="sidebar_div">
@@ -105,6 +120,7 @@ const Support = () => {
                       onChange={handleChange}
                     ></textarea>
                   </div>
+                  {error && <div className="text-danger mb-3">{error}</div>}
                   <button type="submit" className="btn btn-primary">
                     Submit
                   </button>
@@ -134,7 +150,7 @@ const Support = () => {
                       data-bs-parent="#faqAccordion"
                     >
                       <div className="accordion-body">
-                        Our refund policy is ...
+                        Sorry, we have no refund policy.
                       </div>
                     </div>
                   </div>
@@ -148,7 +164,7 @@ const Support = () => {
                         aria-expanded="false"
                         aria-controls="collapseTwo"
                       >
-                        How do I track my order?
+                        How can I change my Inverter Id?
                       </button>
                     </h2>
                     <div
@@ -158,7 +174,8 @@ const Support = () => {
                       data-bs-parent="#faqAccordion"
                     >
                       <div className="accordion-body">
-                        You can track your order by ...
+                        You can contact with is via email, we will get back to
+                        you to guide you about changing Inverter Id.
                       </div>
                     </div>
                   </div>
@@ -182,7 +199,8 @@ const Support = () => {
                       data-bs-parent="#faqAccordion"
                     >
                       <div className="accordion-body">
-                        Yes, we offer technical support for ...
+                        Yes, we offer technical support for creating your
+                        account and integrating it with your house.
                       </div>
                     </div>
                   </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -9,8 +9,6 @@ import Loader from '../components/Loader';
 function SignUp() {
   const { alert } = useToast();
   const navigate = useNavigate();
-
-  const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -29,7 +27,6 @@ function SignUp() {
           'Only alphabets are allowed with single spaces'
         )
         .required('Username is required'),
-
       email: Yup.string()
         .email('Invalid email address')
         .required('Email is required'),
@@ -47,9 +44,9 @@ function SignUp() {
         )
         .required('Phone is required'),
     }),
-    onSubmit: async (values) => {
+    onSubmit: async (values, { setSubmitting }) => {
+      setSubmitting(true);
       try {
-        setLoading(true);
         const response = await signUp(values);
         alert(response.message, response.success);
         if (response.success) {
@@ -60,115 +57,117 @@ function SignUp() {
       } catch (error) {
         console.error('Error registering:', error);
       } finally {
-        setLoading(false);
+        setSubmitting(false);
       }
     },
   });
 
   return (
-    <>
-      <section className="authentication_section signup_pass_page d-flex ai-center">
-        <div className="container">
-          <div className="card">
-            <div className="sign_form">
-              <h3>Welcome to Solar Rex!</h3>
-              <p>Signup here to create your own dashboard.</p>
-              <form onSubmit={formik.handleSubmit}>
-                <div className="row">
-                  <div className="col-md-6 col-sm-6 col-12">
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Username"
-                        {...formik.getFieldProps('username')}
-                      />
-                      {formik.touched.username && formik.errors.username && (
-                        <div className="text-danger">
-                          {formik.errors.username}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="col-md-6 col-sm-6 col-12">
-                    <div className="form-group">
-                      <input
-                        type="email"
-                        className="form-control"
-                        placeholder="Email"
-                        {...formik.getFieldProps('email')}
-                      />
-                      {formik.touched.email && formik.errors.email && (
-                        <div className="text-danger">{formik.errors.email}</div>
-                      )}
-                    </div>
+    <section className="authentication_section signup_pass_page d-flex ai-center">
+      <div className="container">
+        <div className="card">
+          <div className="sign_form">
+            <h3>Welcome to Solar Rex!</h3>
+            <p>Signup here to create your own dashboard.</p>
+            <form onSubmit={formik.handleSubmit}>
+              <div className="row">
+                <div className="col-md-6 col-sm-6 col-12">
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      name="username"
+                      className="form-control"
+                      placeholder="Username"
+                      {...formik.getFieldProps('username')}
+                    />
+                    {formik.touched.username && formik.errors.username && (
+                      <div className="text-danger">
+                        {formik.errors.username}
+                      </div>
+                    )}
                   </div>
                 </div>
-                <div className="form-group">
-                  <input
-                    type="tel"
-                    className="form-control"
-                    placeholder="Phone"
-                    {...formik.getFieldProps('phone')}
-                  />
-                  {formik.touched.phone && formik.errors.phone && (
-                    <div className="text-danger">{formik.errors.phone}</div>
-                  )}
-                </div>
-                <div className="row">
-                  <div className="col-md-6 col-sm-6 col-12">
-                    <div className="form-group">
-                      <input
-                        type="password"
-                        className="form-control"
-                        placeholder="Type Password"
-                        {...formik.getFieldProps('password')}
-                      />
-                      {formik.touched.password && formik.errors.password && (
-                        <div className="text-danger">
-                          {formik.errors.password}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="col-md-6 col-sm-6 col-12">
-                    <div className="form-group">
-                      <input
-                        type="password"
-                        className="form-control"
-                        placeholder="Re-type Password"
-                        {...formik.getFieldProps('cpassword')}
-                      />
-                      {formik.touched.cpassword && formik.errors.cpassword && (
-                        <div className="text-danger">
-                          {formik.errors.cpassword}
-                        </div>
-                      )}
-                    </div>
+                <div className="col-md-6 col-sm-6 col-12">
+                  <div className="form-group">
+                    <input
+                      type="email"
+                      name="email"
+                      className="form-control"
+                      placeholder="Email"
+                      {...formik.getFieldProps('email')}
+                    />
+                    {formik.touched.email && formik.errors.email && (
+                      <div className="text-danger">{formik.errors.email}</div>
+                    )}
                   </div>
                 </div>
-
-                <div className="mb-4">
-                  <button
-                    disabled={loading}
-                    type="submit"
-                    className="btn sign_btn"
-                  >
-                    {loading ? <Loader /> : 'Register'}
-                  </button>
+              </div>
+              <div className="form-group">
+                <input
+                  type="tel"
+                  name="phone"
+                  className="form-control"
+                  placeholder="Phone"
+                  {...formik.getFieldProps('phone')}
+                />
+                {formik.touched.phone && formik.errors.phone && (
+                  <div className="text-danger">{formik.errors.phone}</div>
+                )}
+              </div>
+              <div className="row">
+                <div className="col-md-6 col-sm-6 col-12">
+                  <div className="form-group">
+                    <input
+                      type="password"
+                      name="password"
+                      className="form-control"
+                      placeholder="Type Password"
+                      {...formik.getFieldProps('password')}
+                    />
+                    {formik.touched.password && formik.errors.password && (
+                      <div className="text-danger">
+                        {formik.errors.password}
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <small>
-                  Already have an account?
-                  <Link to="/" className="Link">
-                    Sign In
-                  </Link>
-                </small>
-              </form>
-            </div>
+                <div className="col-md-6 col-sm-6 col-12">
+                  <div className="form-group">
+                    <input
+                      type="password"
+                      name="cpassword"
+                      className="form-control"
+                      placeholder="Re-type Password"
+                      {...formik.getFieldProps('cpassword')}
+                    />
+                    {formik.touched.cpassword && formik.errors.cpassword && (
+                      <div className="text-danger">
+                        {formik.errors.cpassword}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="mb-4">
+                <button
+                  disabled={formik.isSubmitting}
+                  type="submit"
+                  className="btn sign_btn"
+                >
+                  {formik.isSubmitting ? <Loader /> : 'Register'}
+                </button>
+              </div>
+              <small>
+                Already have an account?
+                <Link to="/" className="Link">
+                  Sign In
+                </Link>
+              </small>
+            </form>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 

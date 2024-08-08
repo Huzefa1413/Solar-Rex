@@ -14,19 +14,24 @@ function CustomerList() {
   const { user } = useAuth();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); // Add loading state
-
-  if (user.role !== 'admin') {
-    navigate('/dashboard');
-  }
+  const [error, setError] = useState(null); // Add error state
 
   useEffect(() => {
+    if (user.role !== 'admin') {
+      navigate('/dashboard');
+      return;
+    }
+
     const getAllUser = async () => {
       try {
         const response = await get_all_users();
         if (response.success) {
           setData(response.message.reverse());
+        } else {
+          setError(response.message);
         }
       } catch (error) {
+        setError('Error fetching users');
         console.error('Error fetching users:', error);
       } finally {
         setLoading(false); // Set loading to false after fetching data
@@ -34,7 +39,7 @@ function CustomerList() {
     };
 
     getAllUser();
-  }, []);
+  }, [user.role, navigate]);
 
   return (
     <>
@@ -48,6 +53,8 @@ function CustomerList() {
             <h2>Customer List</h2>
             {loading ? (
               <Loader />
+            ) : error ? (
+              <div className="alert alert-danger">{error}</div>
             ) : (
               <Table className="align-items-center" responsive>
                 <thead className="thead-light">
@@ -59,8 +66,8 @@ function CustomerList() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((item, index) => (
-                    <tr key={index}>
+                  {data.map((item) => (
+                    <tr key={item._id}>
                       <td>{item.username}</td>
                       <td>{item.phone}</td>
                       <td>{item.email}</td>

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import { useAuth } from '../ContextAPI/Components/auth';
 import { useToast } from '../ContextAPI/Components/toast';
 import Loader from '../components/Loader';
@@ -9,33 +11,37 @@ function SignIn() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const loginUser = async () => {
-    try {
-      setLoading(true);
-      const response = await login(formData);
-      alert(response.message, response.success);
-      if (response.success) {
-        navigate('/dashboard');
-      } else {
-        navigate('/');
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email('Invalid email address')
+        .required('Email is required'),
+      password: Yup.string()
+        .min(4, 'Password must be at least 4 characters')
+        .max(20, 'Password must be at most 20 characters')
+        .required('Password is required'),
+    }),
+    onSubmit: async (values, { setSubmitting }) => {
+      setSubmitting(true);
+      try {
+        const response = await login(values);
+        alert(response.message, response.success);
+        if (response.success) {
+          navigate('/dashboard');
+        } else {
+          navigate('/');
+        }
+      } catch (error) {
+        console.error('Error logging in:', error);
+      } finally {
+        setSubmitting(false);
       }
-    } catch (error) {
-      console.error('Error logging in:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+  });
 
   return (
     <section className="authentication_section signin_pass_page d-flex ai-center">
@@ -44,35 +50,41 @@ function SignIn() {
           <div className="sign_form">
             <h3>Welcome</h3>
             <p>Please sign in using your account.</p>
-            <div className="form-group">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="form-group">
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Password"
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="">
-              <button
-                disabled={loading}
-                onClick={loginUser}
-                className="btn sign_btn"
-              >
-                {loading ? <Loader /> : 'Sign In'}
-              </button>
-            </div>
+            <form onSubmit={formik.handleSubmit}>
+              <div className="form-group">
+                <input
+                  type="email"
+                  name="email"
+                  className="form-control"
+                  placeholder="Email"
+                  {...formik.getFieldProps('email')}
+                />
+                {formik.touched.email && formik.errors.email && (
+                  <div className="text-danger">{formik.errors.email}</div>
+                )}
+              </div>
+              <div className="form-group">
+                <input
+                  type="password"
+                  name="password"
+                  className="form-control"
+                  placeholder="Password"
+                  {...formik.getFieldProps('password')}
+                />
+                {formik.touched.password && formik.errors.password && (
+                  <div className="text-danger">{formik.errors.password}</div>
+                )}
+              </div>
+              <div className="mb-4">
+                <button
+                  disabled={formik.isSubmitting}
+                  type="submit"
+                  className="btn sign_btn"
+                >
+                  {formik.isSubmitting ? <Loader /> : 'Sign In'}
+                </button>
+              </div>
+            </form>
             <div className="form-check-group my-4 d-flex jc-between mx-2">
               <div>
                 <label className="mb-0">
@@ -97,7 +109,6 @@ function SignIn() {
           </div>
         </div>
       </div>
-      
     </section>
   );
 }

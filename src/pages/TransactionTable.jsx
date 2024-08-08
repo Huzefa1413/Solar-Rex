@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Table } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../ContextAPI/Components/auth';
@@ -12,28 +12,31 @@ function TransactionTable() {
   const { user } = useAuth();
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
   useEffect(() => {
     if (user.role !== 'admin' && !user.profileSetup) {
       navigate('/profile');
     }
   }, [user, navigate]);
 
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        const response = await get_transactions();
-        setTransactions(response.message.reverse());
-      } catch (error) {
-        console.error('Error fetching transactions:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTransactions();
+  const fetchTransactions = useCallback(async () => {
+    try {
+      const response = await get_transactions();
+      setTransactions(response.message.reverse());
+    } catch (error) {
+      console.error('Error fetching transactions:', error);
+      setError('Failed to load transactions.');
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const convertTimestampToDateTime = (timestamp) => {
+  useEffect(() => {
+    fetchTransactions();
+  }, [fetchTransactions]);
+
+  const convertTimestampToDateTime = useCallback((timestamp) => {
     const date = new Date(timestamp);
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -41,10 +44,9 @@ function TransactionTable() {
     let hours = date.getHours();
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const meridiem = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12 || 12; // Convert midnight (0 hours) to 12 AM
-    const formattedTime = `${year}-${month}-${day} ${hours}:${minutes} ${meridiem}`;
-    return formattedTime;
-  };
+    hours = hours % 12 || 12;
+    return `${year}-${month}-${day} ${hours}:${minutes} ${meridiem}`;
+  }, []);
 
   return (
     <div className="d-flex">
@@ -57,6 +59,8 @@ function TransactionTable() {
           <h2>Transactions</h2>
           {loading ? (
             <Loader />
+          ) : error ? (
+            <p className="text-danger">{error}</p>
           ) : (
             <Table className="align-items-center" responsive>
               <thead className="thead-light">

@@ -1,41 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState, useCallback } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { FaCheckCircle, FaBan } from 'react-icons/fa';
-
-import { useParams } from 'react-router-dom';
 import { account_verification } from '../ContextAPI/APIs/api';
 import Loader from '../components/Loader';
 
 const VerificationPage = () => {
   const navigate = useNavigate();
   const { token } = useParams();
-
-  const handleSignIn = () => {
-    navigate('/');
-  };
-
   const [loading, setLoading] = useState(false);
-
   const [verified, setVerified] = useState(false);
+  const [error, setError] = useState('');
 
-  const verification = async () => {
+  const handleSignIn = useCallback(() => {
+    navigate('/');
+  }, [navigate]);
+
+  const verification = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await account_verification({ token: token });
+      const response = await account_verification({ token });
       if (response.success) {
         setVerified(true);
+      } else {
+        setError('Verification failed. Please try again later.');
       }
-
-      setLoading(false);
     } catch (e) {
+      console.error(e);
+      setError('An error occurred. Please try again later.');
+    } finally {
       setLoading(false);
-      console.log(e);
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     verification();
-  }, []);
+  }, [verification]);
 
   return (
     <section className="authentication_section forgot_pass_page verification_page d-flex ai-center">
@@ -56,7 +55,8 @@ const VerificationPage = () => {
             ) : (
               <>
                 <FaBan size={60} color="red" />
-                <h3 className="mt-3">Account Verified Failed!</h3>
+                <h3 className="mt-3">Account Verification Failed!</h3>
+                {error && <p className="text-danger">{error}</p>}
               </>
             )}
           </div>
