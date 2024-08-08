@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { UpdateProfilePic } from '../APIs/api';
+
 import { useAuth } from './auth';
 import { useToast } from './toast';
 import { profilePicUrl } from '../../helpers/data';
 import profile from '../../assets/profile.svg';
 
-function UploadProfilePic() {
+function Upload_Profile_Pic() {
   const { alert } = useToast();
   const { user, getLoggedInUser } = useAuth();
 
@@ -48,12 +49,12 @@ function UploadProfilePic() {
         <div className="profile_picture mb-4">
           <div
             className={`profile-image image ${
-              user.profilepic && user.profilepic !== '' ? 'p-0' : 'pt-2'
+              user.profilepic && user.profilepic != '' ? 'p-0' : 'pt-2'
             }`}
           >
-            {showLogo && showLogo !== '' ? (
+            {showLogo && showLogo != '' ? (
               <img src={showLogo} alt="logo 1" className="img-fluid" />
-            ) : user.profilepic && user.profilepic !== '' ? (
+            ) : user.profilepic && user.profilepic != '' ? (
               <img
                 src={`${profilePicUrl}/${user.profilepic}`}
                 alt="logo 3"
@@ -77,7 +78,7 @@ function UploadProfilePic() {
             {/* <div className="overlay"> */}
 
             <div className="d-flex jc-center ai-center text-center">
-              {!user.profilepic || user.profilepic === ''
+              {!user.profilepic || user.profilepic == ''
                 ? (typeof logo == 'undefined' || logo === null) && (
                     <div
                       className="upload_image_btn ml-2"
@@ -119,4 +120,4 @@ function UploadProfilePic() {
   );
 }
 
-export default UploadProfilePic;
+export default Upload_Profile_Pic;

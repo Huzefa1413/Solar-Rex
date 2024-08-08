@@ -42,7 +42,6 @@ function NavSidebar() {
                 src={logo}
                 className="img-fluid"
                 style={{ width: '150px' }}
-                alt="logo"
               />
             </MenuItem>
           </Link>

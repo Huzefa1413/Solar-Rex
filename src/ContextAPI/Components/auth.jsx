@@ -15,8 +15,13 @@ export const AuthProvider = ({ children }) => {
   // State for user information
   const [user, setUser] = useState(null);
 
+  // State for tab data, renewal tab data, and file data
+  const [tabData, setTabData] = useState({});
+  const [renewalTabData, setRenewalTabData] = useState({});
+  const [fileData, setFileData] = useState({});
+
   // State for managing cookies
-  const [setCookie, removeCookie] = useCookies();
+  const [cookies, setCookie, removeCookie] = useCookies();
 
   // Function for user login
   async function login(body) {
