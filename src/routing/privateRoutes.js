@@ -19,7 +19,8 @@ const PrivateRoute = () => {
     } else {
       setLoading(false);
     }
-  }, [user, cookies.pk2, getLoggedInUser]);
+    // eslint-disable-next-line
+  }, [user, cookies.pk2]);
 
   if (loading) {
     return <p className="loader"></p>;
