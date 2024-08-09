@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../ContextAPI/Components/auth';
 import { useParams, useNavigate } from 'react-router-dom';
 import NavSidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import Loader from '../components/Loader';
 import { useProSidebar } from 'react-pro-sidebar';
-import { getCustProfile } from '../ContextAPI/APIs/api';
 import {
+  getCustProfile,
   last3monthsConsumption,
   consumptionPrediction,
   lastMonthsPurchasedVsConsumed,
@@ -20,10 +20,6 @@ const CustProfile = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
-
-  if (user.role !== 'admin') {
-    navigate('/dashboard');
-  }
 
   const [loading, setLoading] = useState(true);
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } =
@@ -44,23 +40,30 @@ const CustProfile = () => {
     forecast: 0,
   });
 
-  const fetchLast3MonthsConsumption = async () => {
+  // Check user role and navigate if unauthorized
+  useEffect(() => {
+    if (user.role !== 'admin') {
+      navigate('/dashboard');
+    }
+  }, [user.role, navigate]);
+
+  // Fetch last 3 months consumption
+  const fetchLast3MonthsConsumption = useCallback(async () => {
     try {
       const response = await last3monthsConsumption(id);
       if (response.count.length > 0 && response.names.length > 0) {
         const formattedCount = response.count.map((value) =>
           Number(value).toFixed(2)
         );
-        setMonthsConsumption({
-          count: formattedCount,
-          names: response.names,
-        });
+        setMonthsConsumption({ count: formattedCount, names: response.names });
       }
     } catch (error) {
       console.log(error);
     }
-  };
-  const fetchPurchasedVsConsumed = async () => {
+  }, [id]);
+
+  // Fetch purchased vs consumed data
+  const fetchPurchasedVsConsumed = useCallback(async () => {
     try {
       const response = await lastMonthsPurchasedVsConsumed(id);
       if (response.count.length > 0 && response.names.length > 0) {
@@ -75,9 +78,10 @@ const CustProfile = () => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [id]);
 
-  const fetchConsumptionPrediction = async () => {
+  // Fetch consumption prediction data
+  const fetchConsumptionPrediction = useCallback(async () => {
     try {
       const response = await consumptionPrediction(id);
       if (response.success && response.predictions.length > 0) {
@@ -93,9 +97,10 @@ const CustProfile = () => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [id]);
 
-  const fetchAllData = async () => {
+  // Fetch all profile data
+  const fetchAllData = useCallback(async () => {
     try {
       const response = await getCustProfile(id);
       if (response.message !== null) {
@@ -104,20 +109,25 @@ const CustProfile = () => {
     } catch (error) {
       console.error('Error fetching all data:', error);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     const fetchData = async () => {
       await Promise.all([
         fetchAllData(),
-        fetchLast3MonthsConsumption(id),
-        fetchPurchasedVsConsumed(id),
-        fetchConsumptionPrediction(id),
+        fetchLast3MonthsConsumption(),
+        fetchPurchasedVsConsumed(),
+        fetchConsumptionPrediction(),
       ]);
       setLoading(false);
     };
     fetchData();
-  }, [id]);
+  }, [
+    fetchAllData,
+    fetchLast3MonthsConsumption,
+    fetchPurchasedVsConsumed,
+    fetchConsumptionPrediction,
+  ]);
 
   return (
     <>

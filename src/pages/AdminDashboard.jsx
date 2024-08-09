@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useCallback } from 'react';
 import { useAuth } from '../ContextAPI/Components/auth';
 import { useNavigate } from 'react-router-dom';
 import { useProSidebar } from 'react-pro-sidebar';
@@ -61,7 +61,7 @@ function AdminDashboard() {
 
   const [cardsData, setCardsData] = useState({});
 
-  const getAllCardsData = async () => {
+  const getAllCardsData = useCallback(async () => {
     try {
       const response = await (user.role === 'admin'
         ? adminCards()
@@ -72,9 +72,9 @@ function AdminDashboard() {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [user.role, user._id]);
 
-  const fetchLast3MonthsProduction = async () => {
+  const fetchLast3MonthsProduction = useCallback(async () => {
     try {
       const response = await last3months();
       if (response.count.length > 0 && response.names.length > 0) {
@@ -89,9 +89,9 @@ function AdminDashboard() {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, []);
 
-  const fetchLast3MonthsConsumption = async () => {
+  const fetchLast3MonthsConsumption = useCallback(async () => {
     try {
       const response = await last3monthsConsumption(user._id);
       if (response.count.length > 0 && response.names.length > 0) {
@@ -106,9 +106,9 @@ function AdminDashboard() {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [user._id]);
 
-  const fetchSoldVsProduced = async () => {
+  const fetchSoldVsProduced = useCallback(async () => {
     try {
       const response = await last3monthsSoldvsProduced();
       if (response.count.length > 0 && response.names.length > 0) {
@@ -123,9 +123,9 @@ function AdminDashboard() {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, []);
 
-  const fetchPurchasedVsConsumed = async () => {
+  const fetchPurchasedVsConsumed = useCallback(async () => {
     try {
       const response = await lastMonthsPurchasedVsConsumed(user._id);
       if (response.count.length > 0 && response.names.length > 0) {
@@ -140,11 +140,11 @@ function AdminDashboard() {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [user._id]);
 
   const [energyMeterData, setEnergyMeterData] = useState({});
 
-  const getEnergyMeterData = async () => {
+  const getEnergyMeterData = useCallback(async () => {
     try {
       const response = await energyMeter(user._id);
       if (response.success) {
@@ -153,8 +153,9 @@ function AdminDashboard() {
     } catch (error) {
       console.log(error);
     }
-  };
-  const fetchProductionPredictionData = async () => {
+  }, [user._id]);
+
+  const fetchProductionPredictionData = useCallback(async () => {
     try {
       const response = await productionPrediction();
       if (response.success && response.predictions.length > 0) {
@@ -170,9 +171,9 @@ function AdminDashboard() {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, []);
 
-  const fetchConsumptionPredictionData = async () => {
+  const fetchConsumptionPredictionData = useCallback(async () => {
     try {
       const response = await consumptionPrediction(user._id);
       if (response.success && response.predictions.length > 0) {
@@ -188,7 +189,7 @@ function AdminDashboard() {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [user._id]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -208,7 +209,17 @@ function AdminDashboard() {
       setLoading(false);
     };
     fetchData();
-  }, []);
+  }, [
+    getAllCardsData,
+    fetchLast3MonthsProduction,
+    fetchLast3MonthsConsumption,
+    fetchSoldVsProduced,
+    fetchPurchasedVsConsumed,
+    fetchProductionPredictionData,
+    fetchConsumptionPredictionData,
+    getEnergyMeterData,
+    user.role,
+  ]);
 
   return (
     <>
