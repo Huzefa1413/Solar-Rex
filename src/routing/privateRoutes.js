@@ -19,7 +19,6 @@ const PrivateRoute = () => {
     } else {
       setLoading(false);
     }
-    // eslint-disable-next-line
   }, [user, cookies.pk2]);
 
   if (loading) {

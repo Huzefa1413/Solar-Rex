@@ -208,7 +208,6 @@ function AdminDashboard() {
       setLoading(false);
     };
     fetchData();
-    // eslint-disable-next-line
   }, []);
 
   return (

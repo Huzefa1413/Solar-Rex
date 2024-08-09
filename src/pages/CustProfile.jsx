@@ -117,7 +117,6 @@ const CustProfile = () => {
       setLoading(false);
     };
     fetchData();
-    // eslint-disable-next-line
   }, [id]);
 
   return (
