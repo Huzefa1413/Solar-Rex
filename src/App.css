@@ -2425,6 +2425,25 @@ body {
   margin: 0 auto;
 }
 
+.txStatus-pending{
+  background-color: rgba(255, 166, 0, 0.63) !important;
+  border: 2px solid orange;
+  width: fit-content;
+  padding:5px;
+  border-radius: 5px;
+  text-transform: capitalize;
+}
+
+.txStatus-completed{
+  background-color: rgba(172, 255, 47, 0.596) !important;
+  border: 2px solid greenyellow;
+  width: fit-content;
+  padding:5px;
+  border-radius: 5px;
+  text-transform: capitalize;
+}
+
+
 @media screen and (max-width: 1250px) {
   .grid_row_4 {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));

@@ -11,7 +11,7 @@ import { Input, Button } from 'reactstrap';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-const PRICE_PER_UNIT = 20;
+const PRICE_PER_UNIT = 0.01;
 const MIN_AMOUNT = 100;
 const MAX_AMOUNT = 2500;
 
@@ -47,14 +47,15 @@ const BuyEnergy = () => {
       if (values.amount > 0) {
         const response = await buy({
           amount: values.amount,
-          price: PRICE_PER_UNIT,
+          price: values.amount * PRICE_PER_UNIT,
         });
         alert(response.message, response.success);
 
         if (response.success) {
           // navigate(response.message.data.invoice_url);
-          window.location.href = response.message.data.invoice_url
           resetForm(); // Reset form fields after successful purchase
+          
+          window.location.href = response.message.data.invoice_url
         }
       } else {
         alert('Please enter a valid amount', false);
@@ -113,7 +114,7 @@ const BuyEnergy = () => {
                     <p className="d-flex align-items-center justify-content-start">
                       <span className="col-md-5">Price:</span>
                       <span className="col-md-7">
-                        {values.amount * PRICE_PER_UNIT} Rs
+                        {values.amount * PRICE_PER_UNIT} $
                       </span>
                     </p>
                     <p className="px-3">

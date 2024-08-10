@@ -45,7 +45,7 @@ function TransactionTable() {
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const meridiem = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12 || 12;
-    return `${year}-${month}-${day} ${hours}:${minutes} ${meridiem}`;
+    return `${hours}:${minutes} ${meridiem} ${day}-${month}-${year} `;
   }, []);
 
   return (
@@ -70,6 +70,7 @@ function TransactionTable() {
                   <th scope="col">Price</th>
                   <th scope="col">Quantity</th>
                   <th scope="col">Time</th>
+                  <th scope="col">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -77,11 +78,16 @@ function TransactionTable() {
                   <tr key={index}>
                     <td>{transaction?.buyerid.username}</td>
                     <td>{transaction?.buyerid.inverterId}</td>
-                    <td>{transaction?.price}</td>
-                    <td>{transaction?.quantity}</td>
+                    <td>$ {transaction?.price}</td>
+                    <td>{transaction?.quantity} kWh</td>
                     <td>
                       {convertTimestampToDateTime(transaction?.timestamp)}
                     </td>
+                    <td >
+                      <div className={`txStatus-${transaction?.status}`}>
+                      {transaction?.status}
+                      </div>
+                      </td>
                   </tr>
                 ))}
               </tbody>

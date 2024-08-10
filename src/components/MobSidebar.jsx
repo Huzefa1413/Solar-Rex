@@ -108,6 +108,17 @@ function MobSidebar() {
               </Link>
               {user.role === 'user' && (
                 <>
+                  <Link to="/buyenergy" className="link">
+                    <MenuItem
+                      className={`link_one ${
+                        pathname === '/buyenergy' ? 'active' : 'unactive'
+                      }`}
+                      active={pathname === '/buyenergy'}
+                      icon={<LuZap className="sidebar_icon" />}
+                    >
+                      Buy Energy
+                    </MenuItem>
+                  </Link>
                   <Link to="/support" className="link">
                     <MenuItem
                       className={`link_one ${
@@ -119,17 +130,7 @@ function MobSidebar() {
                       Customer Support
                     </MenuItem>
                   </Link>
-                  <Link to="/buyenergy" className="link">
-                    <MenuItem
-                      className={`link_one ${
-                        pathname === '/buyenergy' ? 'active' : 'unactive'
-                      }`}
-                      active={pathname === '/buyenergy'}
-                      icon={<LuZap className="sidebar_icon" />}
-                    >
-                      Energy
-                    </MenuItem>
-                  </Link>
+                  
                 </>
               )}
               <hr />
