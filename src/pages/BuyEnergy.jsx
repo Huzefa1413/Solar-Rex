@@ -52,6 +52,8 @@ const BuyEnergy = () => {
         alert(response.message, response.success);
 
         if (response.success) {
+          // navigate(response.message.data.invoice_url);
+          window.location.href = response.message.data.invoice_url
           resetForm(); // Reset form fields after successful purchase
         }
       } else {
