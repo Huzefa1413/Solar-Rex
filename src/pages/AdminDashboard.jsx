@@ -316,7 +316,7 @@ function AdminDashboard() {
                   <div className="chart-container">
                     {user.role === 'admin' ? (
                       <>
-                      {energyMeterDataAdmin.current  && (
+                      {energyMeterDataAdmin.current>=0  && (
                         <>
                           <span>Energy Meter</span>
                           <hr />
@@ -340,7 +340,7 @@ function AdminDashboard() {
                     </>
                     ) : (
                       <>
-                        {energyMeterData.current  && (
+                        {energyMeterData.current>=0  && (
                           <>
                             <span>Energy Meter</span>
                             <hr />
