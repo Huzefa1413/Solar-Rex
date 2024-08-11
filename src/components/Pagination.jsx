@@ -19,7 +19,7 @@ function Pagination({ itemsPerPage, handlePagination, totalCount }) {
 
     const endOffset = itemOffset + itemsPerPage;
     console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-    const currentItems = items.slice(itemOffset, endOffset);
+    // const currentItems = items.slice(itemOffset, endOffset);
 
     console.log(`totalCount ${totalCount}`);
 

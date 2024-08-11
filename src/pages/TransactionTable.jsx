@@ -33,13 +33,14 @@ function TransactionTable() {
       setLoading(false);
     }
   }, []);
+  const [pageSkip, setPageSkip] = useState(0)
 
+  
   useEffect(() => {
     fetchTransactions(pageSkip);
-  }, [fetchTransactions]);
+  }, [fetchTransactions,pageSkip]);
 
 
-  const [pageSkip, setPageSkip] = useState(0)
 
     const handlePagination = (skip) => {
         console.log("SKIPPPPPPP", skip);
