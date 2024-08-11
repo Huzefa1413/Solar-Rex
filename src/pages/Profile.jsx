@@ -25,6 +25,7 @@ const Profile = () => {
     city: user.city || '',
     inverterId: user.inverterId || '',
     postalCode: user.postalCode || '',
+    capacity: user.capacity || '',
   });
   const [cities, setCities] = useState([]);
 
@@ -160,6 +161,27 @@ const Profile = () => {
                                         type="text"
                                         name="inverterId"
                                         value={formData.inverterId}
+                                        onChange={handleInputChange}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <hr />
+                            </>
+                          )}
+                          {user.role !== 'admin' && (
+                            <>
+                              <h6>Storage Details</h6>
+                              <div className="formdetails">
+                                <div className="row">
+                                  <div className="col-md-12">
+                                    <div className="form-group">
+                                      <label htmlFor="">Capacity in kWh</label>
+                                      <input
+                                        type="number"
+                                        name="capacity"
+                                        value={formData.capacity}
                                         onChange={handleInputChange}
                                       />
                                     </div>

@@ -63,6 +63,10 @@ export const energyMeter = async (body) => {
   return apiRequest('GET', `/analytics/energyMeter?id=${body}`);
 };
 
+export const energyMeterAdmin = async (body) => {
+  return apiRequest('GET', `/analytics/energyMeterAdmin`);
+};
+
 export const UpdateProfilePic = async (body) => {
   return apiRequest('POST', '/user/uploadProfilePic', body);
 };
