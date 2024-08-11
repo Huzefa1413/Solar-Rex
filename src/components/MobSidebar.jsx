@@ -103,7 +103,7 @@ function MobSidebar() {
                   active={pathname === '/transactiontable'}
                   icon={<LuActivity className="sidebar_icon" />}
                 >
-                  Transaction table
+                  Transactions
                 </MenuItem>
               </Link>
               {user.role === 'user' && (

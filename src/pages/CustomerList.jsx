@@ -8,6 +8,8 @@ import Navbar from '../components/Navbar';
 import Loader from '../components/Loader'; // Import Loader component
 import { get_all_users } from '../ContextAPI/APIs/api';
 import profile from '../assets/profile.svg';
+import Pagination from '../components/Pagination';
+
 
 function CustomerList() {
   const navigate = useNavigate();
@@ -15,6 +17,9 @@ function CustomerList() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); // Add loading state
   const [error, setError] = useState(null); // Add error state
+  const [pageSkip, setPageSkip] = useState(0)
+  const [totalCount, setTotalCount] = useState(4)
+
 
   useEffect(() => {
     if (user.role !== 'admin') {
@@ -22,13 +27,19 @@ function CustomerList() {
       return;
     }
 
-    const getAllUser = async () => {
+    const getAllUser = async (skip) => {
       try {
-        const response = await get_all_users();
+        const response = await get_all_users(skip);
+        
         if (response.success) {
-          setData(response.message.reverse());
+          
+          setData(response.message);
+          setTotalCount(response.totalCount);
+
         } else {
+        
           setError(response.message);
+        
         }
       } catch (error) {
         setError('Error fetching users');
@@ -38,8 +49,17 @@ function CustomerList() {
       }
     };
 
-    getAllUser();
-  }, [user.role, navigate]);
+    getAllUser(pageSkip);
+  }, [user.role, navigate,pageSkip]);
+
+
+  const handlePagination = (skip) => {
+    console.log("SKIPPPPPPP", skip);
+    setPageSkip(skip)
+    // search(selectedUni, selectedProgram, selectedCity, skip)
+}
+
+
 
   return (
     <>
@@ -56,6 +76,7 @@ function CustomerList() {
             ) : error ? (
               <div className="alert alert-danger">{error}</div>
             ) : (
+              <>
               <Table className="align-items-center" responsive>
                 <thead className="thead-light">
                   <tr>
@@ -77,15 +98,25 @@ function CustomerList() {
                           className="avatar avatar-sm"
                           id={`tooltip-${item._id}`}
                         >
-                          <img
-                            alt="Profile"
+                          {/* <img
+                            alt={<img src={profile}/>}
                             className="rounded-circle"
                             src={
                               item.profilepic
-                                ? `${profilePicUrl}/${item.profilepic}`
+                                ? `${profilePicUrl}/${item.profilepic}` ? `${profilePicUrl}/${item.profilepic}` : profile
                                 : profile
                             }
-                          />
+                          /> */}
+                          <img
+  alt="Profile"
+  className="rounded-circle"
+  src={`${profilePicUrl}/${item.profilepic}`}
+  onError={(e) => {
+    e.target.onerror = null; // Prevent looping
+    e.target.src = profile; // Fallback image
+  }}
+/>
+
                         </Link>
                         <UncontrolledTooltip
                           delay={0}
@@ -98,6 +129,9 @@ function CustomerList() {
                   ))}
                 </tbody>
               </Table>
+              <Pagination totalCount={totalCount} handlePagination={handlePagination} itemsPerPage={10} />
+            
+              </>
             )}
           </section>
         </div>

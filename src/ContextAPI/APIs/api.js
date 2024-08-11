@@ -31,8 +31,8 @@ export const getLogin_user = async () => {
   return apiRequest('GET', '/user/get-login-user');
 };
 
-export const get_all_users = async () => {
-  return apiRequest('GET', '/admin/get_all_users');
+export const get_all_users = async (skip) => {
+  return apiRequest('GET', `/admin/get_all_users?skip=${skip*10}`);
 };
 
 export const getCustProfile = async (body) => {
