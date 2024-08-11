@@ -18,12 +18,14 @@ import CustProfile from '../pages/CustProfile';
 import Support from '../pages/Support';
 import { PageNotFound } from '../pages/PageNotFound';
 import VerificationPage from '../pages/VerificationPage';
-
+import { API_URL } from '../config';
 function MyRoutes() {
   const { setUser } = useAuth();
   const [cookies] = useCookies(['pk2']);
   const navigate = useNavigate();
 
+
+  axios.defaults.baseURL = API_URL;
   axios.defaults.withCredentials = true;
   console.log("cooookkkieee",cookies.pk2);
 
