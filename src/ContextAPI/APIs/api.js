@@ -43,8 +43,8 @@ export const buy = async (body) => {
   return apiRequest('POST', '/energy/buy', body);
 };
 
-export const get_transactions = async () => {
-  return apiRequest('GET', '/tx/get_transactions');
+export const get_transactions = async (skip) => {
+  return apiRequest('GET', `/tx/get_transactions?skip=${skip*10}`);
 };
 
 export const update_profile = async (body) => {

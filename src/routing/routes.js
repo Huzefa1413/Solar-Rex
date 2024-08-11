@@ -26,7 +26,7 @@ function MyRoutes() {
 
   axios.defaults.withCredentials = true;
   console.log("cooookkkieee",cookies.pk2);
-  
+
   axios.defaults.headers.common['pk2'] = cookies.pk2;
   axios.interceptors.response.use(
     function (response) {

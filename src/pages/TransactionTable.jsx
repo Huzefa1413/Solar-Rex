@@ -6,13 +6,14 @@ import { get_transactions } from '../ContextAPI/APIs/api';
 import NavSidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import Loader from '../components/Loader';
-
+import Pagination from '../components/Pagination';
 function TransactionTable() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [totalCount, setTotalCount] = useState(4)
 
   useEffect(() => {
     if (user.role !== 'admin' && !user.profileSetup) {
@@ -20,10 +21,11 @@ function TransactionTable() {
     }
   }, [user, navigate]);
 
-  const fetchTransactions = useCallback(async () => {
+  const fetchTransactions = useCallback(async (skip) => {
     try {
-      const response = await get_transactions();
-      setTransactions(response.message.reverse());
+      const response = await get_transactions(skip);
+      setTotalCount(response?.totalCount)
+      setTransactions(response?.message);
     } catch (error) {
       console.error('Error fetching transactions:', error);
       setError('Failed to load transactions.');
@@ -33,8 +35,19 @@ function TransactionTable() {
   }, []);
 
   useEffect(() => {
-    fetchTransactions();
+    fetchTransactions(pageSkip);
   }, [fetchTransactions]);
+
+
+  const [pageSkip, setPageSkip] = useState(0)
+
+    const handlePagination = (skip) => {
+        console.log("SKIPPPPPPP", skip);
+        setPageSkip(skip)
+        fetchTransactions(skip)
+        // search(selectedUni, selectedProgram, selectedCity, skip)
+    }
+
 
   const convertTimestampToDateTime = useCallback((timestamp) => {
     const date = new Date(timestamp);
@@ -62,6 +75,8 @@ function TransactionTable() {
           ) : error ? (
             <p className="text-danger">{error}</p>
           ) : (
+            <>
+            
             <Table className="align-items-center" responsive>
               <thead className="thead-light">
                 <tr>
@@ -78,7 +93,7 @@ function TransactionTable() {
                   <tr key={index}>
                     <td>{transaction?.buyerid.username}</td>
                     <td>{transaction?.buyerid.inverterId}</td>
-                    <td>$ {transaction?.price}</td>
+                    <td>$ {transaction?.price.toFixed(2)}</td>
                     <td>{transaction?.quantity} kWh</td>
                     <td>
                       {convertTimestampToDateTime(transaction?.timestamp)}
@@ -92,6 +107,9 @@ function TransactionTable() {
                 ))}
               </tbody>
             </Table>
+
+            <Pagination totalCount={totalCount} handlePagination={handlePagination} itemsPerPage={10} />
+            </>
           )}
         </section>
       </div>
