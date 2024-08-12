@@ -32,7 +32,7 @@ export const getLogin_user = async () => {
 };
 
 export const get_all_users = async (skip) => {
-  return apiRequest('GET', `/admin/get_all_users?skip=${skip*10}`);
+  return apiRequest('GET', `/admin/get_all_users?skip=${skip * 10}`);
 };
 
 export const getCustProfile = async (body) => {
@@ -44,7 +44,7 @@ export const buy = async (body) => {
 };
 
 export const get_transactions = async (skip) => {
-  return apiRequest('GET', `/tx/get_transactions?skip=${skip*10}`);
+  return apiRequest('GET', `/tx/get_transactions?skip=${skip * 10}`);
 };
 
 export const update_profile = async (body) => {

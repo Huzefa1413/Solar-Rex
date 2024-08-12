@@ -30,11 +30,15 @@ function MyRoutes() {
   console.log("cooookkkieee",cookies.pk2);
 
   axios.defaults.headers.common['pk2'] = cookies.pk2;
+  console.log("hellopkkkkk",axios.defaults.headers.common.pk2);
+  
   axios.interceptors.response.use(
     function (response) {
       return response;
     },
     function (error) {
+      console.log("routes rrororro",error);
+      
       if (error.response) {
         if (error.response.data.error === 'auth token required') {
           setUser(null);
@@ -50,6 +54,7 @@ function MyRoutes() {
       // API call or other setup for production environment
     }
   }, []);
+
 
   return (
     <Routes>

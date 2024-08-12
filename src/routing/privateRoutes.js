@@ -8,6 +8,7 @@ const PrivateRoute = () => {
   const [loading, setLoading] = useState(true);
   const { user, getLoggedInUser } = useAuth();
 
+  
   useEffect(() => {
     if (!user || !Object.keys(user).length || !cookies.pk2) {
       getLoggedInUser(encodeURIComponent(cookies.pk2))
@@ -20,6 +21,7 @@ const PrivateRoute = () => {
       setLoading(false);
     }
   }, [user, cookies.pk2, getLoggedInUser]);
+
 
   if (loading) {
     return <p className="loader"></p>;
