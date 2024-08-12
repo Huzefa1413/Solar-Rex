@@ -26,10 +26,19 @@ export const AuthProvider = ({ children }) => {
       const res = await login_user(body);
       if (res?.success) {
         setUser(res.user);
+
+        // setCookie('pk2', res.hash, {
+        //   path: '/',
+        //   maxAge: 6000000,
+        // });
+
         setCookie('pk2', res.hash, {
           path: '/',
           maxAge: 6000000,
+          sameSite: 'None',  // Allows the cookie to be sent in cross-origin requests
+          secure: true       // Ensures the cookie is sent only over HTTPS
         });
+        
       }
       return res;
     } catch (error) {
