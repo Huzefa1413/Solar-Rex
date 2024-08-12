@@ -128,7 +128,7 @@ const BuyEnergy = () => {
                       </Button>
                     </p>
                     <p className="text-muted px-3">
-                      Note: The price is calculated at Rs {PRICE_PER_UNIT} per
+                      Note: The price is calculated at $ {PRICE_PER_UNIT} per
                       unit of energy.
                     </p>
                   </Form>
