@@ -19,6 +19,9 @@ import Support from '../pages/Support';
 import { PageNotFound } from '../pages/PageNotFound';
 import VerificationPage from '../pages/VerificationPage';
 import { API_URL } from '../config';
+import CryptoJS from 'crypto-js';
+
+
 function MyRoutes() {
   const { setUser } = useAuth();
   const [cookies] = useCookies(['pk2']);
@@ -31,7 +34,25 @@ function MyRoutes() {
 
   axios.defaults.headers.common['pk2'] = cookies.pk2;
   console.log("hellopkkkkk",axios.defaults.headers.common.pk2);
-  
+
+
+  // Axios request interceptor to encrypt the request body
+  // axios.interceptors.request.use(
+  //   function (config) {
+  //     if (config.data) {
+  //       const encryptedData = CryptoJS.AES.encrypt(
+  //         JSON.stringify(config.data),
+  //         "SolarSecret"
+  //       ).toString();
+  //       config.data = { payload: encryptedData }; // Wrap the encrypted data in an object
+  //     }
+  //     return config;
+  //   },
+  //   function (error) {
+  //     return Promise.reject(error);
+  //   }
+  // );
+
   axios.interceptors.response.use(
     function (response) {
       return response;
@@ -48,6 +69,7 @@ function MyRoutes() {
       return Promise.reject(error);
     }
   );
+
 
   useEffect(() => {
     if (window.location.host.search('localhost') === -1) {
